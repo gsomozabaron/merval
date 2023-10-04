@@ -34,17 +34,18 @@
             btnAceptar = new Button();
             btnSalir = new Button();
             btnRegistrarse = new Button();
+            btn_autocompletar = new Button();
             SuspendLayout();
             // 
             // txtUsuario
             // 
             txtUsuario.BackColor = Color.Silver;
-            txtUsuario.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtUsuario.Font = new Font("Times New Roman", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             txtUsuario.ForeColor = SystemColors.WindowText;
-            txtUsuario.Location = new Point(310, 113);
+            txtUsuario.Location = new Point(34, 27);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.PlaceholderText = "Ingrese usuario";
-            txtUsuario.Size = new Size(247, 24);
+            txtUsuario.Size = new Size(247, 22);
             txtUsuario.TabIndex = 1;
             txtUsuario.Tag = "";
             txtUsuario.TextAlign = HorizontalAlignment.Center;
@@ -52,12 +53,12 @@
             // txtPassword
             // 
             txtPassword.BackColor = Color.Silver;
-            txtPassword.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            txtPassword.Location = new Point(310, 145);
+            txtPassword.Font = new Font("Times New Roman", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            txtPassword.Location = new Point(34, 59);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.PlaceholderText = "Password";
-            txtPassword.Size = new Size(247, 24);
+            txtPassword.Size = new Size(247, 22);
             txtPassword.TabIndex = 2;
             txtPassword.Tag = "";
             txtPassword.TextAlign = HorizontalAlignment.Center;
@@ -66,8 +67,8 @@
             // 
             btnAceptar.BackColor = Color.SkyBlue;
             btnAceptar.FlatStyle = FlatStyle.Flat;
-            btnAceptar.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAceptar.Location = new Point(310, 269);
+            btnAceptar.Font = new Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAceptar.Location = new Point(34, 183);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(248, 41);
             btnAceptar.TabIndex = 3;
@@ -78,11 +79,11 @@
             // btnSalir
             // 
             btnSalir.BackColor = Color.Red;
-            btnSalir.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Times New Roman", 15F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.Gold;
-            btnSalir.Location = new Point(738, 348);
+            btnSalir.Location = new Point(215, 310);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(126, 49);
+            btnSalir.Size = new Size(83, 32);
             btnSalir.TabIndex = 4;
             btnSalir.Text = "exit";
             btnSalir.UseVisualStyleBackColor = false;
@@ -91,13 +92,26 @@
             // btnRegistrarse
             // 
             btnRegistrarse.BackColor = Color.FromArgb(128, 128, 255);
-            btnRegistrarse.Location = new Point(352, 208);
+            btnRegistrarse.Font = new Font("Times New Roman", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrarse.Location = new Point(76, 122);
             btnRegistrarse.Name = "btnRegistrarse";
             btnRegistrarse.Size = new Size(158, 25);
             btnRegistrarse.TabIndex = 5;
-            btnRegistrarse.Text = "Nuevo Usuario";
+            btnRegistrarse.Text = "Registrarse";
             btnRegistrarse.UseVisualStyleBackColor = false;
             btnRegistrarse.Click += btnRegistrarse_Click;
+            // 
+            // btn_autocompletar
+            // 
+            btn_autocompletar.BackColor = Color.PaleTurquoise;
+            btn_autocompletar.Font = new Font("Times New Roman", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_autocompletar.Location = new Point(12, 310);
+            btn_autocompletar.Name = "btn_autocompletar";
+            btn_autocompletar.Size = new Size(77, 32);
+            btn_autocompletar.TabIndex = 6;
+            btn_autocompletar.Text = "auto login";
+            btn_autocompletar.UseVisualStyleBackColor = false;
+            btn_autocompletar.Click += btn_autocompletar_Click;
             // 
             // formLogin
             // 
@@ -105,8 +119,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(878, 410);
+            ClientSize = new Size(310, 354);
             ControlBox = false;
+            Controls.Add(btn_autocompletar);
             Controls.Add(btnRegistrarse);
             Controls.Add(btnSalir);
             Controls.Add(btnAceptar);
@@ -129,5 +144,6 @@
         private Button btnAceptar;
         private Button btnSalir;
         private Button btnRegistrarse;
+        private Button btn_autocompletar;
     }
 }

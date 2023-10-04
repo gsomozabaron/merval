@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +13,27 @@ namespace merval
 {
     public partial class FormPrincipal : Form
     {
+
+        ///Form Formulario; //formulario es una instancia del formulario acciones hay que agregar el "Form formulario justo abajo del contructor"
+
+
         public FormPrincipal()
         {
             InitializeComponent();
+            this.IsMdiContainer = true;
         }
-        private void FormPrincipal_Load_1(object sender, EventArgs e)
-        {
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            formLogin fl = new formLogin();
+            fl.Show();
+        }
+
+        private void mostrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAcciones fa = new FormAcciones();
+            fa.Show();
         }
     }
 }

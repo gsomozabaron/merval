@@ -28,34 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            button1 = new Button();
+            menuStrip2 = new MenuStrip();
+            mostrarUsuariosToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip2.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // button1
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(222, 138);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(338, 171);
-            dataGridView1.TabIndex = 0;
+            button1.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.Location = new Point(546, 326);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 1;
+            button1.Text = "volver";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // menuStrip2
+            // 
+            menuStrip2.Dock = DockStyle.Left;
+            menuStrip2.Items.AddRange(new ToolStripItem[] { mostrarUsuariosToolStripMenuItem });
+            menuStrip2.Location = new Point(0, 0);
+            menuStrip2.Name = "menuStrip2";
+            menuStrip2.Size = new Size(126, 361);
+            menuStrip2.TabIndex = 3;
+            menuStrip2.Text = "menuStrip2";
+            // 
+            // mostrarUsuariosToolStripMenuItem
+            // 
+            mostrarUsuariosToolStripMenuItem.Name = "mostrarUsuariosToolStripMenuItem";
+            mostrarUsuariosToolStripMenuItem.Size = new Size(113, 19);
+            mostrarUsuariosToolStripMenuItem.Text = "mostrar usuarios";
+            mostrarUsuariosToolStripMenuItem.Click += mostrarUsuariosToolStripMenuItem_Click;
             // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(633, 361);
+            Controls.Add(button1);
+            Controls.Add(menuStrip2);
+            IsMdiContainer = true;
+            MainMenuStrip = menuStrip2;
             Name = "FormPrincipal";
             Text = "FormPrincipal";
-            Load += FormPrincipal_Load_1;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            menuStrip2.ResumeLayout(false);
+            menuStrip2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private MenuStrip menuStrip1;
+        private Button button1;
+        private MenuStrip menuStrip2;
+        private ToolStripMenuItem mostrarUsuariosToolStripMenuItem;
     }
 }

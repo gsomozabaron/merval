@@ -1,25 +1,33 @@
+using Entidades;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 
 namespace merval
 {
     public partial class formLogin : Form
     {
+        
+        /// inicio un contador para el auto login
+        int Contador = 0;
+
+        /// dicionario de usuarios para el login 
         public static Dictionary<string, string> dictUsuarioPassword = new Dictionary<string, string>();
+        public static List<Usuario> listadoDeUsuarios = new List<Usuario>();
+        public static Usuario usuarioActual = new Usuario();
 
-        public static void agregarUsuario(string nombre, string password)
-        {
-            dictUsuarioPassword.Add(nombre, password );
-        }
 
-        public formLogin()
+public formLogin()
         {
             InitializeComponent();
+            Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
+
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -33,8 +41,20 @@ namespace merval
                 if (password == passEnDict)
                 {
                     // Inicio de sesión exitoso
-                    VentanaEmergente ve = new VentanaEmergente("log in exitoso", $"Bienvenido, {usuario}");
-                    
+                    ////////////////////obtener el usuario aca///////////////////////////
+                    ///cambiar "Bienvenido, {usuario} a "Bienvenido, {usuarioActual.nombre}
+                    foreach (Usuario usuariologin in listadoDeUsuarios)
+                    {
+                        if (usuariologin.NombreUsuario == usuario)
+                        {
+                            usuarioActual = usuariologin;
+                            break;
+                        }
+                    }
+
+                    VentanaEmergente ve = new VentanaEmergente
+                        ("login exitoso", $"Bienvenido, {usuarioActual.Nombre}");
+
                     ve.ShowDialog();
 
                     if (ve.DialogResult == DialogResult.OK)
@@ -70,6 +90,28 @@ namespace merval
             FormRegistroUsuarios altaUsuarios = new FormRegistroUsuarios();
             altaUsuarios.Show();
             Hide();
+        }
+
+        private void btn_autocompletar_Click(object sender, EventArgs e)
+        {         
+            switch (Contador)
+            {
+                case 0:
+                    this.txtUsuario.Text = "admin";
+                    this.txtPassword.Text = "admin";
+                    Contador += 1;
+                    break;
+                case 1:
+                    Contador += 1;
+                    this.txtUsuario.Text = "gsomoza";
+                    this.txtPassword.Text = "gpass";
+                    break;
+                default:
+                    Contador = 0;
+                    this.txtUsuario.Text = "fmario";
+                    this.txtPassword.Text = "mariopass";
+                    break;
+            }
         }
     }
 }

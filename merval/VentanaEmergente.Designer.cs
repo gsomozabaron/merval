@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaEmergente));
             btnVentanaEmergente = new Button();
             lblMensaje = new Label();
             lblTitulo = new Label();
@@ -36,10 +35,10 @@
             // 
             // btnVentanaEmergente
             // 
-            btnVentanaEmergente.BackColor = Color.Gray;
-            btnVentanaEmergente.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnVentanaEmergente.ForeColor = Color.White;
-            btnVentanaEmergente.Location = new Point(150, 176);
+            btnVentanaEmergente.BackColor = Color.Green;
+            btnVentanaEmergente.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnVentanaEmergente.ForeColor = Color.MintCream;
+            btnVentanaEmergente.Location = new Point(79, 89);
             btnVentanaEmergente.Name = "btnVentanaEmergente";
             btnVentanaEmergente.Size = new Size(135, 36);
             btnVentanaEmergente.TabIndex = 0;
@@ -50,9 +49,9 @@
             // lblMensaje
             // 
             lblMensaje.BackColor = Color.Transparent;
-            lblMensaje.Font = new Font("Arial", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblMensaje.ForeColor = Color.White;
-            lblMensaje.Location = new Point(84, 123);
+            lblMensaje.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMensaje.ForeColor = Color.Blue;
+            lblMensaje.Location = new Point(12, 62);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(274, 24);
             lblMensaje.TabIndex = 2;
@@ -62,9 +61,9 @@
             // lblTitulo
             // 
             lblTitulo.BackColor = Color.Transparent;
-            lblTitulo.Font = new Font("Arial", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTitulo.ForeColor = Color.White;
-            lblTitulo.Location = new Point(84, 88);
+            lblTitulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitulo.ForeColor = Color.Blue;
+            lblTitulo.Location = new Point(12, 38);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(274, 24);
             lblTitulo.TabIndex = 3;
@@ -75,9 +74,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackColor = Color.SkyBlue;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(437, 291);
+            ClientSize = new Size(305, 144);
             ControlBox = false;
             Controls.Add(lblTitulo);
             Controls.Add(lblMensaje);
