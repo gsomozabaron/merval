@@ -23,13 +23,7 @@ namespace merval
             this.IsMdiContainer = true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            formLogin fl = new formLogin();
-            fl.Show();
-        }
-
+        
         private void mostrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAcciones fa = new FormAcciones();

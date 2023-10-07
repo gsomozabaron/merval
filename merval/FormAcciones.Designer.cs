@@ -41,7 +41,6 @@
             dtg_Acciones.RowTemplate.Height = 25;
             dtg_Acciones.Size = new Size(557, 271);
             dtg_Acciones.TabIndex = 0;
-            dtg_Acciones.CellContentClick += dtg_Acciones_CellContentClick;
             // 
             // FormAcciones
             // 

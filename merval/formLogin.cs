@@ -6,29 +6,53 @@ namespace merval
 {
     public partial class formLogin : Form
     {
-        
+        #region inicializadores hardcode
         /// inicio un contador para el auto login
         int Contador = 0;
 
         /// dicionario de usuarios para el login 
-        public static Dictionary<string, string> dictUsuarioPassword = new Dictionary<string, string>();
-        public static List<Usuario> listadoDeUsuarios = new List<Usuario>();
-        public static Usuario usuarioActual = new Usuario();
+        private static Dictionary<string, string> dictUsuarioPassword = new Dictionary<string, string>();
+        private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
+        private static Usuario usuarioActual = new Usuario();
+
+        #endregion
+        ///////////////////////////////////////////////////////////////
+        /// <summary>
+        /// para llamar desde cualquier form 
+        /// Usuario usuario = formLogin.UsuarioActual;
+        /// List<Usuario> listaDeUsuarios = formLogin.ListadoDeUsuarios;
+        /// </summary>
+        public static Usuario UsuarioActual
+        {
+            get => usuarioActual;
+        }
+        public static List<Usuario> ListadoDeUsuarios
+        {
+            get => listadoDeUsuarios;
+        }
+        public static Dictionary<string, string> DictUsuarioPassword
+        {
+            get => dictUsuarioPassword;
+        }
+        //////////////////////////////////////////////////////////////       
 
 
-public formLogin()
+        public formLogin()
         {
             InitializeComponent();
-            Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios);
+            if (dictUsuarioPassword.Count == 0)
+            {
+                Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios);
+            }
         }
-
+        #region boton salir
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+        #endregion
 
-
-
+        #region Boton aceptar login
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string usuario = this.txtUsuario.Text;
@@ -40,9 +64,8 @@ public formLogin()
 
                 if (password == passEnDict)
                 {
-                    // Inicio de sesión exitoso
-                    ////////////////////obtener el usuario aca///////////////////////////
-                    ///cambiar "Bienvenido, {usuario} a "Bienvenido, {usuarioActual.nombre}
+                    /////////////obtener el usuario aca///////////////////////////
+
                     foreach (Usuario usuariologin in listadoDeUsuarios)
                     {
                         if (usuariologin.NombreUsuario == usuario)
@@ -51,17 +74,23 @@ public formLogin()
                             break;
                         }
                     }
-
-                    VentanaEmergente ve = new VentanaEmergente
-                        ("login exitoso", $"Bienvenido, {usuarioActual.Nombre}");
-
+                    VentanaEmergente ve = new VentanaEmergente("login exitoso", $"Bienvenido, {usuarioActual.Nombre}");
                     ve.ShowDialog();
 
                     if (ve.DialogResult == DialogResult.OK)
                     {
-                        FormPrincipal MenuPrincipal = new FormPrincipal();
-                        MenuPrincipal.Show();
-                        this.Hide();
+                        if (usuarioActual.TipoDeUsuario == Tipo.Admin)
+                        {
+                            FormAdmin formadmin = new FormAdmin(usuarioActual);
+                            this.Hide();
+                            formadmin.Show();
+                        }
+                        else
+                        {
+                            FormPrincipal MenuPrincipal = new FormPrincipal();
+                            MenuPrincipal.Show();
+                            this.Hide();
+                        }
                     }
                 }
                 else
@@ -80,18 +109,20 @@ public formLogin()
                 ve.ShowDialog();
             }
         }
+        #endregion
+
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
         }
-
+        
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
             FormRegistroUsuarios altaUsuarios = new FormRegistroUsuarios();
             altaUsuarios.Show();
             Hide();
         }
-
+        #region autocompletar menu login
         private void btn_autocompletar_Click(object sender, EventArgs e)
         {         
             switch (Contador)
@@ -113,5 +144,6 @@ public formLogin()
                     break;
             }
         }
+        #endregion
     }
 }

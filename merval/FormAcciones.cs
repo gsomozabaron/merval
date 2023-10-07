@@ -14,8 +14,12 @@ namespace merval
 {
     public partial class FormAcciones : Form
     {
-        private List<Usuario> listaDeUsuarios = formLogin.listadoDeUsuarios;
-        
+        //private List<Usuario> listaDeUsuarios = formLogin.listadoDeUsuarios;
+        //private Usuario usuario = formLogin.usuarioActual; 
+
+        List<Usuario> listaDeUsuarios = formLogin.ListadoDeUsuarios;
+        Usuario usuario = formLogin.UsuarioActual; 
+
         public FormAcciones()
         {
             InitializeComponent();
@@ -23,20 +27,17 @@ namespace merval
 
         private void acciones_Load(object sender, EventArgs e)
         {
-            this.dtg_Acciones.DataSource = listaDeUsuarios;
+            List<Usuario> listaUsuario = new List<Usuario> { usuario };///lista de un solo usuario para poder mostrarlo
+            this.dtg_Acciones.DataSource = listaUsuario;
+         
             this.dtg_Acciones.Columns["nombre"].Visible = true;
             this.dtg_Acciones.Columns["dni"].Visible = true;
             this.dtg_Acciones.Columns["NombreUsuario"].Visible = true;
             this.dtg_Acciones.Columns["pass"].Visible = true;
-            
 
-
-
-
-        }
-
-        private void dtg_Acciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            //BindingSource sb = new BindingSource(); //para poder bindear el diccionario al datasource 
+            //sb.DataSource = stock;
+            //this.dataGridView1.DataSource = sb;
 
         }
     }

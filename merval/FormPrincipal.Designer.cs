@@ -28,22 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
             menuStrip2 = new MenuStrip();
             mostrarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             menuStrip2.SuspendLayout();
             SuspendLayout();
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Location = new Point(546, 326);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "volver";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // menuStrip2
             // 
@@ -51,14 +39,14 @@
             menuStrip2.Items.AddRange(new ToolStripItem[] { mostrarUsuariosToolStripMenuItem });
             menuStrip2.Location = new Point(0, 0);
             menuStrip2.Name = "menuStrip2";
-            menuStrip2.Size = new Size(126, 361);
+            menuStrip2.Size = new Size(113, 361);
             menuStrip2.TabIndex = 3;
             menuStrip2.Text = "menuStrip2";
             // 
             // mostrarUsuariosToolStripMenuItem
             // 
             mostrarUsuariosToolStripMenuItem.Name = "mostrarUsuariosToolStripMenuItem";
-            mostrarUsuariosToolStripMenuItem.Size = new Size(113, 19);
+            mostrarUsuariosToolStripMenuItem.Size = new Size(100, 19);
             mostrarUsuariosToolStripMenuItem.Text = "mostrar usuarios";
             mostrarUsuariosToolStripMenuItem.Click += mostrarUsuariosToolStripMenuItem_Click;
             // 
@@ -69,7 +57,6 @@
             BackColor = Color.White;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(633, 361);
-            Controls.Add(button1);
             Controls.Add(menuStrip2);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip2;
@@ -84,7 +71,6 @@
         #endregion
 
         private MenuStrip menuStrip1;
-        private Button button1;
         private MenuStrip menuStrip2;
         private ToolStripMenuItem mostrarUsuariosToolStripMenuItem;
     }

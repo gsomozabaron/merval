@@ -14,10 +14,12 @@ namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
+        Dictionary<string, string> dictUsuarioPassword = formLogin.DictUsuarioPassword;
+        List<Usuario> listaDeUsuarios = formLogin.ListadoDeUsuarios;
+
         public FormRegistroUsuarios()
         {
             InitializeComponent();
- 
         }
 
         private void FormRegistroUsuarios_Load(object sender, EventArgs e)
@@ -32,33 +34,40 @@ namespace merval
             string password = this.txt_Pass.Text;
             bool esComisionista = this.chk_comisionista.Checked;
             string passCheck = this.txt_PassCheck.Text;
-            
+            Tipo tipoDeUsuario = Tipo.normal;
+            List<Acciones> listadoDeAccionesPropias = new List<Acciones>();
+            List<Clientes> listaDeClientes = new List<Clientes>();
+
+
             if (password != passCheck)
             {
                 MessageBox.Show("Las contraseñas no coinciden. Por favor, vuelva a ingresarlas.");
                 return;
             }
-
-            if (formLogin.dictUsuarioPassword.ContainsKey(nombreUsuario))
+            
+            if (dictUsuarioPassword.ContainsKey(nombreUsuario))
             {
                 MessageBox.Show("El nombre de usuario ya existe. Por favor, elija otro.");
                 return;
             }
 
-            formLogin.dictUsuarioPassword.Add(nombreUsuario, password);
-            
+            dictUsuarioPassword.Add(nombreUsuario, password);
+
             if (esComisionista)
             {
-                formLogin.listadoDeUsuarios.Add(Comisionista.CrearComisionista
-                    (nombre, Dni, nombreUsuario, password));
+                tipoDeUsuario = Tipo.Comisionista;
+                Comisionista nuevoUsuario = new Comisionista();
+                nuevoUsuario.CrearComisionista(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, listaDeClientes);
+                listaDeUsuarios.Add(nuevoUsuario);
             }
             else
             {
-                formLogin.listadoDeUsuarios.Add(Usuario.CrearUsuario
-                    (nombre, Dni, nombreUsuario, password));
+                Usuario nuevoUsuario = new Usuario();
+                nuevoUsuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias);
+                listaDeUsuarios.Add(nuevoUsuario);
             }
-            
 
+            
             string titulo = "Registro exitoso.";
             string mensaje = "Ahora puede iniciar sesión.";
             VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
@@ -66,8 +75,8 @@ namespace merval
             this.Close();
             #endregion
 
-        formLogin loginForm = new formLogin();
-        loginForm.Show();
+            formLogin loginForm = new formLogin();
+            loginForm.Show();
         }
     }
 }
