@@ -34,13 +34,16 @@
             // 
             // dtg_Acciones
             // 
+            dtg_Acciones.BorderStyle = BorderStyle.None;
+            dtg_Acciones.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dtg_Acciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_Acciones.Location = new Point(115, 113);
             dtg_Acciones.Name = "dtg_Acciones";
-            dtg_Acciones.RowHeadersVisible = false;
             dtg_Acciones.RowTemplate.Height = 25;
+            dtg_Acciones.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dtg_Acciones.Size = new Size(557, 271);
             dtg_Acciones.TabIndex = 0;
+            dtg_Acciones.CellContentClick += dtg_Acciones_CellContentClick;
             // 
             // FormAcciones
             // 

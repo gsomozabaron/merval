@@ -6,7 +6,7 @@ namespace merval
 {
     public partial class formLogin : Form
     {
-        #region inicializadores hardcode
+        #region inicializadores de listas hardcodeadas
         /// inicio un contador para el auto login
         int Contador = 0;
 
@@ -14,45 +14,47 @@ namespace merval
         private static Dictionary<string, string> dictUsuarioPassword = new Dictionary<string, string>();
         private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
         private static Usuario usuarioActual = new Usuario();
+        private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
 
         #endregion
-        ///////////////////////////////////////////////////////////////
-        /// <summary>
-        /// para llamar desde cualquier form 
-        /// Usuario usuario = formLogin.UsuarioActual;
-        /// List<Usuario> listaDeUsuarios = formLogin.ListadoDeUsuarios;
-        /// </summary>
+
+        #region seters y getters listas
         public static Usuario UsuarioActual
         {
-            get => usuarioActual;
+            get => usuarioActual; set => usuarioActual = value;
         }
+
         public static List<Usuario> ListadoDeUsuarios
         {
-            get => listadoDeUsuarios;
+            get => listadoDeUsuarios; set => listadoDeUsuarios = value;
         }
+        
         public static Dictionary<string, string> DictUsuarioPassword
         {
-            get => dictUsuarioPassword;
+            get => dictUsuarioPassword; set => dictUsuarioPassword = value;
         }
-        //////////////////////////////////////////////////////////////       
-
+        
+        public static List<Acciones> ListadeAccionesGral
+        {
+            get => listaDeAccionesGral; set => listaDeAccionesGral = value;
+        }
+        #endregion
 
         public formLogin()
         {
             InitializeComponent();
             if (dictUsuarioPassword.Count == 0)
             {
-                Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios);
+                Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios, listaDeAccionesGral);
             }
         }
-        #region boton salir
+        
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        #endregion
-
-        #region Boton aceptar login
+        
+        #region login
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string usuario = this.txtUsuario.Text;
@@ -81,7 +83,7 @@ namespace merval
                     {
                         if (usuarioActual.TipoDeUsuario == Tipo.Admin)
                         {
-                            FormAdmin formadmin = new FormAdmin(usuarioActual);
+                            FormAdmin formadmin = new FormAdmin();
                             this.Hide();
                             formadmin.Show();
                         }
@@ -111,7 +113,6 @@ namespace merval
         }
         #endregion
 
-
         private void formPrincipal_Load(object sender, EventArgs e)
         {
         }
@@ -122,6 +123,7 @@ namespace merval
             altaUsuarios.Show();
             Hide();
         }
+
         #region autocompletar menu login
         private void btn_autocompletar_Click(object sender, EventArgs e)
         {         

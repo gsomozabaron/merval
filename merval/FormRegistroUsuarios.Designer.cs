@@ -36,6 +36,8 @@
             txt_PassCheck = new TextBox();
             btnAceptar = new Button();
             chk_comisionista = new CheckBox();
+            button1 = new Button();
+            btn_agregarUsuario = new Button();
             SuspendLayout();
             // 
             // txt_Nombre
@@ -122,6 +124,29 @@
             chk_comisionista.TextAlign = ContentAlignment.MiddleCenter;
             chk_comisionista.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.ForeColor = SystemColors.ActiveCaptionText;
+            button1.Location = new Point(536, 303);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 7;
+            button1.Text = "salir";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // btn_agregarUsuario
+            // 
+            btn_agregarUsuario.BackColor = Color.Gold;
+            btn_agregarUsuario.ForeColor = SystemColors.ActiveCaptionText;
+            btn_agregarUsuario.Location = new Point(211, 238);
+            btn_agregarUsuario.Name = "btn_agregarUsuario";
+            btn_agregarUsuario.Size = new Size(167, 23);
+            btn_agregarUsuario.TabIndex = 8;
+            btn_agregarUsuario.Text = "Agregar Usuario";
+            btn_agregarUsuario.UseVisualStyleBackColor = false;
+            // 
             // FormRegistroUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -131,6 +156,8 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(626, 346);
             ControlBox = false;
+            Controls.Add(btn_agregarUsuario);
+            Controls.Add(button1);
             Controls.Add(chk_comisionista);
             Controls.Add(btnAceptar);
             Controls.Add(txt_PassCheck);
@@ -157,5 +184,7 @@
         private TextBox txt_PassCheck;
         private Button btnAceptar;
         private CheckBox chk_comisionista;
+        private Button button1;
+        private Button btn_agregarUsuario;
     }
 }

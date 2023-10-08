@@ -29,14 +29,16 @@
         private void InitializeComponent()
         {
             menuStrip1 = new MenuStrip();
-            verUsuariosToolStripMenuItem = new ToolStripMenuItem();
-            modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
-            altasToolStripMenuItem = new ToolStripMenuItem();
+            verUsuarios = new ToolStripMenuItem();
+            modificarUsuarios = new ToolStripMenuItem();
+            altasUsuarios = new ToolStripMenuItem();
             bajasToolStripMenuItem = new ToolStripMenuItem();
             verTitulosToolStripMenuItem = new ToolStripMenuItem();
             modificarTitulosToolStripMenuItem = new ToolStripMenuItem();
             altasToolStripMenuItem1 = new ToolStripMenuItem();
             bajasToolStripMenuItem1 = new ToolStripMenuItem();
+            guardarDatosToolStripMenuItem = new ToolStripMenuItem();
+            cargarDatosToolStripMenuItem = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -44,38 +46,39 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { verUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, verTitulosToolStripMenuItem, modificarTitulosToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { verUsuarios, modificarUsuarios, verTitulosToolStripMenuItem, modificarTitulosToolStripMenuItem, guardarDatosToolStripMenuItem, cargarDatosToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
             menuStrip1.TabIndex = 8;
             menuStrip1.Text = "menuStrip1";
             // 
-            // verUsuariosToolStripMenuItem
+            // verUsuarios
             // 
-            verUsuariosToolStripMenuItem.Name = "verUsuariosToolStripMenuItem";
-            verUsuariosToolStripMenuItem.Size = new Size(83, 20);
-            verUsuariosToolStripMenuItem.Text = "Ver Usuarios";
-            verUsuariosToolStripMenuItem.Click += verUsuariosToolStripMenuItem_Click;
+            verUsuarios.Name = "verUsuarios";
+            verUsuarios.Size = new Size(83, 20);
+            verUsuarios.Text = "Ver Usuarios";
+            verUsuarios.Click += verUsuariosToolStripMenuItem_Click;
             // 
-            // modificarUsuariosToolStripMenuItem
+            // modificarUsuarios
             // 
-            modificarUsuariosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { altasToolStripMenuItem, bajasToolStripMenuItem });
-            modificarUsuariosToolStripMenuItem.Name = "modificarUsuariosToolStripMenuItem";
-            modificarUsuariosToolStripMenuItem.Size = new Size(118, 20);
-            modificarUsuariosToolStripMenuItem.Text = "Modificar Usuarios";
+            modificarUsuarios.DropDownItems.AddRange(new ToolStripItem[] { altasUsuarios, bajasToolStripMenuItem });
+            modificarUsuarios.Name = "modificarUsuarios";
+            modificarUsuarios.Size = new Size(118, 20);
+            modificarUsuarios.Text = "Modificar Usuarios";
+            modificarUsuarios.Click += modificarUsuarios_Click;
             // 
-            // altasToolStripMenuItem
+            // altasUsuarios
             // 
-            altasToolStripMenuItem.Name = "altasToolStripMenuItem";
-            altasToolStripMenuItem.Size = new Size(180, 22);
-            altasToolStripMenuItem.Text = "Altas";
-            altasToolStripMenuItem.Click += altasToolStripMenuItem_Click;
+            altasUsuarios.Name = "altasUsuarios";
+            altasUsuarios.Size = new Size(180, 22);
+            altasUsuarios.Text = "Altas";
+            altasUsuarios.Click += altasToolStripMenuItem_Click;
             // 
             // bajasToolStripMenuItem
             // 
             bajasToolStripMenuItem.Name = "bajasToolStripMenuItem";
-            bajasToolStripMenuItem.Size = new Size(101, 22);
+            bajasToolStripMenuItem.Size = new Size(180, 22);
             bajasToolStripMenuItem.Text = "Bajas";
             // 
             // verTitulosToolStripMenuItem
@@ -83,6 +86,7 @@
             verTitulosToolStripMenuItem.Name = "verTitulosToolStripMenuItem";
             verTitulosToolStripMenuItem.Size = new Size(73, 20);
             verTitulosToolStripMenuItem.Text = "Ver Titulos";
+            verTitulosToolStripMenuItem.Click += verTitulosToolStripMenuItem_Click;
             // 
             // modificarTitulosToolStripMenuItem
             // 
@@ -96,12 +100,27 @@
             altasToolStripMenuItem1.Name = "altasToolStripMenuItem1";
             altasToolStripMenuItem1.Size = new Size(101, 22);
             altasToolStripMenuItem1.Text = "Altas";
+            altasToolStripMenuItem1.Click += altasToolStripMenuItem1_Click;
             // 
             // bajasToolStripMenuItem1
             // 
             bajasToolStripMenuItem1.Name = "bajasToolStripMenuItem1";
             bajasToolStripMenuItem1.Size = new Size(101, 22);
             bajasToolStripMenuItem1.Text = "Bajas";
+            // 
+            // guardarDatosToolStripMenuItem
+            // 
+            guardarDatosToolStripMenuItem.Name = "guardarDatosToolStripMenuItem";
+            guardarDatosToolStripMenuItem.Size = new Size(92, 20);
+            guardarDatosToolStripMenuItem.Text = "guardar datos";
+            guardarDatosToolStripMenuItem.Click += guardarDatosToolStripMenuItem_Click;
+            // 
+            // cargarDatosToolStripMenuItem
+            // 
+            cargarDatosToolStripMenuItem.Name = "cargarDatosToolStripMenuItem";
+            cargarDatosToolStripMenuItem.Size = new Size(84, 20);
+            cargarDatosToolStripMenuItem.Text = "cargar datos";
+            cargarDatosToolStripMenuItem.Click += cargarDatosToolStripMenuItem_Click;
             // 
             // dataGridView1
             // 
@@ -110,9 +129,9 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(137, 71);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.ScrollBars = ScrollBars.None;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(539, 115);
             dataGridView1.TabIndex = 9;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
@@ -138,14 +157,16 @@
 
         #endregion
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem verUsuariosToolStripMenuItem;
-        private ToolStripMenuItem modificarUsuariosToolStripMenuItem;
-        private ToolStripMenuItem altasToolStripMenuItem;
+        private ToolStripMenuItem verUsuarios;
+        private ToolStripMenuItem modificarUsuarios;
+        private ToolStripMenuItem altasUsuarios;
         private ToolStripMenuItem bajasToolStripMenuItem;
         private ToolStripMenuItem verTitulosToolStripMenuItem;
         private ToolStripMenuItem modificarTitulosToolStripMenuItem;
         private ToolStripMenuItem altasToolStripMenuItem1;
         private ToolStripMenuItem bajasToolStripMenuItem1;
         private DataGridView dataGridView1;
+        private ToolStripMenuItem guardarDatosToolStripMenuItem;
+        private ToolStripMenuItem cargarDatosToolStripMenuItem;
     }
 }
