@@ -14,9 +14,9 @@ namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
-        Dictionary<string, string> dictUsuarioPassword = formLogin.DictUsuarioPassword;
-        List<Usuario> listaDeUsuarios = formLogin.ListadoDeUsuarios;
-
+        Dictionary<string, string> dictUsuarioPassword = Serializadora.LeerDictLogin();
+        List<Usuario> listaDeUsuarios = Serializadora.LeerListadoUsuarios();
+        
         public FormRegistroUsuarios()
         {
             InitializeComponent();
@@ -24,17 +24,9 @@ namespace merval
 
         private void FormRegistroUsuarios_Load(object sender, EventArgs e)
         {
+            chk_comisionista.Visible = false;
             btn_agregarUsuario.Visible = false;
-            string nombre = this.txt_Nombre.Text;
-            string Dni = this.txt_Dni.Text;
-            string nombreUsuario = this.txt_NombreUsuario.Text;
-            string password = this.txt_Pass.Text;
-            bool esComisionista = this.chk_comisionista.Checked;
-            string passCheck = this.txt_PassCheck.Text;
-            Tipo tipoDeUsuario = Tipo.normal;
-            List<Acciones> listadoDeAccionesPropias = new List<Acciones>();
-            List<Clientes> listaDeClientes = new List<Clientes>();
-            
+         
         }
         #region formulario alta de usuarios
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -48,7 +40,8 @@ namespace merval
             Tipo tipoDeUsuario = Tipo.normal;
             List<Acciones> listadoDeAccionesPropias = new List<Acciones>();
             List<Clientes> listaDeClientes = new List<Clientes>();
-   
+            
+
             string titulo = "Registro exitoso.";
             string mensaje = "Ahora puede iniciar sesión.";
             VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
@@ -59,42 +52,42 @@ namespace merval
                 return;
             }
 
-
             if (dictUsuarioPassword.ContainsKey(nombreUsuario))
             {
                 MessageBox.Show("El nombre de usuario ya existe. Por favor, elija otro.");
                 return;
             }
+
             dictUsuarioPassword.Add(nombreUsuario, password);
+            Serializadora.Grabar_dict_login(dictUsuarioPassword);
 
             if (esComisionista == true)
             {
-                tipoDeUsuario = Tipo.Comisionista;
-                Comisionista nuevoUsuario = Comisionista.CrearComisionista(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, listaDeClientes);
-                listaDeUsuarios.Add(nuevoUsuario);
-                ve.ShowDialog();
+                //tipoDeUsuario = Tipo.Comisionista;
+                //Comisionista nuevoUsuario = Comisionista.CrearComisionista(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, listaDeClientes);
+                //listaDeUsuarios.Add(nuevoUsuario);
+
+                //Serializadora.GuardarListadoUsuarios(listaDeUsuarios) ;
+                //ve.ShowDialog();
             }
             else
             {
                 tipoDeUsuario = Tipo.normal;
-                ///Usuario nuevoUsuario = new Usuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias);
                 Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias);
                 listaDeUsuarios.Add(nuevoUsuario);
+                
+                Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
                 ve.ShowDialog();
             }
-
             this.Close();
             #endregion
-
-            formLogin loginForm = new formLogin();
-            loginForm.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-            formLogin loginForm = new formLogin();
-            loginForm.Show();
+            //formLogin loginForm = new formLogin();
+            //loginForm.Show();
         }
     }
 }

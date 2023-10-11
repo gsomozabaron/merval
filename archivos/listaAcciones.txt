@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAcciones xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Acciones>
+    <Nombre>YPF</Nombre>
+    <Valor>500</Valor>
+  </Acciones>
+  <Acciones>
+    <Nombre>Acindar</Nombre>
+    <Valor>250</Valor>
+  </Acciones>
+  <Acciones>
+    <Nombre>Tesla Motors</Nombre>
+    <Valor>1500</Valor>
+  </Acciones>
+  <Acciones>
+    <Nombre>Telefonica</Nombre>
+    <Valor>150</Valor>
+  </Acciones>
+</ArrayOfAcciones>

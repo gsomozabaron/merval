@@ -13,38 +13,18 @@ namespace merval
 {
     public partial class FormAltaAcciones : Form
     {
-        List<Acciones> listaAccionesGral = formLogin.ListadeAccionesGral;
+        List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+
         public FormAltaAcciones()
         {
             InitializeComponent();
         }
-
-        //private void btn_aceptar_Click(object sender, EventArgs e)
-        //{
-        //    string titulo = txt_Titulo.Text;
-        //    string valor = Txt_precio.Text;
-        //    string respuesta;
-        //    Acciones nuevaAccion = new  Acciones(titulo,valor);
-
-        //    foreach (Acciones a in listaAccionesGral)
-        //    {
-        //        if (a.Nombre == titulo)
-        //        {
-        //            respuesta = "eltitulo ya se encuentra dado de alta";
-        //        }
-        //        else
-        //        {
-        //            listaAccionesGral.Add(nuevaAccion);
-        //            respuesta = "exito";
-        //        }
-        //    }
-        //}
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             string titulo = txt_Titulo.Text;
             string valor = Txt_precio.Text;
-            string respuesta = "exito"; // Inicializamos la respuesta como "exito" por defecto
-
+            string respuesta = "exito";
+            // Inicializamos la respuesta como "exito" por defecto
             // Verificar si un elemento con el mismo título ya existe en la lista
             if (listaAccionesGral.Any(a => a.Nombre == titulo))
             {
@@ -55,12 +35,10 @@ namespace merval
                 // Agregar la nueva acción solo si no existe un elemento con el mismo título
                 Acciones nuevaAccion = new Acciones(titulo, valor);
                 listaAccionesGral.Add(nuevaAccion);
-            }
+                Serializadora.GuardarGralAcciones(listaAccionesGral);
 
-            // Mostrar la respuesta (éxito o mensaje de error)
-            formLogin.ListadeAccionesGral = listaAccionesGral;
+            }
             MessageBox.Show(respuesta);
-            // Puedes cerrar el formulario aquí o realizar otras acciones según tus necesidades
             this.Close();
         }
 

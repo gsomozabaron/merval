@@ -132,7 +132,6 @@
             Name = "formLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Merval app 1.0";
-            Load += formPrincipal_Load;
             ResumeLayout(false);
             PerformLayout();
         }
