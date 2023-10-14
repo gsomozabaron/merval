@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAltaAcciones));
             btn_cancel = new Button();
             btn_aceptar = new Button();
             txt_Titulo = new TextBox();
@@ -36,24 +37,28 @@
             // 
             // btn_cancel
             // 
-            btn_cancel.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_cancel.Location = new Point(200, 98);
+            btn_cancel.BackColor = Color.Red;
+            btn_cancel.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_cancel.ForeColor = Color.White;
+            btn_cancel.Location = new Point(154, 108);
             btn_cancel.Name = "btn_cancel";
-            btn_cancel.Size = new Size(75, 23);
+            btn_cancel.Size = new Size(106, 42);
             btn_cancel.TabIndex = 0;
             btn_cancel.Text = "Cancelar";
-            btn_cancel.UseVisualStyleBackColor = true;
+            btn_cancel.UseVisualStyleBackColor = false;
             btn_cancel.Click += btn_cancel_Click;
             // 
             // btn_aceptar
             // 
-            btn_aceptar.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_aceptar.Location = new Point(298, 99);
+            btn_aceptar.BackColor = Color.Blue;
+            btn_aceptar.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_aceptar.ForeColor = Color.White;
+            btn_aceptar.Location = new Point(266, 108);
             btn_aceptar.Name = "btn_aceptar";
-            btn_aceptar.Size = new Size(75, 23);
+            btn_aceptar.Size = new Size(106, 42);
             btn_aceptar.TabIndex = 1;
             btn_aceptar.Text = "Dar Alta";
-            btn_aceptar.UseVisualStyleBackColor = true;
+            btn_aceptar.UseVisualStyleBackColor = false;
             btn_aceptar.Click += btn_aceptar_Click;
             // 
             // txt_Titulo
@@ -81,13 +86,16 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(385, 134);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(384, 162);
             ControlBox = false;
             Controls.Add(Txt_precio);
             Controls.Add(txt_Titulo);
             Controls.Add(btn_aceptar);
             Controls.Add(btn_cancel);
             Name = "FormAltaAcciones";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Alta De Acciones";
             ResumeLayout(false);
             PerformLayout();

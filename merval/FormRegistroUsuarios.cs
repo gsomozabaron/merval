@@ -14,9 +14,8 @@ namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
-        Dictionary<string, string> dictUsuarioPassword = Serializadora.LeerDictLogin();
         List<Usuario> listaDeUsuarios = Serializadora.LeerListadoUsuarios();
-        
+
         public FormRegistroUsuarios()
         {
             InitializeComponent();
@@ -26,7 +25,7 @@ namespace merval
         {
             chk_comisionista.Visible = false;
             btn_agregarUsuario.Visible = false;
-         
+
         }
         #region formulario alta de usuarios
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -38,28 +37,34 @@ namespace merval
             bool esComisionista = this.chk_comisionista.Checked;
             string passCheck = this.txt_PassCheck.Text;
             Tipo tipoDeUsuario = Tipo.normal;
+            long saldo = 0;
+            string apellido = this.txt_Apellido.Text;
             List<Acciones> listadoDeAccionesPropias = new List<Acciones>();
             List<Clientes> listaDeClientes = new List<Clientes>();
-            
+
 
             string titulo = "Registro exitoso.";
-            string mensaje = "Ahora puede iniciar sesión.";
+            string mensaje = "Usuario dado de alta";
             VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
 
             if (password != passCheck)
             {
                 MessageBox.Show("Las contraseñas no coinciden. Por favor, vuelva a ingresarlas.");
+                this.txt_Pass.Clear();
+                this.txt_Pass.Clear();
                 return;
             }
 
-            if (dictUsuarioPassword.ContainsKey(nombreUsuario))
+            foreach (Usuario u in listaDeUsuarios)
             {
-                MessageBox.Show("El nombre de usuario ya existe. Por favor, elija otro.");
-                return;
+                if (u.NombreUsuario == nombreUsuario)
+                {
+                    this.txt_NombreUsuario.Clear();
+                    VentanaEmergente v = new VentanaEmergente("El nombre de usuario ya existe.", "Por favor, elija otro.");
+                    v.ShowDialog();
+                    return;
+                }
             }
-
-            dictUsuarioPassword.Add(nombreUsuario, password);
-            Serializadora.Grabar_dict_login(dictUsuarioPassword);
 
             if (esComisionista == true)
             {
@@ -73,9 +78,9 @@ namespace merval
             else
             {
                 tipoDeUsuario = Tipo.normal;
-                Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias);
+                Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, saldo, apellido);
                 listaDeUsuarios.Add(nuevoUsuario);
-                
+
                 Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
                 ve.ShowDialog();
             }
@@ -86,8 +91,6 @@ namespace merval
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-            //formLogin loginForm = new formLogin();
-            //loginForm.Show();
         }
     }
 }

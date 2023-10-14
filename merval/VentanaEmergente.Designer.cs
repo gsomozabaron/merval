@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaEmergente));
             btnVentanaEmergente = new Button();
             lblMensaje = new Label();
             lblTitulo = new Label();
@@ -38,7 +39,7 @@
             btnVentanaEmergente.BackColor = Color.Green;
             btnVentanaEmergente.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnVentanaEmergente.ForeColor = Color.MintCream;
-            btnVentanaEmergente.Location = new Point(79, 89);
+            btnVentanaEmergente.Location = new Point(167, 184);
             btnVentanaEmergente.Name = "btnVentanaEmergente";
             btnVentanaEmergente.Size = new Size(135, 36);
             btnVentanaEmergente.TabIndex = 0;
@@ -51,7 +52,7 @@
             lblMensaje.BackColor = Color.Transparent;
             lblMensaje.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblMensaje.ForeColor = Color.Blue;
-            lblMensaje.Location = new Point(12, 62);
+            lblMensaje.Location = new Point(12, 107);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(274, 24);
             lblMensaje.TabIndex = 2;
@@ -63,7 +64,7 @@
             lblTitulo.BackColor = Color.Transparent;
             lblTitulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitulo.ForeColor = Color.Blue;
-            lblTitulo.Location = new Point(12, 38);
+            lblTitulo.Location = new Point(12, 83);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(274, 24);
             lblTitulo.TabIndex = 3;
@@ -75,8 +76,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SkyBlue;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(305, 144);
+            ClientSize = new Size(466, 246);
             ControlBox = false;
             Controls.Add(lblTitulo);
             Controls.Add(lblMensaje);

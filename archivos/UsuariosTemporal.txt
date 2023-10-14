@@ -3,9 +3,8 @@
   <Usuario>
     <NombreUsuario>admin</NombreUsuario>
     <Pass>admin</Pass>
-    <Nombre>Administrador</Nombre>
-    <Apellido>001</Apellido>
-    <Dni>25468845</Dni>
+    <Nombre>admin gustavo</Nombre>
+    <Dni>25646638</Dni>
     <TipoDeUsuario>Admin</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -13,9 +12,8 @@
   <Usuario>
     <NombreUsuario>gsomoza</NombreUsuario>
     <Pass>gpass</Pass>
-    <Nombre>Gustavo</Nombre>
-    <Apellido>Somoza</Apellido>
-    <Dni>25646638</Dni>
+    <Nombre>gustavo</Nombre>
+    <Dni>26985458</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -25,7 +23,7 @@
     <Pass>homeropass</Pass>
     <Nombre>Jorge</Nombre>
     <Apellido>Somoza</Apellido>
-    <Dni>7541705</Dni>
+    <Dni>Somoza</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -33,8 +31,7 @@
   <Usuario>
     <NombreUsuario>malu</NombreUsuario>
     <Pass>malupass</Pass>
-    <Nombre>Malena</Nombre>
-    <Apellido>Vespignani</Apellido>
+    <Nombre>malena</Nombre>
     <Dni>30666999</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
@@ -43,9 +40,8 @@
   <Usuario>
     <NombreUsuario>titina</NombreUsuario>
     <Pass>baron</Pass>
-    <Nombre>Cristina</Nombre>
-    <Apellido>Baron</Apellido>
-    <Dni>9458351</Dni>
+    <Nombre>cristina</Nombre>
+    <Dni>12658458</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -53,9 +49,8 @@
   <Usuario>
     <NombreUsuario>ivi</NombreUsuario>
     <Pass>coco</Pass>
-    <Nombre>Ivana</Nombre>
-    <Apellido>Somoza</Apellido>
-    <Dni>27568105</Dni>
+    <Nombre>ivana</Nombre>
+    <Dni>26658957</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -63,9 +58,8 @@
   <Usuario>
     <NombreUsuario>gala</NombreUsuario>
     <Pass>perrito</Pass>
-    <Nombre>Gala</Nombre>
-    <Apellido>Somoza</Apellido>
-    <Dni>40425658</Dni>
+    <Nombre>gala somoza</Nombre>
+    <Dni>45625985</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -74,8 +68,7 @@
     <NombreUsuario>lucas</NombreUsuario>
     <Pass>tañeda</Pass>
     <Nombre>Lucas</Nombre>
-    <Apellido>Gutierrez</Apellido>
-    <Dni>26458351</Dni>
+    <Dni>26458658</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -86,16 +79,6 @@
     <Nombre>nombre1</Nombre>
     <Apellido>apellido1</Apellido>
     <Dni>25468845</Dni>
-    <TipoDeUsuario>normal</TipoDeUsuario>
-    <ListadoDeAccionesPropias />
-    <Saldo>0</Saldo>
-  </Usuario>
-  <Usuario>
-    <NombreUsuario>el_che</NombreUsuario>
-    <Pass>100fuegos</Pass>
-    <Nombre>Ernesto</Nombre>
-    <Apellido>Guevara</Apellido>
-    <Dni>6548635</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>

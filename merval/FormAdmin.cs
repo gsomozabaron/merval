@@ -15,25 +15,26 @@ namespace merval
 {
     public partial class FormAdmin : Form
     {
+        List<Usuario> listUsuarios = Serializadora.LeerListadoUsuarios();
+        List<Acciones> listadeAccionesGral = Serializadora.LeerListaAcciones();
 
         public FormAdmin()
         {
             InitializeComponent();
-            dataGridView1.Visible = false;
+            this.dataGridView1.Visible = false;
         }
 
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-        
+
         }
 
         private void VerUsuarios_Click(object sender, EventArgs e)
         {
-            List<Usuario> listUsuarios = Serializadora.LeerListadoUsuarios();
-            dataGridView1.DataSource = listUsuarios;
-            dataGridView1.Visible = true;
-            dataGridView1.Columns["Pass"].Visible = false;
-            ///dataGridView1.Visible = !(dataGridView1.Visible);
+            listUsuarios = Serializadora.LeerListadoUsuarios();
+            this.dataGridView1.DataSource = this.listUsuarios;
+            this.dataGridView1.Visible = true;
+            this.dataGridView1.Columns["Pass"].Visible = false;
         }
 
         private void AltasAcciones_Click(object sender, EventArgs e)
@@ -44,15 +45,8 @@ namespace merval
 
         private void VerTitulos_Click(object sender, EventArgs e)
         {
-            List<Acciones> listadeAccionesGral = Serializadora.LeerListaAcciones();
-            dataGridView1.DataSource = listadeAccionesGral;
-            dataGridView1.Visible = true;
-            ///dataGridView1.Visible = !(dataGridView1.Visible);
-        }
-
-        private void modificarUsuarios_Click(object sender, EventArgs e)
-        {
-
+            this.dataGridView1.DataSource = listadeAccionesGral;
+            this.dataGridView1.Visible = true;
         }
 
         private void btn_salir_Click(object sender, EventArgs e)
@@ -63,14 +57,7 @@ namespace merval
 
         private void btn_ocultarDataGrid_Click(object sender, EventArgs e)
         {
-            dataGridView1.Visible = false;
-        }
-
-
-        private void BajaUsuariosMenu_Click(object sender, EventArgs e)
-        {
-            FormBajaUsuarios menu = new FormBajaUsuarios();
-            menu.ShowDialog();
+            this.dataGridView1.Visible = false;
         }
 
         private void altasUsuarios_Click(object sender, EventArgs e)
@@ -79,9 +66,33 @@ namespace merval
             fr.ShowDialog();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Mts_ModificarDatos_Click(object sender, EventArgs e)
         {
+            FormModificarUsuario fm = new FormModificarUsuario();
+            fm.Show();
+        }
 
+        private void BajasAcciones_Click(object sender, EventArgs e)
+        {
+           FormBajaDeAcciones fb = new FormBajaDeAcciones(); 
+            fb.ShowDialog();
+        }
+
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                Acciones a = (Acciones)dataGridView1.SelectedRows[0].DataBoundItem;
+                VentanaConfirmar vc = new VentanaConfirmar("A T E N C I O N", "esta a punto de eliminar un titulo");
+                if (vc.ShowDialog() == DialogResult.OK)
+                {
+                    listadeAccionesGral.Remove(a);
+                }
+                else
+                {
+                    VentanaEmergente v = new VentanaEmergente("Operacion", "cancelada");
+                }
+            }
         }
     }
 }

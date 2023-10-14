@@ -12,23 +12,11 @@ namespace merval
         /// inicio un contador para el auto login
         int Contador = 0;
 
-        /// <summary>
-        /// dicionario de usuarios para el login 
-        /// </summary>
-        private static Dictionary<string, string> dictUsuarioPassword = new Dictionary<string, string>();
-        
-        /// <summary>
-        /// listado de usuarios
-        /// </summary>
+        // listado de usuarios
         private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
-
-        /// <summary>
         /// listado general de acciones
-        /// </summary>
         private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
-
         private static Usuario usuarioActual = new Usuario();
-
         #endregion
 
         #region seters y getters listas
@@ -41,101 +29,86 @@ namespace merval
         {
             get => listadoDeUsuarios; set => listadoDeUsuarios = value;
         }
-        
-        public static Dictionary<string, string> DictUsuarioPassword
-        {
-            get => dictUsuarioPassword; set => dictUsuarioPassword = value;
-        }
-        
+
         public static List<Acciones> ListadeAccionesGral
         {
             get => listaDeAccionesGral; set => listaDeAccionesGral = value;
         }
         #endregion
 
-        /// <summary>
-        /// asignamos a las listas los valores guardados en los archivos
-        /// </summary>
         public formLogin()
-        {
+        {/// asignamos a las listas los valores guardados en los archivos
             InitializeComponent();
-            dictUsuarioPassword = Serializadora.LeerDictLogin();
             listadoDeUsuarios = Serializadora.LeerListadoUsuarios();
             listaDeAccionesGral = Serializadora.LeerListaAcciones();
 
-            #region harcodeo ya no hace falta, lo todo de los archivos
-            /// ya no hace falta el hard /// levanto del archivo
-            //if (dictUsuarioPassword.Count == 0)
-            //{
-            //    Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios, listaDeAccionesGral);
-            //}
-            #endregion
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        
+
         #region login
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string usuario = this.txtUsuario.Text;
             string password = this.txtPassword.Text;
+            string mensaje;
+            string titulo;
+            bool estaRegistrado = false;
 
-            //chequear que nombre de usuario este en el dicc de login
-            if (dictUsuarioPassword.ContainsKey(usuario))
+
+            foreach (Usuario u in listadoDeUsuarios)
             {
-                string passEnDict = dictUsuarioPassword[usuario];
-                //si el nombre de usuario coincide chequear el pass
-                if (password == passEnDict)
+                if (u.NombreUsuario == usuario)
                 {
-                    foreach (Usuario usuariologin in listadoDeUsuarios)
+                    if (u.Pass == password)
                     {
-                        if (usuariologin.NombreUsuario == usuario)
-                        {
-                            usuarioActual = usuariologin;
-                            break;
-                        }
+                        usuarioActual = u;
+                        titulo = "bienvenido";
+                        mensaje = $"{u.Nombre}";
+                        estaRegistrado = true;
+                        VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
+                        ve.ShowDialog();
+                        break;
                     }
-                    VentanaEmergente ve = new VentanaEmergente("login exitoso", $"Bienvenido, {usuarioActual.Nombre}");
-                    ve.ShowDialog();
-
-                    if (ve.DialogResult == DialogResult.OK)
+                    else
                     {
-                        //si es del tipo admin...
-                        if (usuarioActual.TipoDeUsuario == Tipo.Admin)
-                        {
-                            FormAdmin formadmin = new FormAdmin();
-                            this.Hide();
-                            formadmin.Show();//ir al menu principal de administrador
-                        }
-                        else //si no es del tipo admin..es usuario normal..ir al menu de usuario normal
-                        {
-                            FormPrincipal MenuPrincipal = new FormPrincipal();
-                            MenuPrincipal.Show();
-                            this.Hide();
-                        }
+                        mensaje = "password incorrecto";
+                        Ventana_error ve = new Ventana_error(mensaje);
+                        ve.ShowDialog();
+                        break;
                     }
-                }
-                else //si el pass no coincide con lo almacenado en dicc login
-                {
-                    this.txtUsuario.Text = string.Empty;  // Limpiamos los campos
-                    this.txtPassword.Text = string.Empty; // Limpiamos los campos
-                    VentanaEmergente ve = new VentanaEmergente("Error", "Contraseña incorrecta");
-                    ve.ShowDialog();
                 }
             }
-            else // si el nomber de usuario no figura en el dicc...
+            if (estaRegistrado == false)
             {
                 this.txtUsuario.Text = string.Empty;  // Limpiamos los campos
                 this.txtPassword.Text = string.Empty; // Limpiamos los campos
-                VentanaEmergente ve = new VentanaEmergente("Error", "Usuario no encontrado");
+                mensaje = "Login Error \nusuario no encontrado";
+                Ventana_error ve = new Ventana_error(mensaje);
                 ve.ShowDialog();
+            }
+            else
+            {
+                if (usuarioActual.TipoDeUsuario == Tipo.normal)
+                {
+                    FormPrincipal fp = new FormPrincipal();//ir al formulario principal
+                    fp.Show();
+                    this.Hide();
+                }
+
+                if (usuarioActual.TipoDeUsuario == Tipo.Admin)
+                {
+                    FormAdmin fa = new FormAdmin();// ir al formulario de administradores
+                    fa.Show();
+                    this.Hide();
+                }
             }
         }
         #endregion
-        
+
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
             FormRegistroUsuarios altaUsuarios = new FormRegistroUsuarios();
@@ -144,7 +117,7 @@ namespace merval
 
         #region autocompletar menu login
         private void btn_autocompletar_Click(object sender, EventArgs e)
-        {         
+        {
             switch (Contador)
             {
                 case 0:

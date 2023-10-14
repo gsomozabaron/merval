@@ -36,16 +36,17 @@
             txt_PassCheck = new TextBox();
             btnAceptar = new Button();
             chk_comisionista = new CheckBox();
-            button1 = new Button();
+            btn_salir = new Button();
             btn_agregarUsuario = new Button();
+            txt_Apellido = new TextBox();
             SuspendLayout();
             // 
             // txt_Nombre
             // 
-            txt_Nombre.BackColor = Color.DarkTurquoise;
+            txt_Nombre.BackColor = Color.LightCoral;
             txt_Nombre.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txt_Nombre.ForeColor = SystemColors.ButtonHighlight;
-            txt_Nombre.Location = new Point(350, 88);
+            txt_Nombre.ForeColor = SystemColors.ControlText;
+            txt_Nombre.Location = new Point(404, 32);
             txt_Nombre.Name = "txt_Nombre";
             txt_Nombre.PlaceholderText = "Nombre";
             txt_Nombre.Size = new Size(207, 26);
@@ -54,10 +55,10 @@
             // 
             // txt_Dni
             // 
-            txt_Dni.BackColor = Color.DarkTurquoise;
+            txt_Dni.BackColor = Color.LightCoral;
             txt_Dni.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txt_Dni.ForeColor = SystemColors.ButtonHighlight;
-            txt_Dni.Location = new Point(350, 120);
+            txt_Dni.ForeColor = SystemColors.ControlText;
+            txt_Dni.Location = new Point(404, 96);
             txt_Dni.Name = "txt_Dni";
             txt_Dni.PlaceholderText = "Dni";
             txt_Dni.Size = new Size(207, 26);
@@ -66,10 +67,10 @@
             // 
             // txt_NombreUsuario
             // 
-            txt_NombreUsuario.BackColor = Color.DarkTurquoise;
+            txt_NombreUsuario.BackColor = Color.LightCoral;
             txt_NombreUsuario.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txt_NombreUsuario.ForeColor = SystemColors.ButtonHighlight;
-            txt_NombreUsuario.Location = new Point(104, 88);
+            txt_NombreUsuario.ForeColor = SystemColors.ControlText;
+            txt_NombreUsuario.Location = new Point(404, 151);
             txt_NombreUsuario.Name = "txt_NombreUsuario";
             txt_NombreUsuario.PlaceholderText = "Nombre Usuario";
             txt_NombreUsuario.Size = new Size(207, 26);
@@ -78,10 +79,10 @@
             // 
             // txt_Pass
             // 
-            txt_Pass.BackColor = Color.DarkTurquoise;
+            txt_Pass.BackColor = Color.LightCoral;
             txt_Pass.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txt_Pass.ForeColor = SystemColors.ButtonHighlight;
-            txt_Pass.Location = new Point(104, 120);
+            txt_Pass.ForeColor = SystemColors.ControlText;
+            txt_Pass.Location = new Point(404, 183);
             txt_Pass.Name = "txt_Pass";
             txt_Pass.PasswordChar = '*';
             txt_Pass.PlaceholderText = "Password";
@@ -91,10 +92,10 @@
             // 
             // txt_PassCheck
             // 
-            txt_PassCheck.BackColor = Color.DarkTurquoise;
+            txt_PassCheck.BackColor = Color.LightCoral;
             txt_PassCheck.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txt_PassCheck.ForeColor = SystemColors.ButtonHighlight;
-            txt_PassCheck.Location = new Point(104, 152);
+            txt_PassCheck.ForeColor = SystemColors.ControlText;
+            txt_PassCheck.Location = new Point(404, 215);
             txt_PassCheck.Name = "txt_PassCheck";
             txt_PassCheck.PasswordChar = '*';
             txt_PassCheck.PlaceholderText = "reingrese Password";
@@ -115,26 +116,29 @@
             // 
             // chk_comisionista
             // 
+            chk_comisionista.BackColor = Color.LightCoral;
             chk_comisionista.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chk_comisionista.Location = new Point(350, 152);
+            chk_comisionista.ForeColor = SystemColors.ControlText;
+            chk_comisionista.Location = new Point(404, 247);
             chk_comisionista.Name = "chk_comisionista";
             chk_comisionista.Size = new Size(207, 23);
             chk_comisionista.TabIndex = 4;
             chk_comisionista.Text = "Es comisionista?";
             chk_comisionista.TextAlign = ContentAlignment.MiddleCenter;
-            chk_comisionista.UseVisualStyleBackColor = true;
+            chk_comisionista.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btn_salir
             // 
-            button1.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.ForeColor = SystemColors.ActiveCaptionText;
-            button1.Location = new Point(536, 303);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 7;
-            button1.Text = "salir";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btn_salir.BackColor = Color.Red;
+            btn_salir.Font = new Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_salir.ForeColor = Color.White;
+            btn_salir.Location = new Point(508, 294);
+            btn_salir.Name = "btn_salir";
+            btn_salir.Size = new Size(103, 30);
+            btn_salir.TabIndex = 7;
+            btn_salir.Text = "Cancelar";
+            btn_salir.UseVisualStyleBackColor = false;
+            btn_salir.Click += button1_Click;
             // 
             // btn_agregarUsuario
             // 
@@ -147,6 +151,18 @@
             btn_agregarUsuario.Text = "Agregar Usuario";
             btn_agregarUsuario.UseVisualStyleBackColor = false;
             // 
+            // txt_Apellido
+            // 
+            txt_Apellido.BackColor = Color.LightCoral;
+            txt_Apellido.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txt_Apellido.ForeColor = SystemColors.ControlText;
+            txt_Apellido.Location = new Point(404, 64);
+            txt_Apellido.Name = "txt_Apellido";
+            txt_Apellido.PlaceholderText = "Apellido";
+            txt_Apellido.Size = new Size(207, 26);
+            txt_Apellido.TabIndex = 9;
+            txt_Apellido.TextAlign = HorizontalAlignment.Center;
+            // 
             // FormRegistroUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -156,8 +172,9 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(626, 346);
             ControlBox = false;
+            Controls.Add(txt_Apellido);
             Controls.Add(btn_agregarUsuario);
-            Controls.Add(button1);
+            Controls.Add(btn_salir);
             Controls.Add(chk_comisionista);
             Controls.Add(btnAceptar);
             Controls.Add(txt_PassCheck);
@@ -184,7 +201,8 @@
         private TextBox txt_PassCheck;
         private Button btnAceptar;
         private CheckBox chk_comisionista;
-        private Button button1;
+        private Button btn_salir;
         private Button btn_agregarUsuario;
+        private TextBox txt_Apellido;
     }
 }

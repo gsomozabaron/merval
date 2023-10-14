@@ -5,10 +5,6 @@
     <Valor>500</Valor>
   </Acciones>
   <Acciones>
-    <Nombre>Acindar</Nombre>
-    <Valor>250</Valor>
-  </Acciones>
-  <Acciones>
     <Nombre>Tesla Motors</Nombre>
     <Valor>1500</Valor>
   </Acciones>

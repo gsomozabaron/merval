@@ -14,7 +14,6 @@ namespace merval
     public partial class FormPrincipal : Form
     {
         List<Acciones> listaAccionesGral = formLogin.ListadeAccionesGral;///new List<Acciones>();
-        List<Usuario> listaDeUsuarios = formLogin.ListadoDeUsuarios;
         Usuario usuario = formLogin.UsuarioActual;
 
         ///Form Formulario; //formulario es una instancia del formulario acciones hay que agregar el "Form formulario justo abajo del contructor"
@@ -29,8 +28,6 @@ namespace merval
 
         private void mostrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ///List<Usuario> listaUsuario = new List<Usuario> { usuario };///lista de un solo usuario para poder mostrarlo
-
             this.dataGridView1.DataSource = usuario.ListadoDeAccionesPropias;
 
             //this.dataGridView1.Columns["nombre"].Visible = true;
