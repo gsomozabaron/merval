@@ -13,7 +13,7 @@ namespace merval
 {
     public partial class FormAltaAcciones : Form
     {
-        List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+        private List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
 
         public FormAltaAcciones()
         {
@@ -29,6 +29,8 @@ namespace merval
             if (listaAccionesGral.Any(a => a.Nombre == titulo))
             {
                 respuesta = "El título ya se encuentra dado de alta";
+                Ventana_error verror = new Ventana_error(respuesta);
+                verror.ShowDialog();
             }
             else
             {
@@ -36,10 +38,9 @@ namespace merval
                 Acciones nuevaAccion = new Acciones(titulo, valor);
                 listaAccionesGral.Add(nuevaAccion);
                 Serializadora.GuardarGralAcciones(listaAccionesGral);
-
+                VentanaEmergente ve = new VentanaEmergente(respuesta,"Titulo Ingresado");
+                ve.ShowDialog();
             }
-            MessageBox.Show(respuesta);
-            this.Close();
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)

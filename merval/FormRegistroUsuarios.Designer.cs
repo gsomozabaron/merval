@@ -98,7 +98,7 @@
             txt_PassCheck.Location = new Point(404, 215);
             txt_PassCheck.Name = "txt_PassCheck";
             txt_PassCheck.PasswordChar = '*';
-            txt_PassCheck.PlaceholderText = "reingrese Password";
+            txt_PassCheck.PlaceholderText = "Reingresar Password";
             txt_PassCheck.Size = new Size(207, 26);
             txt_PassCheck.TabIndex = 6;
             txt_PassCheck.TextAlign = HorizontalAlignment.Center;

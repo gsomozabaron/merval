@@ -17,8 +17,27 @@
     <Apellido>Somoza</Apellido>
     <Dni>25646638</Dni>
     <TipoDeUsuario>normal</TipoDeUsuario>
-    <ListadoDeAccionesPropias />
-    <Saldo>0</Saldo>
+    <ListadoDeAccionesPropias>
+      <Acciones>
+        <Nombre>Apple</Nombre>
+        <Valor>2500</Valor>
+        <Fecha>2023-10-14T18:41:52.504562-03:00</Fecha>
+        <Cantidad>10</Cantidad>
+      </Acciones>
+      <Acciones>
+        <Nombre>Telefonica</Nombre>
+        <Valor>150</Valor>
+        <Fecha>2023-10-14T20:40:03.7112758-03:00</Fecha>
+        <Cantidad>60</Cantidad>
+      </Acciones>
+      <Acciones>
+        <Nombre>Tesla Motors</Nombre>
+        <Valor>1500</Valor>
+        <Fecha>2023-10-14T20:43:39.9855918-03:00</Fecha>
+        <Cantidad>5</Cantidad>
+      </Acciones>
+    </ListadoDeAccionesPropias>
+    <Saldo>98750</Saldo>
   </Usuario>
   <Usuario>
     <NombreUsuario>homero</NombreUsuario>

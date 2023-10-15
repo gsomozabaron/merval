@@ -13,10 +13,8 @@ namespace merval
 {
     public partial class FormPrincipal : Form
     {
-        List<Acciones> listaAccionesGral = formLogin.ListadeAccionesGral;///new List<Acciones>();
+        List<Acciones> listaAccionesGral = formLogin.ListadeAccionesGral;
         Usuario usuario = formLogin.UsuarioActual;
-
-        ///Form Formulario; //formulario es una instancia del formulario acciones hay que agregar el "Form formulario justo abajo del contructor"
 
 
         public FormPrincipal()
@@ -25,41 +23,52 @@ namespace merval
             this.IsMdiContainer = true;
         }
 
-
-        private void mostrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void verMercado_Click(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = usuario.ListadoDeAccionesPropias;
-
-            //this.dataGridView1.Columns["nombre"].Visible = true;
-            //this.dataGridView1.Columns["dni"].Visible = true;
-            //this.dataGridView1.Columns["NombreUsuario"].Visible = true;
-            //this.dataGridView1.Columns["pass"].Visible = true;
-
-            //BindingSource sb = new BindingSource(); //para poder bindear el diccionario al datasource 
-            //sb.DataSource = stock;
-            //this.dataGridView1.DataSource = sb;
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void verMercadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+            this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = listaAccionesGral;
+            this.dataGridView1.Columns[2].Visible = false;
+            this.dataGridView1.Columns[3].Visible = false;
+
         }
 
-        private void adquirirAccioneToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Ver_AccionesPropias_Click(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = listaAccionesGral;
-            
-        }
-
-        private void venderTitulosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+            this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = usuario.ListadoDeAccionesPropias;
+            this.dataGridView1.Columns[2].Visible = true;
+            this.dataGridView1.Columns[3].Visible = true;
+
+
+        }
+
+        private void ComprarTitulos_Click(object sender, EventArgs e)
+        {
+            FormOperar Fo = new FormOperar(usuario);
+            Fo.ShowDialog();
+        }
+
+        private void consultarSaldo_TSM_Click(object sender, EventArgs e)
+        {
+            FormSaldo Fs = new FormSaldo(usuario);
+            Fs.ShowDialog();
+        }
+
+        private void btn_salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
+        }
+
+        private void FormPrincipal_Load(object sender, EventArgs e)
+        {
+            this.dataGridView1.Visible = false;
+        }
+
+        private void venderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormVender Fv = new FormVender(usuario);
+            Fv.ShowDialog();
         }
     }
 }

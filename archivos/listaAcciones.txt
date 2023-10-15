@@ -12,4 +12,12 @@
     <Nombre>Telefonica</Nombre>
     <Valor>150</Valor>
   </Acciones>
+  <Acciones>
+    <Nombre>Apple</Nombre>
+    <Valor>2500</Valor>
+  </Acciones>
+  <Acciones>
+    <Nombre>IBM</Nombre>
+    <Valor>4500</Valor>
+  </Acciones>
 </ArrayOfAcciones>

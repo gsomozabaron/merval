@@ -45,6 +45,7 @@ namespace merval
 
         private void VerTitulos_Click(object sender, EventArgs e)
         {
+            listadeAccionesGral = Serializadora.LeerListaAcciones();
             this.dataGridView1.DataSource = listadeAccionesGral;
             this.dataGridView1.Visible = true;
         }
@@ -74,25 +75,13 @@ namespace merval
 
         private void BajasAcciones_Click(object sender, EventArgs e)
         {
-           FormBajaDeAcciones fb = new FormBajaDeAcciones(); 
+            FormBajaDeAcciones fb = new FormBajaDeAcciones();
             fb.ShowDialog();
         }
 
-        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void ModificarUsuarios_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                Acciones a = (Acciones)dataGridView1.SelectedRows[0].DataBoundItem;
-                VentanaConfirmar vc = new VentanaConfirmar("A T E N C I O N", "esta a punto de eliminar un titulo");
-                if (vc.ShowDialog() == DialogResult.OK)
-                {
-                    listadeAccionesGral.Remove(a);
-                }
-                else
-                {
-                    VentanaEmergente v = new VentanaEmergente("Operacion", "cancelada");
-                }
-            }
+
         }
     }
 }

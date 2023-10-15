@@ -67,18 +67,19 @@
             ModificarUsuarios.Name = "ModificarUsuarios";
             ModificarUsuarios.Size = new Size(137, 23);
             ModificarUsuarios.Text = "Modificar Usuarios";
+            
             // 
             // altasUsuarios
             // 
             altasUsuarios.Name = "altasUsuarios";
-            altasUsuarios.Size = new Size(177, 24);
+            altasUsuarios.Size = new Size(180, 24);
             altasUsuarios.Text = "Altas";
             altasUsuarios.Click += altasUsuarios_Click;
             // 
             // Mts_ModificarDatos
             // 
             Mts_ModificarDatos.Name = "Mts_ModificarDatos";
-            Mts_ModificarDatos.Size = new Size(177, 24);
+            Mts_ModificarDatos.Size = new Size(180, 24);
             Mts_ModificarDatos.Text = "Modificar Datos";
             Mts_ModificarDatos.Click += Mts_ModificarDatos_Click;
             // 
@@ -129,7 +130,6 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(698, 259);
             dataGridView1.TabIndex = 9;
-            dataGridView1.MouseDoubleClick += dataGridView1_MouseDoubleClick;
             // 
             // btn_salir
             // 

@@ -28,77 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             menuStrip2 = new MenuStrip();
-            mostrarUsuariosToolStripMenuItem = new ToolStripMenuItem();
-            adquirirAccioneToolStripMenuItem = new ToolStripMenuItem();
-            venderTitulosToolStripMenuItem = new ToolStripMenuItem();
-            verMercadoToolStripMenuItem = new ToolStripMenuItem();
+            Ver_AccionesPropias = new ToolStripMenuItem();
+            operar = new ToolStripMenuItem();
+            verMercado = new ToolStripMenuItem();
+            consultarSaldo_TSM = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
+            btn_salir = new Button();
+            venderToolStripMenuItem = new ToolStripMenuItem();
             menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip2
             // 
-            menuStrip2.Items.AddRange(new ToolStripItem[] { mostrarUsuariosToolStripMenuItem, adquirirAccioneToolStripMenuItem, venderTitulosToolStripMenuItem, verMercadoToolStripMenuItem });
+            menuStrip2.Items.AddRange(new ToolStripItem[] { Ver_AccionesPropias, operar, venderToolStripMenuItem, verMercado, consultarSaldo_TSM });
             menuStrip2.Location = new Point(0, 0);
             menuStrip2.Name = "menuStrip2";
-            menuStrip2.Size = new Size(836, 24);
+            menuStrip2.Size = new Size(741, 24);
             menuStrip2.TabIndex = 3;
             menuStrip2.Text = "menuStrip2";
             // 
-            // mostrarUsuariosToolStripMenuItem
+            // Ver_AccionesPropias
             // 
-            mostrarUsuariosToolStripMenuItem.Name = "mostrarUsuariosToolStripMenuItem";
-            mostrarUsuariosToolStripMenuItem.Size = new Size(124, 20);
-            mostrarUsuariosToolStripMenuItem.Text = "Cartera de Acciones";
-            mostrarUsuariosToolStripMenuItem.Click += mostrarUsuariosToolStripMenuItem_Click;
+            Ver_AccionesPropias.Name = "Ver_AccionesPropias";
+            Ver_AccionesPropias.Size = new Size(124, 20);
+            Ver_AccionesPropias.Text = "Cartera de Acciones";
+            Ver_AccionesPropias.Click += Ver_AccionesPropias_Click;
             // 
-            // adquirirAccioneToolStripMenuItem
+            // operar
             // 
-            adquirirAccioneToolStripMenuItem.Name = "adquirirAccioneToolStripMenuItem";
-            adquirirAccioneToolStripMenuItem.Size = new Size(104, 20);
-            adquirirAccioneToolStripMenuItem.Text = "Comprar Titulos";
-            adquirirAccioneToolStripMenuItem.Click += adquirirAccioneToolStripMenuItem_Click;
+            operar.Name = "operar";
+            operar.Size = new Size(55, 20);
+            operar.Text = "Operar";
+            operar.Click += ComprarTitulos_Click;
             // 
-            // venderTitulosToolStripMenuItem
+            // verMercado
             // 
-            venderTitulosToolStripMenuItem.Name = "venderTitulosToolStripMenuItem";
-            venderTitulosToolStripMenuItem.Size = new Size(93, 20);
-            venderTitulosToolStripMenuItem.Text = "Vender Titulos";
-            venderTitulosToolStripMenuItem.Click += venderTitulosToolStripMenuItem_Click;
+            verMercado.Name = "verMercado";
+            verMercado.Size = new Size(85, 20);
+            verMercado.Text = "Ver Mercado";
+            verMercado.Click += verMercado_Click;
             // 
-            // verMercadoToolStripMenuItem
+            // consultarSaldo_TSM
             // 
-            verMercadoToolStripMenuItem.Name = "verMercadoToolStripMenuItem";
-            verMercadoToolStripMenuItem.Size = new Size(85, 20);
-            verMercadoToolStripMenuItem.Text = "Ver Mercado";
-            verMercadoToolStripMenuItem.Click += verMercadoToolStripMenuItem_Click;
+            consultarSaldo_TSM.Name = "consultarSaldo_TSM";
+            consultarSaldo_TSM.Size = new Size(102, 20);
+            consultarSaldo_TSM.Text = "Consultar Saldo";
+            consultarSaldo_TSM.Click += consultarSaldo_TSM_Click;
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.BackgroundColor = Color.Tomato;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 24);
+            dataGridView1.Location = new Point(12, 27);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(836, 337);
+            dataGridView1.Size = new Size(434, 358);
             dataGridView1.TabIndex = 5;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // btn_salir
+            // 
+            btn_salir.BackColor = Color.Red;
+            btn_salir.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_salir.ForeColor = SystemColors.ControlLightLight;
+            btn_salir.Location = new Point(637, 350);
+            btn_salir.Name = "btn_salir";
+            btn_salir.Size = new Size(92, 35);
+            btn_salir.TabIndex = 7;
+            btn_salir.Text = "Salir";
+            btn_salir.UseVisualStyleBackColor = false;
+            btn_salir.Click += btn_salir_Click;
+            // 
+            // venderToolStripMenuItem
+            // 
+            venderToolStripMenuItem.Name = "venderToolStripMenuItem";
+            venderToolStripMenuItem.Size = new Size(55, 20);
+            venderToolStripMenuItem.Text = "Vender";
+            venderToolStripMenuItem.Click += venderToolStripMenuItem_Click;
             // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(836, 361);
+            ClientSize = new Size(741, 397);
+            ControlBox = false;
+            Controls.Add(btn_salir);
             Controls.Add(dataGridView1);
             Controls.Add(menuStrip2);
-            IsMdiContainer = true;
+            Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            ForeColor = SystemColors.ActiveCaptionText;
             MainMenuStrip = menuStrip2;
             Name = "FormPrincipal";
-            Text = "FormPrincipal";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Mc Pato Bursatil 1.0";
+            Load += FormPrincipal_Load;
             menuStrip2.ResumeLayout(false);
             menuStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -110,10 +141,12 @@
 
         private MenuStrip menuStrip1;
         private MenuStrip menuStrip2;
-        private ToolStripMenuItem mostrarUsuariosToolStripMenuItem;
+        private ToolStripMenuItem Ver_AccionesPropias;
         private DataGridView dataGridView1;
-        private ToolStripMenuItem adquirirAccioneToolStripMenuItem;
-        private ToolStripMenuItem venderTitulosToolStripMenuItem;
-        private ToolStripMenuItem verMercadoToolStripMenuItem;
+        private ToolStripMenuItem operar;
+        private ToolStripMenuItem verMercado;
+        private ToolStripMenuItem consultarSaldo_TSM;
+        private Button btn_salir;
+        private ToolStripMenuItem venderToolStripMenuItem;
     }
 }
