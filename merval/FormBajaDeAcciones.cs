@@ -88,10 +88,10 @@ namespace merval
 
         private void DTG_BajaAcciones_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (DTG_BajaAcciones.SelectedRows.Count > 0)///seleccionar con doble click
+            ///seleccionar con doble click
+            if (DTG_BajaAcciones.SelectedRows.Count > 0)
             {
                 Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
-
                 txt_Nombre.Text = a.Nombre;
             }
         }

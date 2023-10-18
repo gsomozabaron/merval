@@ -137,4 +137,34 @@
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
   </Usuario>
+  <Usuario>
+    <NombreUsuario>marquitos</NombreUsuario>
+    <Pass>marcospass</Pass>
+    <Nombre>marcos</Nombre>
+    <Apellido>Aramburu</Apellido>
+    <Dni>4585254</Dni>
+    <TipoDeUsuario>normal</TipoDeUsuario>
+    <ListadoDeAccionesPropias />
+    <Saldo>0</Saldo>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>sdfdsf</NombreUsuario>
+    <Pass>asd</Pass>
+    <Nombre>sfdf</Nombre>
+    <Apellido>gdsgds</Apellido>
+    <Dni>gfg</Dni>
+    <TipoDeUsuario>normal</TipoDeUsuario>
+    <ListadoDeAccionesPropias />
+    <Saldo>0</Saldo>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>wetwtry</NombreUsuario>
+    <Pass>asd</Pass>
+    <Nombre>werwr</Nombre>
+    <Apellido>werwerw</Apellido>
+    <Dni>25646638</Dni>
+    <TipoDeUsuario>normal</TipoDeUsuario>
+    <ListadoDeAccionesPropias />
+    <Saldo>0</Saldo>
+  </Usuario>
 </ArrayOfUsuario>

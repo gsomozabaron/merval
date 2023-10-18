@@ -19,6 +19,7 @@ namespace merval
         {
             InitializeComponent();
         }
+       
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             string titulo = txt_Titulo.Text;

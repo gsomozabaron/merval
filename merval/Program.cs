@@ -14,10 +14,6 @@ namespace merval
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new formLogin());
-            //Dictionary<string, string> dictUsuarioPassword = new Dictionary<string, string>();
-            //List<Usuario> listadoDeUsuarios = new List<Usuario>();
-            //Usuario usuarioActual = new Usuario();
-            //Hardcodeo.cargarListayDicc(dictUsuarioPassword, listadoDeUsuarios);
         }
     }
 }

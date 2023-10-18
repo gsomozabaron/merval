@@ -64,7 +64,6 @@
             chart1.Size = new Size(442, 204);
             chart1.TabIndex = 2;
             chart1.Text = "chart1";
-            chart1.Click += chart1_Click;
             // 
             // FormHistorialAcciones
             // 

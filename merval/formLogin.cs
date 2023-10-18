@@ -61,9 +61,11 @@ namespace merval
 
             foreach (Usuario u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
             {
-                if (u.NombreUsuario == usuario)///si encontramos el nombre...
+                ///si encontramos el nombre...
+                if (u.NombreUsuario == usuario)
                 {
-                    if (u.Pass == password)///buscamos el pass, si coincide..
+                    ///buscamos el pass, si coincide..
+                    if (u.Pass == password)
                     {
                         usuarioActual = u;
                         titulo = "bienvenido";  ///titulo para la ventana emergente 
@@ -73,7 +75,9 @@ namespace merval
                         ve.ShowDialog();
                         break;
                     }
-                    else    //si coincide nombre usuario pero el pass no...
+                    
+                    //si coincide nombre usuario pero el pass no...
+                    else    
                     {
                         mensaje = "password incorrecto";
                         Ventana_error ve = new Ventana_error(mensaje);
@@ -82,7 +86,8 @@ namespace merval
                     }
                 }
             }
-            if (estaRegistrado == false)    ///si no encuentra ningun nombre de usuario que coincida
+            ///si no encuentra ningun nombre de usuario que coincida
+            if (estaRegistrado == false)
             {
                 this.txtUsuario.Text = string.Empty;  // Limpiamos los campos
                 this.txtPassword.Text = string.Empty; // Limpiamos los campos
@@ -90,7 +95,9 @@ namespace merval
                 Ventana_error ve = new Ventana_error(mensaje);
                 ve.ShowDialog();
             }
-            else    ///coinciden usuario y pass..
+
+            ///coinciden usuario y pass..
+            else  
             {
                 if (usuarioActual.TipoDeUsuario == Tipo.normal) //usuario normal
                 {
@@ -115,7 +122,7 @@ namespace merval
             altaUsuarios.ShowDialog();
         }
 
-        #region autocompletar menu login
+        #region autocompletar menu login Hardcode
         private void btn_autocompletar_Click(object sender, EventArgs e)
         {
             switch (Contador)

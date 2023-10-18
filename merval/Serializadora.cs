@@ -110,7 +110,7 @@ namespace merval
         }
 
         
-
+        //////////Historial de acciones///////////////
         /// <summary>
         /// para generar un historial de 7 dias de valores de acciones random a efectos de mostrar los graficos de los nugets
         /// </summary>

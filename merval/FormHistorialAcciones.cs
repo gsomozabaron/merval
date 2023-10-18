@@ -16,6 +16,9 @@ namespace merval
 {
     public partial class FormHistorialAcciones : Form
     {
+       
+       /////////////////// falta completar ///////////////////////////
+       
         public FormHistorialAcciones()
         {
             InitializeComponent();
@@ -29,11 +32,6 @@ namespace merval
         private void btn_Salir_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void chart1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

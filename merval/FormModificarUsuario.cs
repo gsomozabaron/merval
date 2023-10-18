@@ -29,6 +29,8 @@ namespace merval
         private void FormModificarUsuario_Load(object sender, EventArgs e)
         {
             dataGridView1.DataSource = listadoUsuarios;
+            dataGridView1.Columns["pass"].Visible = false;
+            dataGridView1.Columns["saldo"].Visible = false;
         }
 
         private void btn_Buscar_Click(object sender, EventArgs e)

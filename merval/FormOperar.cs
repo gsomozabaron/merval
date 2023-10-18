@@ -140,9 +140,5 @@ namespace merval
             }
         }
 
-        private void Dtg1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

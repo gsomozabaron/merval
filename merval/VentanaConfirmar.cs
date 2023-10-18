@@ -17,6 +17,7 @@ namespace merval
     {
         string titulo;
         string mensaje;
+
         public VentanaConfirmar(string titulo, string mensaje)
         {
             InitializeComponent();

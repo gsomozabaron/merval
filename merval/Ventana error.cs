@@ -15,7 +15,7 @@ namespace merval
     /// </summary>
     public partial class Ventana_error : Form
     {
-        private string mensaje;
+        string mensaje;
 
         public Ventana_error(string mensaje)
         {
