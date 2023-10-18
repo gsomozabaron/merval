@@ -79,10 +79,27 @@ namespace merval
 
         private void btn_calcularVenta_Click(object sender, EventArgs e)
         {
-            float cotizacion = float.Parse(txt_cotizacion.Text);
-            int cantidad = int.Parse(txt_Cantidad.Text);
-            float totalVenta = cotizacion * cantidad;
-            lbl_totalVenta.Text = totalVenta.ToString();
+            try
+            {
+                float cotizacion = float.Parse(txt_cotizacion.Text);
+                int cantidad = int.Parse(txt_Cantidad.Text);
+                float totalVenta = cotizacion * cantidad;
+                lbl_totalVenta.Text = totalVenta.ToString();
+
+            }
+            catch (Exception)
+            {
+                if (txt_Cantidad.Text == "")
+                {
+                    Ventana_error ve = new Ventana_error("Ingresa cantidad");
+                    ve.ShowDialog();
+                }
+                else
+                {
+                    Ventana_error ve = new Ventana_error("Solo numeros");
+                    ve.ShowDialog();
+                }
+            }
         }
 
         private void Dtg1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -131,6 +148,11 @@ namespace merval
                     }
                 }
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

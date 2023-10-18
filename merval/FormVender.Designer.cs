@@ -31,9 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVender));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             lbl_totalVenta = new Label();
-            lbl_saldoTag = new Label();
             btn_calcularVenta = new Button();
-            lbl_saldo = new Label();
             txt_Cantidad = new TextBox();
             txt_cotizacion = new TextBox();
             btn_Vender = new Button();
@@ -47,6 +45,7 @@
             fechaCompra = new DataGridViewTextBoxColumn();
             btn_Salir = new Button();
             menuStrip1 = new MenuStrip();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)Dtg1).BeginInit();
             SuspendLayout();
             // 
@@ -61,16 +60,6 @@
             lbl_totalVenta.Text = "$$Total Venta$$";
             lbl_totalVenta.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lbl_saldoTag
-            // 
-            lbl_saldoTag.AutoSize = true;
-            lbl_saldoTag.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_saldoTag.Location = new Point(720, 71);
-            lbl_saldoTag.Name = "lbl_saldoTag";
-            lbl_saldoTag.Size = new Size(50, 19);
-            lbl_saldoTag.TabIndex = 23;
-            lbl_saldoTag.Text = "Saldo ";
-            // 
             // btn_calcularVenta
             // 
             btn_calcularVenta.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -81,16 +70,6 @@
             btn_calcularVenta.Text = "Calcular Venta";
             btn_calcularVenta.UseVisualStyleBackColor = true;
             btn_calcularVenta.Click += btn_calcularVenta_Click;
-            // 
-            // lbl_saldo
-            // 
-            lbl_saldo.AutoSize = true;
-            lbl_saldo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_saldo.Location = new Point(720, 38);
-            lbl_saldo.Name = "lbl_saldo";
-            lbl_saldo.Size = new Size(46, 19);
-            lbl_saldo.TabIndex = 21;
-            lbl_saldo.Text = "Saldo";
             // 
             // txt_Cantidad
             // 
@@ -104,6 +83,7 @@
             // 
             // txt_cotizacion
             // 
+            txt_cotizacion.Enabled = false;
             txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             txt_cotizacion.Location = new Point(580, 64);
             txt_cotizacion.Name = "txt_cotizacion";
@@ -129,6 +109,7 @@
             // 
             // txt_titulo
             // 
+            txt_titulo.Enabled = false;
             txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             txt_titulo.Location = new Point(580, 35);
             txt_titulo.Name = "txt_titulo";
@@ -209,7 +190,7 @@
             btn_Salir.BackColor = Color.Red;
             btn_Salir.Font = new Font("Times New Roman", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btn_Salir.ForeColor = Color.White;
-            btn_Salir.Location = new Point(631, 385);
+            btn_Salir.Location = new Point(697, 401);
             btn_Salir.Name = "btn_Salir";
             btn_Salir.Size = new Size(91, 37);
             btn_Salir.TabIndex = 15;
@@ -225,6 +206,16 @@
             menuStrip1.TabIndex = 14;
             menuStrip1.Text = "menuStrip1";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(31, 35);
+            label1.Name = "label1";
+            label1.Size = new Size(501, 15);
+            label1.TabIndex = 25;
+            label1.Text = "selecciona la accion con el mouse, ingresa la cantidad, calcula la venta y hace click en vender";
+            // 
             // FormVender
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -232,10 +223,9 @@
             BackColor = Color.Tomato;
             ClientSize = new Size(800, 450);
             ControlBox = false;
+            Controls.Add(label1);
             Controls.Add(lbl_totalVenta);
-            Controls.Add(lbl_saldoTag);
             Controls.Add(btn_calcularVenta);
-            Controls.Add(lbl_saldo);
             Controls.Add(txt_Cantidad);
             Controls.Add(txt_cotizacion);
             Controls.Add(btn_Vender);
@@ -254,9 +244,7 @@
         #endregion
 
         private Label lbl_totalVenta;
-        private Label lbl_saldoTag;
         private Button btn_calcularVenta;
-        private Label lbl_saldo;
         private TextBox txt_Cantidad;
         private TextBox txt_cotizacion;
         private Button btn_Vender;
@@ -270,5 +258,6 @@
         private DataGridViewTextBoxColumn precioCompra;
         private DataGridViewTextBoxColumn Cantidad;
         private DataGridViewTextBoxColumn fechaCompra;
+        private Label label1;
     }
 }
