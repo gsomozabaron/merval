@@ -8,23 +8,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+///para usar los nuget de livecharts///
+using LiveCharts;
+using LiveCharts.Wpf;
+//////////////////////////////////////
 
 namespace merval
 {
     public partial class FormPrincipal : Form
     {
-        List<Acciones> listaAccionesGral = formLogin.ListadeAccionesGral;
-        Usuario usuario = formLogin.UsuarioActual;
+        private Usuario usuario;
 
-
-        public FormPrincipal()
+        public FormPrincipal(Usuario usuarioActual)
         {
             InitializeComponent();
             this.IsMdiContainer = true;
+            this.usuario = usuarioActual;
         }
 
         private void verMercado_Click(object sender, EventArgs e)
         {
+            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = listaAccionesGral;
@@ -72,6 +76,14 @@ namespace merval
             this.dataGridView1.Visible = false;
             FormVender Fv = new FormVender(usuario);
             Fv.ShowDialog();
+        }
+
+        private void historicoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentanaEmergente ve = new VentanaEmergente("Mil Disculpas", "en construccion");
+            ve.ShowDialog();
+            //FormHistorialAcciones F = new FormHistorialAcciones();
+            //F.ShowDialog();
         }
     }
 }

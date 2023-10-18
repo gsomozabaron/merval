@@ -50,41 +50,6 @@ namespace merval
 
 
 
-        /////////diccionario usuario pass para el log in////////
-        #region borrar esta parte, ya no se usa
-        /// grabar diccionario Json, pares usuario-pass del login
-        /// <param name="path">@"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\UsuariosLogin.txt"</param>
-        /// <param name="dict">dictUsuarioPassword</param>
-        //public static void Grabar_dict_login(Dictionary<string, string> dict)
-        //{
-        //    string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\UsuariosLogin.txt";
-        //    string json = JsonConvert.SerializeObject(dict);
-
-        //    using (StreamWriter streamWriter = new StreamWriter(path))
-        //    {
-        //        streamWriter.Write(json);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Leer diccionario Json, pares usuario-pass del login
-        ///// </summary>
-        ///// <param name="path">@"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\UsuariosLogin.txt"</param>
-        ///// <returns>Dictionary<string,string> dictUsuarioPassword</returns>
-        //public static Dictionary<string, string> LeerDictLogin()
-        //{
-        //    string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\UsuariosLogin.txt";
-        //    Dictionary<string, string> dict = null;
-
-        //    if (File.Exists(path))
-        //    {
-        //        string json = File.ReadAllText(path);
-        //        dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-        //    }
-        //    return dict;
-        //}
-        #endregion
-
 
         ////////////listados de acciones general////////////
         /// <summary>
@@ -124,6 +89,13 @@ namespace merval
         }
 
 
+
+
+        /// <summary>
+        /// actualiza el usuario con sus atributos en el listado y graba a archivo
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="lista"></param>
         public static void ActualizarUsuario(Usuario usuario, List<Usuario> lista)
         {
             foreach (Usuario u in lista)
@@ -136,44 +108,70 @@ namespace merval
             }
             Serializadora.GuardarListadoUsuarios(lista);
         }
+
         
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public static void GuardarListadoUsuarios2(List<Usuario> lista)
+        /// <summary>
+        /// para generar un historial de 7 dias de valores de acciones random a efectos de mostrar los graficos de los nugets
+        /// </summary>
+        public static void HistorialAcciones()
         {
-            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\UsuariosTemporal.txt";
+            List<Acciones> lista = LeerListaAcciones();
+            List<Acciones> historicoAcciones = new List<Acciones>();
+
+            Random random = new Random(); 
+
+            for (int i = 0; i < 7; i++)
+            {
+                int dias = 1; 
+                foreach (Acciones acc in lista)
+                {
+                    Acciones nuevaAccion = new Acciones(); 
+                    nuevaAccion.Fecha = DateTime.Now - TimeSpan.FromDays(dias);
+                    nuevaAccion.Valor = random.Next(0, 1000).ToString();  
+                    nuevaAccion.Nombre = acc.Nombre;    
+                    historicoAcciones.Add(nuevaAccion);
+                    dias++;
+                }
+            }
+
+            GuardarHistorialAcciones(historicoAcciones);
+        }
+        /// <summary>
+        /// leer historico desde archivo
+        /// </summary>
+        /// <returns></returns>
+        public static List<Acciones> CargarHistoricoAcciones()
+        {
+            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\historialAcciones.txt";
+
+            List<Acciones> lista = null;
+
+            if (File.Exists(path))
+            {
+                using (StreamReader streamReader = new StreamReader(path))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Acciones>));
+                    lista = (List<Acciones>)serializer.Deserialize(streamReader);
+                }
+            }
+            return lista;
+        }
+        /// <summary>
+        /// guardar en un archivo el historico
+        /// </summary>
+        /// <param name="lista"></param>
+        public static void GuardarHistorialAcciones(List<Acciones> lista)
+        {
+            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\historialAcciones.txt";
+
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Usuario>));
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Acciones>));
                 serializer.Serialize(streamWriter, lista);
             }
         }
-        public static void Grabar_dict_login2(Dictionary<string, string> dict)
-        {
-            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\Login2.txt";
-            string json = JsonConvert.SerializeObject(dict);
 
-            using (StreamWriter streamWriter = new StreamWriter(path))
-            {
-                streamWriter.Write(json);
-            }
-        }
 
     }
 }

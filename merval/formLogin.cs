@@ -59,21 +59,21 @@ namespace merval
             bool estaRegistrado = false;
 
 
-            foreach (Usuario u in listadoDeUsuarios)
+            foreach (Usuario u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
             {
-                if (u.NombreUsuario == usuario)
+                if (u.NombreUsuario == usuario)///si encontramos el nombre...
                 {
-                    if (u.Pass == password)
+                    if (u.Pass == password)///buscamos el pass, si coincide..
                     {
                         usuarioActual = u;
-                        titulo = "bienvenido";
-                        mensaje = $"{u.Nombre}";
-                        estaRegistrado = true;
+                        titulo = "bienvenido";  ///titulo para la ventana emergente 
+                        mensaje = $"{u.Nombre}";    ///mensaje de bienvenida con el nombre del usuario
+                        estaRegistrado = true;  ///pasamos a verdadero para entrar a la linea 93
                         VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
                         ve.ShowDialog();
                         break;
                     }
-                    else
+                    else    //si coincide nombre usuario pero el pass no...
                     {
                         mensaje = "password incorrecto";
                         Ventana_error ve = new Ventana_error(mensaje);
@@ -82,7 +82,7 @@ namespace merval
                     }
                 }
             }
-            if (estaRegistrado == false)
+            if (estaRegistrado == false)    ///si no encuentra ningun nombre de usuario que coincida
             {
                 this.txtUsuario.Text = string.Empty;  // Limpiamos los campos
                 this.txtPassword.Text = string.Empty; // Limpiamos los campos
@@ -90,11 +90,11 @@ namespace merval
                 Ventana_error ve = new Ventana_error(mensaje);
                 ve.ShowDialog();
             }
-            else
+            else    ///coinciden usuario y pass..
             {
-                if (usuarioActual.TipoDeUsuario == Tipo.normal)
+                if (usuarioActual.TipoDeUsuario == Tipo.normal) //usuario normal
                 {
-                    FormPrincipal fp = new FormPrincipal();//ir al formulario principal
+                    FormPrincipal fp = new FormPrincipal(usuarioActual);//ir al formulario principal
                     fp.Show();
                     this.Hide();
                 }

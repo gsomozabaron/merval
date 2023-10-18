@@ -36,6 +36,7 @@
             venderToolStripMenuItem = new ToolStripMenuItem();
             verMercado = new ToolStripMenuItem();
             consultarSaldo_TSM = new ToolStripMenuItem();
+            historicoToolStripMenuItem = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
             menuStrip2.SuspendLayout();
@@ -44,7 +45,7 @@
             // 
             // menuStrip2
             // 
-            menuStrip2.Items.AddRange(new ToolStripItem[] { Ver_AccionesPropias, operar, venderToolStripMenuItem, verMercado, consultarSaldo_TSM });
+            menuStrip2.Items.AddRange(new ToolStripItem[] { Ver_AccionesPropias, operar, venderToolStripMenuItem, verMercado, consultarSaldo_TSM, historicoToolStripMenuItem });
             menuStrip2.Location = new Point(0, 0);
             menuStrip2.Name = "menuStrip2";
             menuStrip2.Size = new Size(741, 24);
@@ -86,6 +87,13 @@
             consultarSaldo_TSM.Text = "Consultar Saldo";
             consultarSaldo_TSM.Click += consultarSaldo_TSM_Click;
             // 
+            // historicoToolStripMenuItem
+            // 
+            historicoToolStripMenuItem.Name = "historicoToolStripMenuItem";
+            historicoToolStripMenuItem.Size = new Size(118, 20);
+            historicoToolStripMenuItem.Text = "Historico Acciones";
+            historicoToolStripMenuItem.Click += historicoToolStripMenuItem_Click;
+            // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
@@ -99,7 +107,7 @@
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.Tomato;
             dataGridViewCellStyle1.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.ForeColor = SystemColors.ButtonHighlight;
             dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
@@ -162,5 +170,6 @@
         private ToolStripMenuItem consultarSaldo_TSM;
         private Button btn_salir;
         private ToolStripMenuItem venderToolStripMenuItem;
+        private ToolStripMenuItem historicoToolStripMenuItem;
     }
 }
