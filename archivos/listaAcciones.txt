@@ -2,37 +2,37 @@
 <ArrayOfAcciones xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Acciones>
     <Nombre>YPF</Nombre>
-    <Valor>500</Valor>
+    <Valor>480</Valor>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Tesla Motors</Nombre>
-    <Valor>1500</Valor>
+    <Valor>1200</Valor>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Telefonica</Nombre>
-    <Valor>150</Valor>
+    <Valor>120</Valor>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Apple</Nombre>
-    <Valor>2500</Valor>
+    <Valor>2600</Valor>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>IBM</Nombre>
-    <Valor>4500</Valor>
+    <Valor>2500</Valor>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Volkswagen</Nombre>
-    <Valor>1000</Valor>
+    <Valor>1200</Valor>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>

@@ -24,6 +24,8 @@ namespace merval
         private void FormOperar_Load(object sender, EventArgs e)
         {
             Dtg1.DataSource = Serializadora.LeerListaAcciones();
+            Dtg1.Columns["fecha"].Visible = false;
+            Dtg1.Columns["cantidad"].Visible = false;
             lbl_saldo.Text = usuarioActual.Saldo.ToString();
         }
 
@@ -115,7 +117,7 @@ namespace merval
             }
             catch (Exception)
             {
-                Ventana_error ve = new Ventana_error("Inesperado");
+                Ventana_error ve = new Ventana_error("Ingresa una cantidad");
                 ve.ShowDialog();
             }
 
@@ -123,11 +125,24 @@ namespace merval
 
         private void btn_calcularCompra_Click(object sender, EventArgs e)
         {
-            float cotizacion = float.Parse(txt_cotizacion.Text);
-            int cantidad = int.Parse(txt_Cantidad.Text);
-            float totalCompra = cotizacion * cantidad;
-            lbl_totalventa.Text = totalCompra.ToString();
+            try
+            {
+                float cotizacion = float.Parse(txt_cotizacion.Text);
+                int cantidad = int.Parse(txt_Cantidad.Text);
+                float totalCompra = cotizacion * cantidad;
+                lbl_totalventa.Text = totalCompra.ToString();
+
+            }
+            catch (Exception)
+            {
+                Ventana_error ve = new Ventana_error("ingresa cantidad\nen numeros");
+                ve.ShowDialog();
+            }
         }
 
+        private void Dtg1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Entidades;
-using LiveCharts.Wpf;
-using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,8 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LiveCharts.WinForms;
 using merval;
+using System.Xml;
+using FastReport.DataVisualization.Charting;
 
 namespace merval
 {
@@ -24,11 +23,17 @@ namespace merval
 
         private void FormHistorialAcciones_Load(object sender, EventArgs e)
         {
+
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

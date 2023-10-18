@@ -30,7 +30,11 @@
         {
             btn_Salir = new Button();
             dataGridView1 = new DataGridView();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            chart1 = new FastReport.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
             // btn_Salir
@@ -53,6 +57,15 @@
             dataGridView1.Size = new Size(776, 54);
             dataGridView1.TabIndex = 1;
             // 
+            // chart1
+            // 
+            chart1.Location = new Point(164, 193);
+            chart1.Name = "chart1";
+            chart1.Size = new Size(442, 204);
+            chart1.TabIndex = 2;
+            chart1.Text = "chart1";
+            chart1.Click += chart1_Click;
+            // 
             // FormHistorialAcciones
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -60,6 +73,7 @@
             BackColor = Color.Tomato;
             ClientSize = new Size(800, 450);
             ControlBox = false;
+            Controls.Add(chart1);
             Controls.Add(dataGridView1);
             Controls.Add(btn_Salir);
             Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
@@ -68,6 +82,7 @@
             Text = "Historial de Acciones";
             Load += FormHistorialAcciones_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
             ResumeLayout(false);
         }
 
@@ -75,5 +90,8 @@
 
         private Button btn_Salir;
         private DataGridView dataGridView1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private FastReport.DataVisualization.Charting.Chart chart1;
     }
 }

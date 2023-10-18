@@ -8,10 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-///para usar los nuget de livecharts///
-using LiveCharts;
-using LiveCharts.Wpf;
-//////////////////////////////////////
+
 
 namespace merval
 {

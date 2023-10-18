@@ -35,7 +35,11 @@ namespace merval
 
             Dtg1.DataSource = usuarioActual.ListadoDeAccionesPropias;
         }
-
+        /// <summary>
+        /// esta mal el datagrid, tengo que hacer 2 uno para listado de acciones y otro para el de usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Dtg1_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
 
@@ -66,7 +70,6 @@ namespace merval
                     e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Fecha.ToString("dd/MM/yyyy");
                 }
             }
-
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)
