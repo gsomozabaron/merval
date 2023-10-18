@@ -26,7 +26,6 @@ namespace merval
 
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-
         }
 
         private void VerUsuarios_Click(object sender, EventArgs e)
@@ -77,11 +76,6 @@ namespace merval
         {
             FormBajaDeAcciones fb = new FormBajaDeAcciones();
             fb.ShowDialog();
-        }
-
-        private void ModificarUsuarios_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

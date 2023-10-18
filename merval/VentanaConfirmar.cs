@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace merval
 {
+    /// <summary>
+    /// ventana con fondo amarillo para pedir confirmaciones, recibe 2 strings, titulo y mensaje
+    /// </summary>
     public partial class VentanaConfirmar : Form
     {
         string titulo;

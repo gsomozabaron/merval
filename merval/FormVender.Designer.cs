@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVender));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             lbl_totalVenta = new Label();
             lbl_saldoTag = new Label();
             btn_calcularVenta = new Button();
             lbl_saldo = new Label();
             txt_Cantidad = new TextBox();
             txt_cotizacion = new TextBox();
-            btn_Comprar = new Button();
+            btn_Vender = new Button();
             txt_titulo = new TextBox();
             Dtg1 = new DataGridView();
             titulo = new DataGridViewTextBoxColumn();
@@ -55,9 +56,9 @@
             lbl_totalVenta.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_totalVenta.Location = new Point(602, 166);
             lbl_totalVenta.Name = "lbl_totalVenta";
-            lbl_totalVenta.Size = new Size(86, 19);
+            lbl_totalVenta.Size = new Size(118, 19);
             lbl_totalVenta.TabIndex = 24;
-            lbl_totalVenta.Text = "Total Venta";
+            lbl_totalVenta.Text = "$$Total Venta$$";
             lbl_totalVenta.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lbl_saldoTag
@@ -77,8 +78,9 @@
             btn_calcularVenta.Name = "btn_calcularVenta";
             btn_calcularVenta.Size = new Size(134, 31);
             btn_calcularVenta.TabIndex = 22;
-            btn_calcularVenta.Text = "Calcular Compra";
+            btn_calcularVenta.Text = "Calcular Venta";
             btn_calcularVenta.UseVisualStyleBackColor = true;
+            btn_calcularVenta.Click += btn_calcularVenta_Click;
             // 
             // lbl_saldo
             // 
@@ -110,19 +112,20 @@
             txt_cotizacion.TabIndex = 19;
             txt_cotizacion.TextAlign = HorizontalAlignment.Center;
             // 
-            // btn_Comprar
+            // btn_Vender
             // 
-            btn_Comprar.BackgroundImage = (Image)resources.GetObject("btn_Comprar.BackgroundImage");
-            btn_Comprar.BackgroundImageLayout = ImageLayout.Zoom;
-            btn_Comprar.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_Comprar.ForeColor = SystemColors.ControlLightLight;
-            btn_Comprar.Location = new Point(580, 198);
-            btn_Comprar.Name = "btn_Comprar";
-            btn_Comprar.Size = new Size(134, 117);
-            btn_Comprar.TabIndex = 18;
-            btn_Comprar.Text = "VENDER";
-            btn_Comprar.TextAlign = ContentAlignment.BottomCenter;
-            btn_Comprar.UseVisualStyleBackColor = true;
+            btn_Vender.BackgroundImage = (Image)resources.GetObject("btn_Vender.BackgroundImage");
+            btn_Vender.BackgroundImageLayout = ImageLayout.Zoom;
+            btn_Vender.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_Vender.ForeColor = SystemColors.ControlLightLight;
+            btn_Vender.Location = new Point(580, 198);
+            btn_Vender.Name = "btn_Vender";
+            btn_Vender.Size = new Size(134, 117);
+            btn_Vender.TabIndex = 18;
+            btn_Vender.Text = "VENDER";
+            btn_Vender.TextAlign = ContentAlignment.BottomCenter;
+            btn_Vender.UseVisualStyleBackColor = true;
+            btn_Vender.Click += btn_Vender_Click;
             // 
             // txt_titulo
             // 
@@ -139,8 +142,17 @@
             Dtg1.AllowUserToAddRows = false;
             Dtg1.AllowUserToDeleteRows = false;
             Dtg1.AllowUserToOrderColumns = true;
+            Dtg1.BackgroundColor = Color.Tomato;
             Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Dtg1.Columns.AddRange(new DataGridViewColumn[] { titulo, cotizacion, cartera, precioCompra, Cantidad, fechaCompra });
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.Tomato;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            Dtg1.DefaultCellStyle = dataGridViewCellStyle1;
             Dtg1.Location = new Point(12, 55);
             Dtg1.Name = "Dtg1";
             Dtg1.ReadOnly = true;
@@ -149,6 +161,7 @@
             Dtg1.Size = new Size(543, 367);
             Dtg1.TabIndex = 16;
             Dtg1.CellFormatting += Dtg1_CellFormatting_1;
+            Dtg1.CellMouseDoubleClick += Dtg1_CellMouseDoubleClick;
             // 
             // titulo
             // 
@@ -225,7 +238,7 @@
             Controls.Add(lbl_saldo);
             Controls.Add(txt_Cantidad);
             Controls.Add(txt_cotizacion);
-            Controls.Add(btn_Comprar);
+            Controls.Add(btn_Vender);
             Controls.Add(txt_titulo);
             Controls.Add(Dtg1);
             Controls.Add(btn_Salir);
@@ -246,7 +259,7 @@
         private Label lbl_saldo;
         private TextBox txt_Cantidad;
         private TextBox txt_cotizacion;
-        private Button btn_Comprar;
+        private Button btn_Vender;
         private TextBox txt_titulo;
         private DataGridView Dtg1;
         private Button btn_Salir;

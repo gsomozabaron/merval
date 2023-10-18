@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace merval
 {
+    /// <summary>
+    /// ventana emergente recibe 2 parametros: titulo y mensaje
+    /// </summary>
     public partial class VentanaEmergente : Form
     {
         private string titulo;
@@ -20,7 +23,6 @@ namespace merval
             InitializeComponent();
             this.titulo = titulo;
             this.mensaje = mensaje;
-
         }
 
         private void VentanaEmergente_Load(object sender, EventArgs e)

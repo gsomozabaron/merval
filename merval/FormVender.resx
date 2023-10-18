@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_Comprar.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_Vender.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAIAAACVT/22AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAA/7JJREFUeF7s/QV03Fj35gtvMzMzMzOEmaHDnQ52kk7S3WFm5tgB23HsmBkL7Kqy
+        vAAADrwBlbxySQAA/7JJREFUeF7s/QV03Fj35gtvMzMzMzOEmaHDnQ52kk7S3WFm5tgB23HsmBkL7Kqy
         C11mZmbGGOKYUffITve/Z+7cu+adtd5Z7/2+OTkpqyS5yjr66dn7OTqSAPtPK/MLFZv7r7o45x8zsJmF
         Oo1hs/iS2f+2zsxjU7P/7cz5hTqH178/ZG4GmxzHpiYWv+7H69Bwx9hk+9Rs9wzWgeG1AsPYWN8XbCoM
         a3k1UHi9Lf23xtR9+aQVhQmr6lM3N2auKmPapMZop8ZoZhI1chO1cghq6VEqDVyXQrJpabJpOd2mgra2

@@ -43,7 +43,6 @@ namespace merval
             }
         }
 
-
         private void btn_Comprar_Click(object sender, EventArgs e)
         {
             try
@@ -51,7 +50,8 @@ namespace merval
                 float cotizacion = float.Parse(txt_cotizacion.Text);
                 int cantidad = int.Parse(txt_Cantidad.Text);
                 float totalCompra = cotizacion * cantidad;
-                lbl_totalCompra.Text = totalCompra.ToString();
+                lbl_totalventa.Text = totalCompra.ToString();
+                bool estaEnLista = false;
 
                 try
                 {
@@ -61,15 +61,37 @@ namespace merval
                         nuevaAccion.Nombre = txt_titulo.Text;
                         nuevaAccion.Valor = txt_cotizacion.Text;
                         nuevaAccion.Fecha = DateTime.Now;
-                        cantidad = Convert.ToInt32(txt_Cantidad.Text);
                         nuevaAccion.Cantidad = cantidad;
-                        usuarioActual.Saldo -= totalCompra;
-                        VentanaConfirmar Vc = new VentanaConfirmar("Confirmar", "compra?");
+
+                        VentanaConfirmar Vc = new VentanaConfirmar("Confirmar compra?", "");
 
                         if (Vc.ShowDialog() == DialogResult.OK)
                         {
-                            AgregarAcciones(usuarioActual, nuevaAccion);
+                            usuarioActual.Saldo -= totalCompra;
+                            if (usuarioActual.ListadoDeAccionesPropias == null)
+                            {
+                                usuarioActual.ListadoDeAccionesPropias.Add(nuevaAccion);
+                            }
+                            else
+                            {
+                                foreach (Acciones a in usuarioActual.ListadoDeAccionesPropias)
+                                {
+                                    if (a.Nombre == nuevaAccion.Nombre)
+                                    {
+                                        a.Cantidad = nuevaAccion.Cantidad + a.Cantidad;
+                                        estaEnLista = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (estaEnLista == false)
+                            {
+                                usuarioActual.ListadoDeAccionesPropias.Add(nuevaAccion);
+                            }
+                            VentanaEmergente ve = new VentanaEmergente("Transaccion exitosa", $"adquirido {cantidad} acciones, de {nuevaAccion.Nombre}");
+                            ve.ShowDialog();
                             Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
+                            this.Close();
                         }
                         else
                         {
@@ -85,7 +107,7 @@ namespace merval
                 }
                 catch (FormatException)
                 {
-                    // Manejo de excepciones en caso de que la conversión falle
+                    // Manejo de excepciones en caso de que la conversion falle
                     Ventana_error ve = new Ventana_error("Inesperado");
                     ve.ShowDialog();
 
@@ -104,26 +126,8 @@ namespace merval
             float cotizacion = float.Parse(txt_cotizacion.Text);
             int cantidad = int.Parse(txt_Cantidad.Text);
             float totalCompra = cotizacion * cantidad;
-            lbl_totalCompra.Text = totalCompra.ToString();
+            lbl_totalventa.Text = totalCompra.ToString();
         }
-        public void AgregarAcciones(Usuario usuario, Acciones accion)
-        {
-            if (usuario.ListadoDeAccionesPropias == null)
-            {
-                usuario.ListadoDeAccionesPropias.Add(accion);
-            }
-            else
-            {
-                foreach (Acciones a in usuario.ListadoDeAccionesPropias)
-                {
-                    if (a.Nombre == accion.Nombre)
-                    {
-                        a.Cantidad = accion.Cantidad + a.Cantidad;
-                        break;
-                    }
 
-                }
-            }
-        }
     }
 }

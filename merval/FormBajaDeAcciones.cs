@@ -23,7 +23,6 @@ namespace merval
         private void FormBajaDeAcciones_Load(object sender, EventArgs e)
         {
             DTG_BajaAcciones.DataSource = listadeAccionesGral;
-
         }
 
         private void btn_Buscar_Click(object sender, EventArgs e)
@@ -36,28 +35,27 @@ namespace merval
             {
                 for (int columnIndex = 0; columnIndex < this.DTG_BajaAcciones.Columns.Count; columnIndex++)
                 {
-                    // Acceder al valor de la celda en la fila rowIndex y columna columnIndex
+                    /// Acceder al valor de la celda en la fila rowIndex y columna columnIndex
                     object cellValue = this.DTG_BajaAcciones.Rows[rowIndex].Cells[columnIndex].Value;
 
-                    // Comprobar si el valor de la celda contiene el texto de búsqueda (ignorando mayúsculas y minúsculas)
+                    /// buscar si la celda contiene la clave buscada, (OrdinalIgnoreCase) no discrimina entre mayusc y minusc
                     if (cellValue != null && cellValue.ToString().IndexOf(buscar, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         encontro = true;
 
                         txt_Nombre.Text = DTG_BajaAcciones.Rows[rowIndex].Cells["Nombre"].Value.ToString();
-
                         break;
                     }
                 }
 
                 if (encontro)
-                {
+                {///si encontro coincidencia corta
                     break;
                 }
             }
 
             if (!encontro)
-            {
+            {///si no encontro coincidencia tira mensaje
                 Ventana_error ve = new Ventana_error("Titulo no encontrado");
                 ve.ShowDialog();
             }
@@ -76,10 +74,10 @@ namespace merval
             if (ve.ShowDialog() == DialogResult.OK)
             {
                 listadeAccionesGral.Remove(a);
-                Serializadora.GuardarGralAcciones(listadeAccionesGral);
+                Serializadora.GuardarGralAcciones(listadeAccionesGral);///guarda en archivo la lista de acciones
                 VentanaEmergente ve2 = new VentanaEmergente("TITULO", "ELIMINADO");
                 ve2.ShowDialog();
-                DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();
+                DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();///carga el datagrid con la lista actualizada
             }
             else
             {
@@ -90,7 +88,7 @@ namespace merval
 
         private void DTG_BajaAcciones_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (DTG_BajaAcciones.SelectedRows.Count > 0)
+            if (DTG_BajaAcciones.SelectedRows.Count > 0)///seleccionar con doble click
             {
                 Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
 

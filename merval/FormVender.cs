@@ -14,7 +14,7 @@ namespace merval
     public partial class FormVender : Form
     {
         private List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
-        private List<Acciones> listaDeAcciones = Serializadora.LeerListaAcciones();
+
         private Usuario usuarioActual;
 
         public FormVender(Usuario usuario)
@@ -25,7 +25,6 @@ namespace merval
 
         private void FormVender_Load(object sender, EventArgs e)
         {
-            // Configura las columnas en el diseño del DataGridView (no en el código)
             Dtg1.AutoGenerateColumns = false;
             Dtg1.Columns.Add("Titulo", "Título");
             Dtg1.Columns.Add("Cotizacion", "Cotización");
@@ -34,10 +33,8 @@ namespace merval
             Dtg1.Columns.Add("Cantidad", "Cantidad");
             Dtg1.Columns.Add("FechaCompra", "Fecha de Compra");
 
-            // Establece la fuente de datos
             Dtg1.DataSource = usuarioActual.ListadoDeAccionesPropias;
         }
-
 
         private void Dtg1_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -75,6 +72,62 @@ namespace merval
         private void btn_Salir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btn_calcularVenta_Click(object sender, EventArgs e)
+        {
+            float cotizacion = float.Parse(txt_cotizacion.Text);
+            int cantidad = int.Parse(txt_Cantidad.Text);
+            float totalVenta = cotizacion * cantidad;
+            lbl_totalVenta.Text = totalVenta.ToString();
+        }
+
+        private void Dtg1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (Dtg1.SelectedRows.Count > 0)
+            {
+                Acciones Seleccionado = (Acciones)Dtg1.SelectedRows[0].DataBoundItem;
+
+                txt_titulo.Text = Seleccionado.Nombre;
+                txt_cotizacion.Text = Seleccionado.Valor;
+            }
+        }
+
+        private void btn_Vender_Click(object sender, EventArgs e)
+        {
+            foreach (Acciones a in usuarioActual.ListadoDeAccionesPropias)
+            {
+                if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
+                {
+                    VentanaConfirmar vc = new VentanaConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}");
+                    if (vc.ShowDialog() == DialogResult.OK)
+                    {
+                        a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
+                        if (a.Cantidad == 0)
+                        {
+                            usuarioActual.ListadoDeAccionesPropias.Remove(a);
+                        }
+                        usuarioActual.Saldo = usuarioActual.Saldo + float.Parse(lbl_totalVenta.Text);
+                        Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
+                        this.Close();
+                        break;
+                    }
+                    else
+                    {
+                        VentanaEmergente ve = new VentanaEmergente("Venta", "cancelada");
+                        ve.ShowDialog();
+                    }
+                }
+                else
+                {
+                    if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) > a.Cantidad))
+                    {
+                        Ventana_error ve = new Ventana_error($"maximo {a.Cantidad}\nde {a.Nombre}");
+                        ve.ShowDialog();
+                        break;
+                    }
+                }
+            }
         }
     }
 }

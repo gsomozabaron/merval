@@ -51,7 +51,7 @@ namespace merval
                     if (cellValue != null && cellValue.ToString().IndexOf(buscar, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         encontro = true;
-
+                        ///llena las celdas con los datos del usuario encontrado
                         txt_Nombre.Text = dataGridView1.Rows[rowIndex].Cells["Nombre"].Value.ToString();
                         txt_Apellido.Text = dataGridView1.Rows[rowIndex].Cells["Apellido"].Value.ToString();
                         txt_DNI.Text = dataGridView1.Rows[rowIndex].Cells["DNI"].Value.ToString();
@@ -81,7 +81,7 @@ namespace merval
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
-
+                ///llena las celdas con los datos del usuario seleccionado con doble click
                 txt_Apellido.Text = usuarioSeleccionado.Apellido;
                 txt_DNI.Text = usuarioSeleccionado.Dni;
                 txt_Nombre.Text = usuarioSeleccionado.Nombre;
@@ -99,10 +99,10 @@ namespace merval
             usuarioSeleccionado.Nombre = txt_Nombre.Text;
             usuarioSeleccionado.NombreUsuario = txt_NombreUsuario.Text;
             VentanaConfirmar vc = new VentanaConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ");
-            ///vc.ShowDialog();
-
+            
             if (vc.ShowDialog() == DialogResult.OK)
             {
+                ///guardar usuario modificado y actualizar el datagrid
                 Serializadora.GuardarListadoUsuarios(listadoUsuarios);
                 dataGridView1.DataSource = Serializadora.LeerListadoUsuarios();
             }
@@ -118,7 +118,7 @@ namespace merval
             VentanaConfirmar ve = new VentanaConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO");
             if (ve.ShowDialog() == DialogResult.OK)
             {
-                listadoUsuarios.Remove(usuarioSeleccionado);
+                listadoUsuarios.Remove(usuarioSeleccionado);///sacar usuario de la lista y grabar
                 Serializadora.GuardarListadoUsuarios(listadoUsuarios);
                 VentanaEmergente ve2 = new VentanaEmergente("USUARIO", "ELIMINADO");
                 ve2.ShowDialog();

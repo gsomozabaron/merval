@@ -26,7 +26,7 @@ namespace merval
 
         private void btn_CargarSaldo_Click(object sender, EventArgs e)
         {
-            //cambiar el punto por coma, no se por que si pong 154.5 lo toma como 1545
+            //cambiar el punto por coma, no se por que si pongo 154.5 lo toma como 1545
             string puntoPorComa = txt_MontoAumentar.Text.Replace('.', ',');
 
             if (float.TryParse(puntoPorComa, out float montoAumentar)&& (montoAumentar > 0))
@@ -35,22 +35,26 @@ namespace merval
 
                 if (vc.ShowDialog() == DialogResult.OK)
                 {
+                    ///sumar el monto agregado al saldo
                     usuarioActual.Saldo += montoAumentar;
-                    lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo.ToString()}";
+                    lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo}";
                     lbl_NuevoSaldoTag.Text = "Nuevo saldo";
 
+                    ///actualizar usuario recorre la lista de usuarios general para guardar los cambios
                     Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-                    txt_MontoAumentar.Clear();
+                    txt_MontoAumentar.Clear();///limpia la casilla 
                 }
                 else
                 {
-                    txt_MontoAumentar.Clear();
+                    ///si el resultado de la ventana confirmar es == cancelar
+                    txt_MontoAumentar.Clear();///limpia la casilla 
                     VentanaEmergente ve = new VentanaEmergente("Operacion", "Cancelada");
                     ve.ShowDialog();
                 }
             }
             else
             {
+                ///en caso que se ingrese letras o vacio
                 txt_MontoAumentar.Clear();
                 Ventana_error ve = new Ventana_error("Debe ingresar solo numeros");
                 ve.ShowDialog();
@@ -64,7 +68,7 @@ namespace merval
 
         private void FormSaldo_Load(object sender, EventArgs e)
         {
-            lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo.ToString()}";
+            lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo}";
             lbl_NuevoSaldoTag.Text = "Saldo Actual";
         }
 
@@ -75,20 +79,23 @@ namespace merval
 
             if (float.TryParse(puntoPorComa, out float montoExtraer)&& (montoExtraer > 0))
             {
-                if (usuarioActual.Saldo >= montoExtraer)
+                if (usuarioActual.Saldo >= montoExtraer)///cheq si saldo es mayor al monto a extraer
                 {
                     VentanaConfirmar vc = new VentanaConfirmar("confirmar Extraccion", "Esta Seguro?");
 
                     if (vc.ShowDialog() == DialogResult.OK)
                     {
                         usuarioActual.Saldo -= montoExtraer;
-                        lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo.ToString()}";
+                        lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo}";
                         lbl_NuevoSaldoTag.Text = "Nuevo saldo";
                         txt_montoExtraer.Clear();
+                        ///actualizar usuario recorre la lista de usuarios general, 
+                        ///actualiza los valores del usuario en uso y graba el archivo
                         Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
                     }
                     else
                     {
+                        ///si cancelamos la extraccion
                         VentanaEmergente ve = new VentanaEmergente("Operacion", "Cancelada");
                         ve.ShowDialog();
                         txt_montoExtraer.Clear();
@@ -96,6 +103,7 @@ namespace merval
                 }
                 else
                 {
+                    ///si el monto a extraer es mayor que el saldo...
                     Ventana_error ve = new Ventana_error("AJA! PILLIN\nNO TENES TANTA GUITA");
                     ve.ShowDialog();
                     txt_montoExtraer.Clear();
@@ -103,6 +111,7 @@ namespace merval
             }
             else
             {
+                ///si se ingresan letras o simbolos o falla el parse_float
                 Ventana_error ve = new Ventana_error("solo numeros mayores a 0");
                 ve.ShowDialog();
                 txt_montoExtraer.Clear();

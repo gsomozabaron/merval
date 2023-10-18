@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             menuStrip2 = new MenuStrip();
             Ver_AccionesPropias = new ToolStripMenuItem();
             operar = new ToolStripMenuItem();
+            venderToolStripMenuItem = new ToolStripMenuItem();
             verMercado = new ToolStripMenuItem();
             consultarSaldo_TSM = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
-            venderToolStripMenuItem = new ToolStripMenuItem();
             menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -60,9 +61,16 @@
             // operar
             // 
             operar.Name = "operar";
-            operar.Size = new Size(55, 20);
-            operar.Text = "Operar";
+            operar.Size = new Size(66, 20);
+            operar.Text = "Comprar";
             operar.Click += ComprarTitulos_Click;
+            // 
+            // venderToolStripMenuItem
+            // 
+            venderToolStripMenuItem.Name = "venderToolStripMenuItem";
+            venderToolStripMenuItem.Size = new Size(55, 20);
+            venderToolStripMenuItem.Text = "Vender";
+            venderToolStripMenuItem.Click += venderToolStripMenuItem_Click;
             // 
             // verMercado
             // 
@@ -82,12 +90,25 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridView1.BackgroundColor = Color.Tomato;
+            dataGridView1.CausesValidation = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.Tomato;
+            dataGridViewCellStyle1.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.Location = new Point(12, 27);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(434, 358);
             dataGridView1.TabIndex = 5;
             // 
@@ -103,13 +124,6 @@
             btn_salir.Text = "Salir";
             btn_salir.UseVisualStyleBackColor = false;
             btn_salir.Click += btn_salir_Click;
-            // 
-            // venderToolStripMenuItem
-            // 
-            venderToolStripMenuItem.Name = "venderToolStripMenuItem";
-            venderToolStripMenuItem.Size = new Size(55, 20);
-            venderToolStripMenuItem.Text = "Vender";
-            venderToolStripMenuItem.Click += venderToolStripMenuItem_Click;
             // 
             // FormPrincipal
             // 

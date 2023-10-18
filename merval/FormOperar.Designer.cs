@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOperar));
             menuStrip1 = new MenuStrip();
             btn_Salir = new Button();
@@ -39,7 +40,7 @@
             lbl_saldo = new Label();
             btn_calcularCompra = new Button();
             lbl_saldoTag = new Label();
-            lbl_totalCompra = new Label();
+            lbl_totalventa = new Label();
             ((System.ComponentModel.ISupportInitialize)Dtg1).BeginInit();
             SuspendLayout();
             // 
@@ -66,7 +67,17 @@
             // 
             // Dtg1
             // 
+            Dtg1.BackgroundColor = Color.Tomato;
             Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.Tomato;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            Dtg1.DefaultCellStyle = dataGridViewCellStyle1;
+            Dtg1.GridColor = Color.Tomato;
             Dtg1.Location = new Point(12, 27);
             Dtg1.Name = "Dtg1";
             Dtg1.RowTemplate.Height = 25;
@@ -77,6 +88,7 @@
             // 
             // txt_titulo
             // 
+            txt_titulo.Enabled = false;
             txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             txt_titulo.Location = new Point(384, 80);
             txt_titulo.Name = "txt_titulo";
@@ -102,6 +114,7 @@
             // 
             // txt_cotizacion
             // 
+            txt_cotizacion.Enabled = false;
             txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             txt_cotizacion.Location = new Point(384, 109);
             txt_cotizacion.Name = "txt_cotizacion";
@@ -151,16 +164,16 @@
             lbl_saldoTag.TabIndex = 12;
             lbl_saldoTag.Text = "Saldo ";
             // 
-            // lbl_totalCompra
+            // lbl_totalventa
             // 
-            lbl_totalCompra.AutoSize = true;
-            lbl_totalCompra.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_totalCompra.Location = new Point(406, 211);
-            lbl_totalCompra.Name = "lbl_totalCompra";
-            lbl_totalCompra.Size = new Size(100, 19);
-            lbl_totalCompra.TabIndex = 13;
-            lbl_totalCompra.Text = "Total Compra";
-            lbl_totalCompra.TextAlign = ContentAlignment.MiddleCenter;
+            lbl_totalventa.AutoSize = true;
+            lbl_totalventa.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl_totalventa.Location = new Point(406, 211);
+            lbl_totalventa.Name = "lbl_totalventa";
+            lbl_totalventa.Size = new Size(49, 19);
+            lbl_totalventa.TabIndex = 13;
+            lbl_totalventa.Text = "$$$$$";
+            lbl_totalventa.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormOperar
             // 
@@ -170,7 +183,7 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(734, 406);
             ControlBox = false;
-            Controls.Add(lbl_totalCompra);
+            Controls.Add(lbl_totalventa);
             Controls.Add(lbl_saldoTag);
             Controls.Add(btn_calcularCompra);
             Controls.Add(lbl_saldo);
@@ -203,6 +216,6 @@
         private Label lbl_saldo;
         private Button btn_calcularCompra;
         private Label lbl_saldoTag;
-        private Label lbl_totalCompra;
+        private Label lbl_totalventa;
     }
 }

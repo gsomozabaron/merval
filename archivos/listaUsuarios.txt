@@ -19,25 +19,43 @@
     <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias>
       <Acciones>
-        <Nombre>Apple</Nombre>
-        <Valor>2500</Valor>
-        <Fecha>2023-10-14T18:41:52.504562-03:00</Fecha>
+        <Nombre>YPF</Nombre>
+        <Valor>500</Valor>
+        <Fecha>2023-10-17T21:03:06.9798029-03:00</Fecha>
+        <Cantidad>10</Cantidad>
+      </Acciones>
+      <Acciones>
+        <Nombre>Tesla Motors</Nombre>
+        <Valor>1500</Valor>
+        <Fecha>2023-10-17T21:03:29.1640944-03:00</Fecha>
         <Cantidad>10</Cantidad>
       </Acciones>
       <Acciones>
         <Nombre>Telefonica</Nombre>
         <Valor>150</Valor>
-        <Fecha>2023-10-14T20:40:03.7112758-03:00</Fecha>
-        <Cantidad>60</Cantidad>
+        <Fecha>2023-10-17T21:03:41.8120887-03:00</Fecha>
+        <Cantidad>20</Cantidad>
       </Acciones>
       <Acciones>
-        <Nombre>Tesla Motors</Nombre>
-        <Valor>1500</Valor>
-        <Fecha>2023-10-14T20:43:39.9855918-03:00</Fecha>
+        <Nombre>Apple</Nombre>
+        <Valor>2500</Valor>
+        <Fecha>2023-10-17T21:04:00.2518909-03:00</Fecha>
+        <Cantidad>10</Cantidad>
+      </Acciones>
+      <Acciones>
+        <Nombre>IBM</Nombre>
+        <Valor>4500</Valor>
+        <Fecha>2023-10-17T21:04:11.2116251-03:00</Fecha>
         <Cantidad>5</Cantidad>
       </Acciones>
+      <Acciones>
+        <Nombre>Volkswagen</Nombre>
+        <Valor>1000</Valor>
+        <Fecha>2023-10-17T21:04:23.2519925-03:00</Fecha>
+        <Cantidad>15</Cantidad>
+      </Acciones>
     </ListadoDeAccionesPropias>
-    <Saldo>98750</Saldo>
+    <Saldo>14500</Saldo>
   </Usuario>
   <Usuario>
     <NombreUsuario>homero</NombreUsuario>

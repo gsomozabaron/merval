@@ -39,7 +39,7 @@
             // Btn_Aceptar
             // 
             Btn_Aceptar.Font = new Font("Times New Roman", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            Btn_Aceptar.Location = new Point(186, 109);
+            Btn_Aceptar.Location = new Point(274, 146);
             Btn_Aceptar.Name = "Btn_Aceptar";
             Btn_Aceptar.Size = new Size(75, 23);
             Btn_Aceptar.TabIndex = 0;
@@ -52,7 +52,7 @@
             lbl_error.AutoSize = true;
             lbl_error.Font = new Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_error.ForeColor = Color.White;
-            lbl_error.Location = new Point(268, 28);
+            lbl_error.Location = new Point(283, 36);
             lbl_error.Name = "lbl_error";
             lbl_error.Size = new Size(66, 24);
             lbl_error.TabIndex = 2;
@@ -62,7 +62,7 @@
             // PBox_error
             // 
             PBox_error.Image = (Image)resources.GetObject("PBox_error.Image");
-            PBox_error.Location = new Point(3, 12);
+            PBox_error.Location = new Point(11, 33);
             PBox_error.Name = "PBox_error";
             PBox_error.Size = new Size(177, 120);
             PBox_error.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -71,22 +71,21 @@
             // 
             // lbl_MensajeError
             // 
-            lbl_MensajeError.AutoSize = true;
             lbl_MensajeError.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_MensajeError.ForeColor = Color.White;
-            lbl_MensajeError.Location = new Point(245, 67);
+            lbl_MensajeError.Location = new Point(191, 85);
             lbl_MensajeError.Name = "lbl_MensajeError";
-            lbl_MensajeError.Size = new Size(102, 19);
+            lbl_MensajeError.Size = new Size(240, 39);
             lbl_MensajeError.TabIndex = 4;
             lbl_MensajeError.Text = "mensaje error";
-            lbl_MensajeError.TextAlign = ContentAlignment.MiddleCenter;
+            lbl_MensajeError.TextAlign = ContentAlignment.TopCenter;
             // 
             // Ventana_error
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Red;
-            ClientSize = new Size(438, 144);
+            ClientSize = new Size(438, 197);
             ControlBox = false;
             Controls.Add(lbl_MensajeError);
             Controls.Add(PBox_error);
