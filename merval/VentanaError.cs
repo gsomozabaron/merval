@@ -13,11 +13,11 @@ namespace merval
     /// <summary>
     /// ventana emergente con fondo rojo y titulo ERROR, recibe 1 string
     /// </summary>
-    public partial class Ventana_error : Form
+    public partial class VentanaError : Form
     {
         string mensaje;
 
-        public Ventana_error(string mensaje)
+        public VentanaError(string mensaje)
         {
             InitializeComponent();
             this.lbl_MensajeError.Text = mensaje;

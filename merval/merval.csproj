@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="FastReport.DataVisualization" Version="2023.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>

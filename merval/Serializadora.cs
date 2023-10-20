@@ -109,7 +109,7 @@ namespace merval
             Serializadora.GuardarListadoUsuarios(lista);
         }
 
-        
+
         //////////Historial de acciones///////////////
         /// <summary>
         /// para generar un historial de 7 dias de valores de acciones random a efectos de mostrar los graficos de los nugets
@@ -119,17 +119,17 @@ namespace merval
             List<Acciones> lista = LeerListaAcciones();
             List<Acciones> historicoAcciones = new List<Acciones>();
 
-            Random random = new Random(); 
+            Random random = new Random();
 
             for (int i = 0; i < 7; i++)
             {
-                int dias = 1; 
+                int dias = 1;
                 foreach (Acciones acc in lista)
                 {
-                    Acciones nuevaAccion = new Acciones(); 
+                    Acciones nuevaAccion = new Acciones();
                     nuevaAccion.Fecha = DateTime.Now - TimeSpan.FromDays(dias);
-                    nuevaAccion.Valor = random.Next(0, 1000).ToString();  
-                    nuevaAccion.Nombre = acc.Nombre;    
+                    nuevaAccion.Valor = random.Next(0, 1000).ToString();
+                    nuevaAccion.Nombre = acc.Nombre;
                     historicoAcciones.Add(nuevaAccion);
                     dias++;
                 }
@@ -173,5 +173,32 @@ namespace merval
         }
 
 
+
+        public static void GuardarHistorialordenado(List<string> historial)
+        {
+            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\historialOrdenado.txt";
+
+            using (StreamWriter streamWriter = new StreamWriter(path))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+                serializer.Serialize(streamWriter, historial);
+            }
+        }
+        public static List<string> CargarHistoricoOrdenado()
+        {
+            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\historialOrdenado.txt";
+
+            List<string> lista = null;
+
+            if (File.Exists(path))
+            {
+                using (StreamReader streamReader = new StreamReader(path))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+                    lista = (List<string>)serializer.Deserialize(streamReader);
+                }
+            }
+            return lista;
+        }
     }
 }

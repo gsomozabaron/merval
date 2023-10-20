@@ -78,14 +78,12 @@ namespace merval
         /// <summary>
         /// aca se van a ver los graficos
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void historicoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             VentanaEmergente ve = new VentanaEmergente("Mil Disculpas", "en construccion");
             ve.ShowDialog();
-            //FormHistorialAcciones F = new FormHistorialAcciones();
-            //F.ShowDialog();
+            FormHistorialAcciones F = new FormHistorialAcciones();
+            F.ShowDialog();
         }
     }
 }

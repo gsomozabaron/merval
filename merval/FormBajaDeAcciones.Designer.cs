@@ -37,6 +37,7 @@
             txt_Nombre = new TextBox();
             txt_clave = new TextBox();
             btn_Buscar = new Button();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)DTG_BajaAcciones).BeginInit();
             SuspendLayout();
             // 
@@ -44,11 +45,11 @@
             // 
             DTG_BajaAcciones.BackgroundColor = SystemColors.ActiveCaption;
             DTG_BajaAcciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DTG_BajaAcciones.Location = new Point(94, 156);
+            DTG_BajaAcciones.Location = new Point(49, 94);
             DTG_BajaAcciones.Name = "DTG_BajaAcciones";
             DTG_BajaAcciones.RowTemplate.Height = 25;
             DTG_BajaAcciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DTG_BajaAcciones.Size = new Size(372, 150);
+            DTG_BajaAcciones.Size = new Size(272, 241);
             DTG_BajaAcciones.TabIndex = 0;
             DTG_BajaAcciones.CellMouseDoubleClick += DTG_BajaAcciones_CellMouseDoubleClick;
             // 
@@ -137,6 +138,17 @@
             btn_Buscar.UseVisualStyleBackColor = false;
             btn_Buscar.Click += btn_Buscar_Click;
             // 
+            // textBox1
+            // 
+            textBox1.BackColor = SystemColors.InactiveCaption;
+            textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox1.Location = new Point(371, 156);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(137, 105);
+            textBox1.TabIndex = 30;
+            textBox1.Text = "Ingrese el titulo y pulse buscar o haga doble click sobre el titulo buscado";
+            // 
             // FormBajaDeAcciones
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -144,6 +156,7 @@
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(581, 347);
             ControlBox = false;
+            Controls.Add(textBox1);
             Controls.Add(btn_EliminarAccion);
             Controls.Add(lbl_nombre);
             Controls.Add(btn_actualizar);
@@ -172,5 +185,6 @@
         private TextBox txt_Nombre;
         private TextBox txt_clave;
         private Button btn_Buscar;
+        private TextBox textBox1;
     }
 }

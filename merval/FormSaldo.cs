@@ -31,9 +31,7 @@ namespace merval
 
             if (float.TryParse(puntoPorComa, out float montoAumentar)&& (montoAumentar > 0))
             {
-                VentanaConfirmar vc = new VentanaConfirmar("confirmar Transferencia", "Esta Seguro?");
-
-                if (vc.ShowDialog() == DialogResult.OK)
+                if (FormMetodos.VentanaMensajeConfirmar ("confirmar Transferencia", "Esta Seguro?") == DialogResult.OK)
                 {
                     ///sumar el monto agregado al saldo
                     usuarioActual.Saldo += montoAumentar;
@@ -48,16 +46,14 @@ namespace merval
                 {
                     ///si el resultado de la ventana confirmar es == cancelar
                     txt_MontoAumentar.Clear();///limpia la casilla 
-                    VentanaEmergente ve = new VentanaEmergente("Operacion", "Cancelada");
-                    ve.ShowDialog();
+                    FormMetodos.VentanaMensaje("Operacion", "Cancelada");
                 }
             }
             else
             {
                 ///en caso que se ingrese letras o vacio
                 txt_MontoAumentar.Clear();
-                Ventana_error ve = new Ventana_error("Debe ingresar solo numeros");
-                ve.ShowDialog();
+                FormMetodos.VentanaMensajeError("Debe ingresar solo numeros");
             }
         }
 
@@ -81,9 +77,7 @@ namespace merval
             {
                 if (usuarioActual.Saldo >= montoExtraer)///cheq si saldo es mayor al monto a extraer
                 {
-                    VentanaConfirmar vc = new VentanaConfirmar("confirmar Extraccion", "Esta Seguro?");
-
-                    if (vc.ShowDialog() == DialogResult.OK)
+                    if (FormMetodos.VentanaMensajeConfirmar("confirmar Extraccion", "Esta Seguro?") == DialogResult.OK)
                     {
                         usuarioActual.Saldo -= montoExtraer;
                         lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo}";
@@ -96,24 +90,21 @@ namespace merval
                     else
                     {
                         ///si cancelamos la extraccion
-                        VentanaEmergente ve = new VentanaEmergente("Operacion", "Cancelada");
-                        ve.ShowDialog();
+                        FormMetodos.VentanaMensaje("Operacion", "Cancelada");
                         txt_montoExtraer.Clear();
                     }
                 }
                 else
                 {
                     ///si el monto a extraer es mayor que el saldo...
-                    Ventana_error ve = new Ventana_error("AJA! PILLIN\nNO TENES TANTA GUITA");
-                    ve.ShowDialog();
+                    FormMetodos.VentanaMensajeError("AJA! PILLIN\nNO TENES TANTA GUITA");
                     txt_montoExtraer.Clear();
                 }
             }
             else
             {
                 ///si se ingresan letras o simbolos o falla el parse_float
-                Ventana_error ve = new Ventana_error("solo numeros mayores a 0");
-                ve.ShowDialog();
+                FormMetodos.VentanaMensajeError("solo numeros mayores a 0");
                 txt_montoExtraer.Clear();
             }
         }

@@ -52,21 +52,21 @@
             lblMensaje.BackColor = Color.Transparent;
             lblMensaje.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblMensaje.ForeColor = Color.Blue;
-            lblMensaje.Location = new Point(12, 136);
+            lblMensaje.Location = new Point(12, 95);
             lblMensaje.Name = "lblMensaje";
-            lblMensaje.Size = new Size(274, 24);
+            lblMensaje.Size = new Size(274, 86);
             lblMensaje.TabIndex = 2;
             lblMensaje.Text = "mensaje";
-            lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
+            lblMensaje.TextAlign = ContentAlignment.TopCenter;
             // 
             // lblTitulo
             // 
             lblTitulo.BackColor = Color.Transparent;
             lblTitulo.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitulo.ForeColor = Color.Blue;
-            lblTitulo.Location = new Point(12, 94);
+            lblTitulo.Location = new Point(12, 53);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(274, 24);
+            lblTitulo.Size = new Size(274, 42);
             lblTitulo.TabIndex = 3;
             lblTitulo.Text = "titulo";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;

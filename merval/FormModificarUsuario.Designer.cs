@@ -43,6 +43,7 @@
             label3 = new Label();
             label4 = new Label();
             btn_EliminarUsuario = new Button();
+            txt_modoDeUso = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(728, 212);
+            dataGridView1.Size = new Size(560, 212);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellMouseDoubleClick += dataGridView1_CellMouseDoubleClick;
             // 
@@ -208,6 +209,19 @@
             btn_EliminarUsuario.UseVisualStyleBackColor = false;
             btn_EliminarUsuario.Click += btn_EliminarUsuario_Click;
             // 
+            // txt_modoDeUso
+            // 
+            txt_modoDeUso.BackColor = SystemColors.GradientActiveCaption;
+            txt_modoDeUso.Enabled = false;
+            txt_modoDeUso.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txt_modoDeUso.Location = new Point(608, 153);
+            txt_modoDeUso.Multiline = true;
+            txt_modoDeUso.Name = "txt_modoDeUso";
+            txt_modoDeUso.Size = new Size(106, 127);
+            txt_modoDeUso.TabIndex = 18;
+            txt_modoDeUso.Text = "Ingrese clave a buscar o haga doble click sobre el usuario a modificar";
+            txt_modoDeUso.TextAlign = HorizontalAlignment.Center;
+            // 
             // FormModificarUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -215,6 +229,7 @@
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(763, 417);
             ControlBox = false;
+            Controls.Add(txt_modoDeUso);
             Controls.Add(btn_EliminarUsuario);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -229,6 +244,7 @@
             Controls.Add(txt_clave);
             Controls.Add(btn_Buscar);
             Controls.Add(dataGridView1);
+            Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point);
             Name = "FormModificarUsuario";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormModificarUsuario";
@@ -254,5 +270,6 @@
         private Label label3;
         private Label label4;
         internal Button btn_EliminarUsuario;
+        private TextBox txt_modoDeUso;
     }
 }

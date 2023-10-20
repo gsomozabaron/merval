@@ -1,5 +1,4 @@
 ﻿using Entidades;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,8 +26,13 @@ namespace merval
             btn_agregarUsuario.Visible = false;
         }
 
+        private bool EsDniValido(string dni)
+        {
+            // Verificar si el DNI tiene 6 o 7 dígitos numéricos
+            return System.Text.RegularExpressions.Regex.IsMatch(dni, @"^\d{6,7}$");
+        }
+
         #region formulario alta de usuarios
-        
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string nombre = this.txt_Nombre.Text;
@@ -40,47 +44,29 @@ namespace merval
             Tipo tipoDeUsuario = Tipo.normal;
             long saldo = 0;
             string apellido = this.txt_Apellido.Text;
-            
+
             List<Acciones> listadoDeAccionesPropias = new List<Acciones>();
             List<Clientes> listaDeClientes = new List<Clientes>();
-            
-            chk_comisionista.Visible = false;//cuando tengo lo del comisionista lo muestro
-            
-            string titulo = "Registro exitoso.";
-            string mensaje = "Usuario dado de alta";
-            VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);//creo la ventana emergente
+
+            chk_comisionista.Visible = false; // cuando tengo lo del comisionista lo muestro
 
             #region validar DNI
             ///****************************************************************************///
-            /// validacion de numero de dni
-            if (Dni.Length > 6)/// dni mas de 6 numeros
+            /// validación de número de DNI
+            if (!EsDniValido(Dni))
             {
-                try
-                {
-                    int.Parse(Dni);// cheq que sean numeros
-                }
-                catch (Exception)
-                {
-                    Ventana_error Ve = new Ventana_error("Nro de dni invalido\nreingrese numero");
-                    Ve.ShowDialog();
-                    txt_Dni.Clear();//limpiamos la casilla
-                    return;
-                }
-            }
-            else
-            {
-                Ventana_error Ve = new Ventana_error("Nro de dni invalido\nreingrese numero");
-                Ve.ShowDialog();
+                FormMetodos.VentanaMensajeError("Nro de DNI inválido.\nIngrese un número de 6 o 7 dígitos.");
+                txt_Dni.Clear(); // limpiamos la casilla
                 return;
             }
             #endregion
 
-            #region validar pass
+            #region validar contraseña
             ///****************************************************************************///
-            ///chequeo de coincidencia de pass de las dos casillas
+            /// chequeo de coincidencia de contraseña de las dos casillas
             if (password != passCheck)
             {
-                MessageBox.Show("Las contraseñas no coinciden. Por favor, vuelva a ingresarlas.");
+                FormMetodos.VentanaMensajeError("Las contraseñas no coinciden.\nPor favor, vuelva a ingresarlas.");
                 this.txt_Pass.Clear();
                 this.txt_Pass.Clear();
                 return;
@@ -89,14 +75,13 @@ namespace merval
 
             #region validar nombre de usuario en uso
             ///****************************************************************************///
-            ///chequeo si el nombre de usuario ya esta en uso
+            /// chequeo si el nombre de usuario ya está en uso
             foreach (Usuario u in listaDeUsuarios)
             {
                 if (u.NombreUsuario == nombreUsuario)
                 {
                     this.txt_NombreUsuario.Clear();
-                    VentanaEmergente v = new VentanaEmergente("El nombre de usuario ya existe.", "Por favor, elija otro.");
-                    v.ShowDialog();
+                    FormMetodos.VentanaMensaje("El nombre de usuario ya existe.", "Por favor, elija otro.");
                     return;
                 }
             }
@@ -104,8 +89,8 @@ namespace merval
 
             #region crear usuarios
             ///****************************************************************************///
-            ///crear usuarios///
-            if (esComisionista == true)/// falta completar comisionista
+            /// crear usuarios
+            if (esComisionista == true) // falta completar comisionista
             {
                 //tipoDeUsuario = Tipo.Comisionista;
                 //Comisionista nuevoUsuario = Comisionista.CrearComisionista(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, listaDeClientes);
@@ -121,12 +106,11 @@ namespace merval
                 listaDeUsuarios.Add(nuevoUsuario);
 
                 Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
-                ve.ShowDialog();
+                FormMetodos.VentanaMensaje("Registro exitoso.", "Usuario dado de alta");
             }
-            #endregion
-
             this.Close();
         }
+            #endregion
             #endregion
 
         private void button1_Click(object sender, EventArgs e)

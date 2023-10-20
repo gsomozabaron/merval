@@ -22,7 +22,14 @@ namespace merval
 
         private void FormBajaDeAcciones_Load(object sender, EventArgs e)
         {
+            CargarDatos();
+        }
+
+        private void CargarDatos()
+        {
             DTG_BajaAcciones.DataSource = listadeAccionesGral;
+            DTG_BajaAcciones.Columns["cantidad"].Visible = false;
+            DTG_BajaAcciones.Columns["fecha"].Visible = false;
         }
 
         private void btn_Buscar_Click(object sender, EventArgs e)
@@ -30,36 +37,37 @@ namespace merval
             bool encontro = false;
             txt_Nombre.Text = "nombre";
             string buscar = txt_clave.Text;
-
-            for (int rowIndex = 0; rowIndex < this.DTG_BajaAcciones.Rows.Count; rowIndex++)
+            
+            if (buscar == "")   //si la casilla buscar esta vacia mensaje y retornar
             {
-                for (int columnIndex = 0; columnIndex < this.DTG_BajaAcciones.Columns.Count; columnIndex++)
+                FormMetodos.VentanaMensaje("Ingrese", "nombre o parte del nombre");
+                return;
+            }
+
+            foreach (Acciones a in listadeAccionesGral)
+            {
+                try
                 {
-                    /// Acceder al valor de la celda en la fila rowIndex y columna columnIndex
-                    object cellValue = this.DTG_BajaAcciones.Rows[rowIndex].Cells[columnIndex].Value;
-
-                    /// buscar si la celda contiene la clave buscada, (OrdinalIgnoreCase) no discrimina entre mayusc y minusc
-                    if (cellValue != null && cellValue.ToString().IndexOf(buscar, StringComparison.OrdinalIgnoreCase) >= 0)
+                    if (a.Nombre.ToLower().Contains(buscar))    //recorrer la lista de acciones buscando coincidencias en accion.nombre
                     {
-                        encontro = true;
-
-                        txt_Nombre.Text = DTG_BajaAcciones.Rows[rowIndex].Cells["Nombre"].Value.ToString();
-                        break;
+                        if (FormMetodos.VentanaMensajeConfirmar($"{a.Nombre}", "es la indicada?") == DialogResult.OK)
+                        {
+                            txt_Nombre.Text = a.Nombre.ToString();
+                            encontro = true;
+                            break;
+                        }
                     }
                 }
-
-                if (encontro)
-                {///si encontro coincidencia corta
-                    break;
+                catch (Exception ex)
+                {
+                    FormMetodos.VentanaMensajeError($"Error: {ex.Message}");    //si rompe.. mensaje
                 }
             }
-
+            
             if (!encontro)
-            {///si no encontro coincidencia tira mensaje
-                Ventana_error ve = new Ventana_error("Titulo no encontrado");
-                ve.ShowDialog();
+            {   //si no encontro coincidencia tira mensaje
+                FormMetodos.VentanaMensajeError("Titulo no encontrado");
             }
-
         }
 
         private void btn_salir_Click(object sender, EventArgs e)
@@ -70,25 +78,23 @@ namespace merval
         private void btn_EliminarAccion_Click(object sender, EventArgs e)
         {
             Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
-            VentanaConfirmar ve = new VentanaConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL TITULO");
-            if (ve.ShowDialog() == DialogResult.OK)
+
+            if (FormMetodos.VentanaMensaje("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL TITULO") == DialogResult.OK)
             {
                 listadeAccionesGral.Remove(a);
                 Serializadora.GuardarGralAcciones(listadeAccionesGral);///guarda en archivo la lista de acciones
-                VentanaEmergente ve2 = new VentanaEmergente("TITULO", "ELIMINADO");
-                ve2.ShowDialog();
+                FormMetodos.VentanaMensaje("TITULO", "ELIMINADO");
                 DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();///carga el datagrid con la lista actualizada
             }
             else
             {
-                VentanaEmergente ve2 = new VentanaEmergente("OPERACION", "CANCELADA");
-                ve2.ShowDialog();
+                FormMetodos.VentanaMensaje("OPERACION", "CANCELADA");
             }
         }
 
         private void DTG_BajaAcciones_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ///seleccionar con doble click
+            //seleccionar con doble click
             if (DTG_BajaAcciones.SelectedRows.Count > 0)
             {
                 Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
@@ -101,9 +107,7 @@ namespace merval
             Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
             a.Nombre = txt_Nombre.Text;
 
-            VentanaConfirmar vc = new VentanaConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ");
-
-            if (vc.ShowDialog() == DialogResult.OK)
+            if (FormMetodos.VentanaMensajeConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ") == DialogResult.OK)
             {
                 Serializadora.GuardarGralAcciones(listadeAccionesGral);
                 DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();

@@ -1,6 +1,6 @@
 ﻿namespace merval
 {
-    partial class Ventana_error
+    partial class VentanaError
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventana_error));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaError));
             Btn_Aceptar = new Button();
             lbl_error = new Label();
             PBox_error = new PictureBox();
@@ -80,7 +80,7 @@
             lbl_MensajeError.Text = "mensaje error";
             lbl_MensajeError.TextAlign = ContentAlignment.TopCenter;
             // 
-            // Ventana_error
+            // VentanaError
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -92,9 +92,9 @@
             Controls.Add(lbl_error);
             Controls.Add(Btn_Aceptar);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "Ventana_error";
+            Name = "VentanaError";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Ventana_error";
+            Text = "VentanaError";
             ((System.ComponentModel.ISupportInitialize)PBox_error).EndInit();
             ResumeLayout(false);
             PerformLayout();

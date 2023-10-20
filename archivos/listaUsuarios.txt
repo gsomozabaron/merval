@@ -3,9 +3,9 @@
   <Usuario>
     <NombreUsuario>admin</NombreUsuario>
     <Pass>admin</Pass>
-    <Nombre>Administrador</Nombre>
-    <Apellido>001</Apellido>
-    <Dni>25468845</Dni>
+    <Nombre>Gustavo</Nombre>
+    <Apellido>Somoza</Apellido>
+    <Dni>25646638</Dni>
     <TipoDeUsuario>Admin</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
@@ -34,13 +34,13 @@
         <Nombre>Telefonica</Nombre>
         <Valor>150</Valor>
         <Fecha>2023-10-17T21:03:41.8120887-03:00</Fecha>
-        <Cantidad>20</Cantidad>
+        <Cantidad>31</Cantidad>
       </Acciones>
       <Acciones>
         <Nombre>Apple</Nombre>
         <Valor>2500</Valor>
         <Fecha>2023-10-17T21:04:00.2518909-03:00</Fecha>
-        <Cantidad>10</Cantidad>
+        <Cantidad>11</Cantidad>
       </Acciones>
       <Acciones>
         <Nombre>IBM</Nombre>
@@ -52,10 +52,10 @@
         <Nombre>Volkswagen</Nombre>
         <Valor>1000</Valor>
         <Fecha>2023-10-17T21:04:23.2519925-03:00</Fecha>
-        <Cantidad>15</Cantidad>
+        <Cantidad>20</Cantidad>
       </Acciones>
     </ListadoDeAccionesPropias>
-    <Saldo>14500</Saldo>
+    <Saldo>4580</Saldo>
   </Usuario>
   <Usuario>
     <NombreUsuario>homero</NombreUsuario>

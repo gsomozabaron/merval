@@ -38,8 +38,7 @@ namespace merval
         /// <summary>
         /// esta mal el datagrid, tengo que hacer 2 uno para listado de acciones y otro para el de usuario
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void Dtg1_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
 
@@ -91,13 +90,11 @@ namespace merval
             {
                 if (txt_Cantidad.Text == "")
                 {
-                    Ventana_error ve = new Ventana_error("Ingresa cantidad");
-                    ve.ShowDialog();
+                    FormMetodos.VentanaMensajeError("Ingresa cantidad");
                 }
                 else
                 {
-                    Ventana_error ve = new Ventana_error("Solo numeros");
-                    ve.ShowDialog();
+                    FormMetodos.VentanaMensajeError("Solo numeros");
                 }
             }
         }
@@ -119,8 +116,7 @@ namespace merval
             {
                 if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
                 {
-                    VentanaConfirmar vc = new VentanaConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}");
-                    if (vc.ShowDialog() == DialogResult.OK)
+                    if (FormMetodos.VentanaMensajeConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}") == DialogResult.OK)
                     {
                         a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
                         if (a.Cantidad == 0)
@@ -134,16 +130,14 @@ namespace merval
                     }
                     else
                     {
-                        VentanaEmergente ve = new VentanaEmergente("Venta", "cancelada");
-                        ve.ShowDialog();
+                        FormMetodos.VentanaMensaje("Venta", "cancelada");
                     }
                 }
                 else
                 {
                     if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) > a.Cantidad))
                     {
-                        Ventana_error ve = new Ventana_error($"maximo {a.Cantidad}\nde {a.Nombre}");
-                        ve.ShowDialog();
+                        FormMetodos.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
                         break;
                     }
                 }

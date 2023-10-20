@@ -16,22 +16,81 @@ namespace merval
 {
     public partial class FormHistorialAcciones : Form
     {
-       
-       /////////////////// falta completar ///////////////////////////
-       
+
+        /////////////////// falta completar ///////////////////////////
+        List<Acciones> historial = Serializadora.CargarHistoricoAcciones();
+
         public FormHistorialAcciones()
         {
             InitializeComponent();
+            //ordenarLista();
+
+
         }
 
         private void FormHistorialAcciones_Load(object sender, EventArgs e)
         {
-
+            List<string> listaOrdenada = Serializadora.CargarHistoricoOrdenado();
+            MostrarListaOrdenadaEnDataGridView(listaOrdenada);
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void OrdenarLista()
+        {
+            string nombre;
+            string fecha;
+            string valor;
+            List<string> listaOrdenada = new List<string>();
+            foreach (Acciones accion in historial)
+            {
+                if (!listaOrdenada.Contains(accion.Nombre))
+                {
+                    nombre = accion.Nombre;
+                    listaOrdenada.Add(nombre);
+                    foreach (Acciones a in historial)
+                    {
+                        if (nombre.Equals(a.Nombre))
+                        {
+                            valor = a.Valor;
+                            listaOrdenada.Add(valor);
+                        }
+                    }
+                }
+            }
+            Serializadora.GuardarHistorialordenado(listaOrdenada);
+        }
+
+        private void MostrarListaOrdenadaEnDataGridView(List<string> listaOrdenada)
+        {
+            // Crea una nueva tabla de datos
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Nombre de Acción");
+
+            // Agrega columnas para los valores de las fechas
+            for (int i = 1; i <= 7; i++)
+            {   ///estaria bueno hacer el datenow en vez de fecha 1,2,3,4, *****************************
+                dataTable.Columns.Add("Fecha " + i);
+            }
+
+            // Divide la lista ordenada en grupos de 8 (1 nombre y 7 fechas)
+            for (int i = 0; i < listaOrdenada.Count; i += 8)
+            {
+                DataRow row = dataTable.NewRow();
+                row[0] = listaOrdenada[i];
+                for (int j = 1; j <= 7; j++)
+                {
+                    row[j] = listaOrdenada[i + j];
+                }
+                dataTable.Rows.Add(row);
+            }
+
+            // Asigna la tabla de datos al DataGridView
+            dataGridView1.DataSource = dataTable;
+        }
+
     }
 }

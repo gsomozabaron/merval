@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             menuStrip1 = new MenuStrip();
             VerUsuarios = new ToolStripMenuItem();
             ModificarUsuarios = new ToolStripMenuItem();
@@ -67,19 +69,18 @@
             ModificarUsuarios.Name = "ModificarUsuarios";
             ModificarUsuarios.Size = new Size(137, 23);
             ModificarUsuarios.Text = "Modificar Usuarios";
-            
             // 
             // altasUsuarios
             // 
             altasUsuarios.Name = "altasUsuarios";
-            altasUsuarios.Size = new Size(180, 24);
+            altasUsuarios.Size = new Size(177, 24);
             altasUsuarios.Text = "Altas";
             altasUsuarios.Click += altasUsuarios_Click;
             // 
             // Mts_ModificarDatos
             // 
             Mts_ModificarDatos.Name = "Mts_ModificarDatos";
-            Mts_ModificarDatos.Size = new Size(180, 24);
+            Mts_ModificarDatos.Size = new Size(177, 24);
             Mts_ModificarDatos.Text = "Modificar Datos";
             Mts_ModificarDatos.Click += Mts_ModificarDatos_Click;
             // 
@@ -121,14 +122,31 @@
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaption;
             dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 138);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.SkyBlue;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.Location = new Point(12, 56);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.ScrollBars = ScrollBars.None;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(698, 259);
+            dataGridView1.Size = new Size(698, 341);
             dataGridView1.TabIndex = 9;
             // 
             // btn_salir

@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Xml.Serialization;
+using FastReport.DataVisualization.Charting;
+using System.Windows.Forms;
 
 namespace merval
 {
@@ -16,6 +18,7 @@ namespace merval
         private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
         /// listado general de acciones
         private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
+       
         private static Usuario usuarioActual = new Usuario();
         #endregion
 
@@ -71,17 +74,16 @@ namespace merval
                         titulo = "bienvenido";  ///titulo para la ventana emergente 
                         mensaje = $"{u.Nombre}";    ///mensaje de bienvenida con el nombre del usuario
                         estaRegistrado = true;  ///pasamos a verdadero para entrar a la linea 93
-                        VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
-                        ve.ShowDialog();
+
+                        FormMetodos.VentanaMensaje(titulo, mensaje);//ventana emergente
                         break;
                     }
-                    
+
                     //si coincide nombre usuario pero el pass no...
-                    else    
+                    else
                     {
                         mensaje = "password incorrecto";
-                        Ventana_error ve = new Ventana_error(mensaje);
-                        ve.ShowDialog();
+                        FormMetodos.VentanaMensajeError(mensaje);
                         break;
                     }
                 }
@@ -89,15 +91,13 @@ namespace merval
             ///si no encuentra ningun nombre de usuario que coincida
             if (estaRegistrado == false)
             {
-                this.txtUsuario.Text = string.Empty;  // Limpiamos los campos
-                this.txtPassword.Text = string.Empty; // Limpiamos los campos
                 mensaje = "Login Error \nusuario no encontrado";
-                Ventana_error ve = new Ventana_error(mensaje);
-                ve.ShowDialog();
+                FormMetodos.VentanaMensajeError(mensaje);
+                LimpiarCampos();    // Limpiamos los campos
             }
 
             ///coinciden usuario y pass..
-            else  
+            else
             {
                 if (usuarioActual.TipoDeUsuario == Tipo.normal) //usuario normal
                 {
@@ -145,5 +145,12 @@ namespace merval
             }
         }
         #endregion
+
+        private void LimpiarCampos()
+            {
+                txtUsuario.Text = string.Empty;
+                txtPassword.Text = string.Empty;
+            }
     }
 }
+
