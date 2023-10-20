@@ -43,14 +43,13 @@ namespace merval
             }
             else
             {
-                Acciones nuevaAccion = new Acciones(titulo, valor);
-                listaAccionesGral.Add(nuevaAccion);
-                Serializadora.GuardarGralAcciones(listaAccionesGral);
-                FormMetodos.VentanaMensaje("Éxito", "Título ingresado correctamente.");
-                txt_Titulo.Clear(); // Limpiar los campos después de agregar
-                Txt_precio.Clear();
-                
-
+            Acciones nuevaAccion = new Acciones(titulo, valor);
+            listaAccionesGral.Add(nuevaAccion);
+            Serializadora.GuardarGralAcciones(listaAccionesGral);
+            FormMetodos.VentanaMensaje("Éxito", "Título ingresado correctamente.");
+            txt_Titulo.Clear(); // Limpiar los campos después de agregar
+            Txt_precio.Clear();
+                ///Guardar(titulo, valor);
             }
         }
 
@@ -59,5 +58,14 @@ namespace merval
         {
             this.Close();
         }
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        private void Guardar()///sacar a otra clase!!
+        {
+
+        }
+        //////////////////////////////////////////////////////////////////////////////////////
     }
 }
+

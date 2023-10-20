@@ -40,13 +40,13 @@
         <Nombre>Apple</Nombre>
         <Valor>2500</Valor>
         <Fecha>2023-10-17T21:04:00.2518909-03:00</Fecha>
-        <Cantidad>11</Cantidad>
+        <Cantidad>1</Cantidad>
       </Acciones>
       <Acciones>
         <Nombre>IBM</Nombre>
         <Valor>4500</Valor>
         <Fecha>2023-10-17T21:04:11.2116251-03:00</Fecha>
-        <Cantidad>5</Cantidad>
+        <Cantidad>6</Cantidad>
       </Acciones>
       <Acciones>
         <Nombre>Volkswagen</Nombre>
@@ -55,7 +55,7 @@
         <Cantidad>20</Cantidad>
       </Acciones>
     </ListadoDeAccionesPropias>
-    <Saldo>4580</Saldo>
+    <Saldo>28000</Saldo>
   </Usuario>
   <Usuario>
     <NombreUsuario>homero</NombreUsuario>
@@ -184,6 +184,16 @@
     <Apellido>ble</Apellido>
     <Dni>35125658</Dni>
     <TipoDeUsuario>Admin</TipoDeUsuario>
+    <ListadoDeAccionesPropias />
+    <Saldo>0</Saldo>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>mati</NombreUsuario>
+    <Pass>asd</Pass>
+    <Nombre>matias</Nombre>
+    <Apellido>blabla</Apellido>
+    <Dni>1256466</Dni>
+    <TipoDeUsuario>normal</TipoDeUsuario>
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
   </Usuario>

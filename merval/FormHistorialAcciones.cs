@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using merval;
 using System.Xml;
 using FastReport.DataVisualization.Charting;
 
@@ -24,8 +23,6 @@ namespace merval
         {
             InitializeComponent();
             //ordenarLista();
-
-
         }
 
         private void FormHistorialAcciones_Load(object sender, EventArgs e)
@@ -38,7 +35,8 @@ namespace merval
         {
             this.Close();
         }
-
+        
+        //ordena la lista historico de saldos "nombre",fecha1,2,3....hasta 7.
         private void OrdenarLista()
         {
             string nombre;
@@ -76,7 +74,7 @@ namespace merval
                 dataTable.Columns.Add("Fecha " + i);
             }
 
-            // Divide la lista ordenada en grupos de 8 (1 nombre y 7 fechas)
+            // Divide la lista ordenada en grupos de a 8 (1 nombre y 7 fechas)
             for (int i = 0; i < listaOrdenada.Count; i += 8)
             {
                 DataRow row = dataTable.NewRow();
@@ -91,6 +89,5 @@ namespace merval
             // Asigna la tabla de datos al DataGridView
             dataGridView1.DataSource = dataTable;
         }
-
     }
 }

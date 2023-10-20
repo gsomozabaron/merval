@@ -139,6 +139,7 @@
             // lbl_saldo
             // 
             lbl_saldo.AutoSize = true;
+            lbl_saldo.BackColor = Color.White;
             lbl_saldo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_saldo.Location = new Point(458, 243);
             lbl_saldo.Name = "lbl_saldo";

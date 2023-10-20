@@ -161,7 +161,7 @@
             ForeColor = SystemColors.WindowText;
             Name = "formLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Merval app 1.0";
+            Text = "Mc Pato Bursatil 1.0";
             ResumeLayout(false);
             PerformLayout();
         }

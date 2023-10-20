@@ -52,7 +52,7 @@
             lbl_error.AutoSize = true;
             lbl_error.Font = new Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_error.ForeColor = Color.White;
-            lbl_error.Location = new Point(283, 36);
+            lbl_error.Location = new Point(283, 12);
             lbl_error.Name = "lbl_error";
             lbl_error.Size = new Size(66, 24);
             lbl_error.TabIndex = 2;
@@ -73,12 +73,12 @@
             // 
             lbl_MensajeError.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_MensajeError.ForeColor = Color.White;
-            lbl_MensajeError.Location = new Point(191, 85);
+            lbl_MensajeError.Location = new Point(191, 36);
             lbl_MensajeError.Name = "lbl_MensajeError";
-            lbl_MensajeError.Size = new Size(240, 39);
+            lbl_MensajeError.Size = new Size(240, 107);
             lbl_MensajeError.TabIndex = 4;
             lbl_MensajeError.Text = "mensaje error";
-            lbl_MensajeError.TextAlign = ContentAlignment.TopCenter;
+            lbl_MensajeError.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // VentanaError
             // 

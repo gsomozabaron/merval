@@ -18,7 +18,7 @@ namespace merval
         private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
         /// listado general de acciones
         private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
-       
+
         private static Usuario usuarioActual = new Usuario();
         #endregion
 
@@ -148,10 +148,10 @@ namespace merval
         #endregion
 
         private void LimpiarCampos()
-            {
-                txtUsuario.Text = string.Empty;
-                txtPassword.Text = string.Empty;
-            }
+        {
+            txtUsuario.Text = string.Empty;
+            txtPassword.Text = string.Empty;
+        }
     }
 }
 
