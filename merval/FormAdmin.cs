@@ -72,7 +72,8 @@ namespace merval
         private void altasUsuarios_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
-            FormRegistroUsuarios fr = new FormRegistroUsuarios();
+            string alta = "admin";
+            FormRegistroUsuarios fr = new FormRegistroUsuarios(alta);
             fr.ShowDialog();
         }
 

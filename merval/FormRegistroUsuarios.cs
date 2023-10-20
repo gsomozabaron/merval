@@ -14,22 +14,32 @@ namespace merval
     public partial class FormRegistroUsuarios : Form
     {
         List<Usuario> listaDeUsuarios = Serializadora.LeerListadoUsuarios();
+        private string alta;
 
-        public FormRegistroUsuarios()
+        public FormRegistroUsuarios(string alta)
         {
             InitializeComponent();
+            this.alta = alta;
         }
 
         private void FormRegistroUsuarios_Load(object sender, EventArgs e)
         {
-            chk_comisionista.Visible = false;
-            btn_agregarUsuario.Visible = false;
+            if (alta == "admin")
+            {
+                chk_esAdmin.Visible = true;
+                chk_comisionista.Visible = true;
+            }
+            else
+            {
+                chk_esAdmin.Visible = false;
+                chk_comisionista.Visible = false;
+            }
         }
 
         private bool EsDniValido(string dni)
         {
-            // Verificar si el DNI tiene 6 o 7 dígitos numéricos
-            return System.Text.RegularExpressions.Regex.IsMatch(dni, @"^\d{6,7}$");
+            // Verificar si el DNI tiene 7 u 8 dígitos numéricos
+            return System.Text.RegularExpressions.Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
         #region formulario alta de usuarios
@@ -40,8 +50,9 @@ namespace merval
             string nombreUsuario = this.txt_NombreUsuario.Text;
             string password = this.txt_Pass.Text;
             bool esComisionista = this.chk_comisionista.Checked;
+            bool esAdmin = this.chk_esAdmin.Checked;
             string passCheck = this.txt_PassCheck.Text;
-            Tipo tipoDeUsuario = Tipo.normal;
+            Tipo tipoDeUsuario;/// = Tipo.normal;
             long saldo = 0;
             string apellido = this.txt_Apellido.Text;
 
@@ -101,7 +112,15 @@ namespace merval
             }
             else
             {
-                tipoDeUsuario = Tipo.normal;
+                if (esAdmin == true)
+                {
+                    tipoDeUsuario = Tipo.Admin;
+                }
+                else
+                {
+                    tipoDeUsuario = Tipo.normal;
+                }
+
                 Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, saldo, apellido);
                 listaDeUsuarios.Add(nuevoUsuario);
 
@@ -110,12 +129,17 @@ namespace merval
             }
             this.Close();
         }
-            #endregion
-            #endregion
+        #endregion
+        #endregion
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btn_agregarUsuario_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -62,9 +62,9 @@
             // PBox_error
             // 
             PBox_error.Image = (Image)resources.GetObject("PBox_error.Image");
-            PBox_error.Location = new Point(11, 33);
+            PBox_error.Location = new Point(11, 12);
             PBox_error.Name = "PBox_error";
-            PBox_error.Size = new Size(177, 120);
+            PBox_error.Size = new Size(177, 173);
             PBox_error.SizeMode = PictureBoxSizeMode.StretchImage;
             PBox_error.TabIndex = 3;
             PBox_error.TabStop = false;

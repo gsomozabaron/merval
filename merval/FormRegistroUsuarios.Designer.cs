@@ -37,8 +37,8 @@
             btnAceptar = new Button();
             chk_comisionista = new CheckBox();
             btn_salir = new Button();
-            btn_agregarUsuario = new Button();
             txt_Apellido = new TextBox();
+            chk_esAdmin = new CheckBox();
             SuspendLayout();
             // 
             // txt_Nombre
@@ -140,17 +140,6 @@
             btn_salir.UseVisualStyleBackColor = false;
             btn_salir.Click += button1_Click;
             // 
-            // btn_agregarUsuario
-            // 
-            btn_agregarUsuario.BackColor = Color.Gold;
-            btn_agregarUsuario.ForeColor = SystemColors.ActiveCaptionText;
-            btn_agregarUsuario.Location = new Point(211, 238);
-            btn_agregarUsuario.Name = "btn_agregarUsuario";
-            btn_agregarUsuario.Size = new Size(167, 23);
-            btn_agregarUsuario.TabIndex = 8;
-            btn_agregarUsuario.Text = "Agregar Usuario";
-            btn_agregarUsuario.UseVisualStyleBackColor = false;
-            // 
             // txt_Apellido
             // 
             txt_Apellido.BackColor = Color.LightCoral;
@@ -163,6 +152,19 @@
             txt_Apellido.TabIndex = 9;
             txt_Apellido.TextAlign = HorizontalAlignment.Center;
             // 
+            // chk_esAdmin
+            // 
+            chk_esAdmin.BackColor = Color.LightCoral;
+            chk_esAdmin.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chk_esAdmin.ForeColor = SystemColors.ControlText;
+            chk_esAdmin.Location = new Point(191, 247);
+            chk_esAdmin.Name = "chk_esAdmin";
+            chk_esAdmin.Size = new Size(207, 23);
+            chk_esAdmin.TabIndex = 10;
+            chk_esAdmin.Text = "Es administrador?";
+            chk_esAdmin.TextAlign = ContentAlignment.MiddleCenter;
+            chk_esAdmin.UseVisualStyleBackColor = false;
+            // 
             // FormRegistroUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -172,8 +174,8 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(626, 346);
             ControlBox = false;
+            Controls.Add(chk_esAdmin);
             Controls.Add(txt_Apellido);
-            Controls.Add(btn_agregarUsuario);
             Controls.Add(btn_salir);
             Controls.Add(chk_comisionista);
             Controls.Add(btnAceptar);
@@ -202,7 +204,7 @@
         private Button btnAceptar;
         private CheckBox chk_comisionista;
         private Button btn_salir;
-        private Button btn_agregarUsuario;
         private TextBox txt_Apellido;
+        private CheckBox chk_esAdmin;
     }
 }

@@ -118,7 +118,8 @@ namespace merval
 
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
-            FormRegistroUsuarios altaUsuarios = new FormRegistroUsuarios();
+            string alta = "normal";
+            FormRegistroUsuarios altaUsuarios = new FormRegistroUsuarios(alta);
             altaUsuarios.ShowDialog();
         }
 

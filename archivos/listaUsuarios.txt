@@ -167,4 +167,24 @@
     <ListadoDeAccionesPropias />
     <Saldo>0</Saldo>
   </Usuario>
+  <Usuario>
+    <NombreUsuario>dfgargt</NombreUsuario>
+    <Pass>asd</Pass>
+    <Nombre>fad</Nombre>
+    <Apellido>dfadsgfg</Apellido>
+    <Dni>1254588</Dni>
+    <TipoDeUsuario>Admin</TipoDeUsuario>
+    <ListadoDeAccionesPropias />
+    <Saldo>0</Saldo>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>kako</NombreUsuario>
+    <Pass>123</Pass>
+    <Nombre>kako</Nombre>
+    <Apellido>ble</Apellido>
+    <Dni>35125658</Dni>
+    <TipoDeUsuario>Admin</TipoDeUsuario>
+    <ListadoDeAccionesPropias />
+    <Saldo>0</Saldo>
+  </Usuario>
 </ArrayOfUsuario>
