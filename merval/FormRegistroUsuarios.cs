@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -66,7 +65,7 @@ namespace merval
             /// validación de número de DNI
             if (!EsDniValido(Dni))
             {
-                FormMetodos.VentanaMensajeError("Nro de DNI inválido.\nIngrese un número de 6 o 7 dígitos.");
+                Vm.VentanaMensajeError("Nro de DNI inválido.\nIngrese un número de 6 o 7 dígitos.");
                 txt_Dni.Clear(); // limpiamos la casilla
                 return;
             }
@@ -77,7 +76,7 @@ namespace merval
             /// chequeo de coincidencia de contraseña de las dos casillas
             if (password != passCheck)
             {
-                FormMetodos.VentanaMensajeError("Las contraseñas no coinciden.\nPor favor, vuelva a ingresarlas.");
+                Vm.VentanaMensajeError("Las contraseñas no coinciden.\nPor favor, vuelva a ingresarlas.");
                 this.txt_Pass.Clear();
                 this.txt_Pass.Clear();
                 return;
@@ -92,7 +91,7 @@ namespace merval
                 if (u.NombreUsuario == nombreUsuario)
                 {
                     this.txt_NombreUsuario.Clear();
-                    FormMetodos.VentanaMensaje("El nombre de usuario ya existe.", "Por favor, elija otro.");
+                    Vm.VentanaMensaje("El nombre de usuario ya existe.", "Por favor, elija otro.");
                     return;
                 }
             }
@@ -125,7 +124,7 @@ namespace merval
                 listaDeUsuarios.Add(nuevoUsuario);
 
                 Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
-                FormMetodos.VentanaMensaje("Registro exitoso.", "Usuario dado de alta");
+                Vm.VentanaMensaje("Registro exitoso.", "Usuario dado de alta");
             }
             this.Close();
         }

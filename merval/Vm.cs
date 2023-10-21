@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace merval
 {
-    public class FormMetodos
+    public class Vm
     {
         public static DialogResult VentanaMensaje(string titulo,string mensaje)
         {

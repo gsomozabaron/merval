@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,7 +39,7 @@ namespace merval
             
             if (buscar == "")   //si la casilla buscar esta vacia mensaje y retornar
             {
-                FormMetodos.VentanaMensaje("Ingrese", "nombre o parte del nombre");
+                Vm.VentanaMensaje("Ingrese", "nombre o parte del nombre");
                 return;
             }
 
@@ -50,7 +49,7 @@ namespace merval
                 {
                     if (a.Nombre.ToLower().Contains(buscar))    //recorrer la lista de acciones buscando coincidencias en accion.nombre
                     {
-                        if (FormMetodos.VentanaMensajeConfirmar($"{a.Nombre}", "es la indicada?") == DialogResult.OK)
+                        if (Vm.VentanaMensajeConfirmar($"{a.Nombre}", "es la indicada?") == DialogResult.OK)
                         {
                             txt_Nombre.Text = a.Nombre.ToString();
                             encontro = true;
@@ -60,13 +59,13 @@ namespace merval
                 }
                 catch (Exception ex)
                 {
-                    FormMetodos.VentanaMensajeError($"Error: {ex.Message}");    //si rompe.. mensaje
+                    Vm.VentanaMensajeError($"Error: {ex.Message}");    //si rompe.. mensaje
                 }
             }
             
             if (!encontro)
             {   //si no encontro coincidencia tira mensaje
-                FormMetodos.VentanaMensajeError("Titulo no encontrado");
+                Vm.VentanaMensajeError("Titulo no encontrado");
             }
         }
 
@@ -79,16 +78,16 @@ namespace merval
         {
             Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
 
-            if (FormMetodos.VentanaMensaje("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL TITULO") == DialogResult.OK)
+            if (Vm.VentanaMensaje("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL TITULO") == DialogResult.OK)
             {
                 listadeAccionesGral.Remove(a);
                 Serializadora.GuardarGralAcciones(listadeAccionesGral);///guarda en archivo la lista de acciones
-                FormMetodos.VentanaMensaje("TITULO", "ELIMINADO");
+                Vm.VentanaMensaje("TITULO", "ELIMINADO");
                 DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();///carga el datagrid con la lista actualizada
             }
             else
             {
-                FormMetodos.VentanaMensaje("OPERACION", "CANCELADA");
+                Vm.VentanaMensaje("OPERACION", "CANCELADA");
             }
         }
 
@@ -107,7 +106,7 @@ namespace merval
             Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
             a.Nombre = txt_Nombre.Text;
 
-            if (FormMetodos.VentanaMensajeConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ") == DialogResult.OK)
+            if (Vm.VentanaMensajeConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ") == DialogResult.OK)
             {
                 Serializadora.GuardarGralAcciones(listadeAccionesGral);
                 DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();

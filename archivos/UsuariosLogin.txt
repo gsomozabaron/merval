@@ -1,1 +1,0 @@
-{"admin":"admin","fmario":"mariopass","gsomoza":"gpass","homero":"homeropass","malu":"malupass","titina":"baron","ivi":"coco","gala":"perrito","lucas":"tañeda","usunombre1":"passnombre1","usuNombre2":"passnom2"}

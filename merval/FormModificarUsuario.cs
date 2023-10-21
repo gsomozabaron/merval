@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,7 +61,7 @@ namespace merval
                         u.Dni.Contains(buscar)
                     )
                     {
-                        if (FormMetodos.VentanaMensajeConfirmar($"{u.Nombre}, {u.Apellido}", $"{u.NombreUsuario} es el usuario?") == DialogResult.OK)
+                        if (Vm.VentanaMensajeConfirmar($"{u.Nombre}, {u.Apellido}", $"{u.NombreUsuario} es el usuario?") == DialogResult.OK)
                         {
                             txt_Nombre.Text = u.Nombre.ToString();
                             txt_Apellido.Text = u.Apellido.ToString();
@@ -75,12 +74,12 @@ namespace merval
                 }
                 catch (Exception ex)
                 {
-                    FormMetodos.VentanaMensajeError($"Error: {ex.Message}");
+                    Vm.VentanaMensajeError($"Error: {ex.Message}");
                 }
             }
             if (!encontro)
             {
-                FormMetodos.VentanaMensajeError("Usuario no encontrado");
+                Vm.VentanaMensajeError("Usuario no encontrado");
             }
         }
 
@@ -106,7 +105,7 @@ namespace merval
         {
             if (string.IsNullOrWhiteSpace(txt_Nombre.Text) || string.IsNullOrWhiteSpace(txt_Apellido.Text) || string.IsNullOrWhiteSpace(txt_DNI.Text) || string.IsNullOrWhiteSpace(txt_NombreUsuario.Text))
             {
-                FormMetodos.VentanaMensajeError("Todos los campos deben estar llenos.");
+                Vm.VentanaMensajeError("Todos los campos deben estar llenos.");
                 return;
             }
 
@@ -116,7 +115,7 @@ namespace merval
             usuarioSeleccionado.Nombre = txt_Nombre.Text;
             usuarioSeleccionado.NombreUsuario = txt_NombreUsuario.Text;
 
-            if (FormMetodos.VentanaMensajeConfirmar("ATENCION", "¿Está seguro?\nSe sobrescribirá el archivo.") == DialogResult.OK)
+            if (Vm.VentanaMensajeConfirmar("ATENCION", "¿Está seguro?\nSe sobrescribirá el archivo.") == DialogResult.OK)
             {
                 // Guardar usuario modificado y actualizar el DataGridView
                 Serializadora.GuardarListadoUsuarios(listadoUsuarios);
@@ -133,16 +132,16 @@ namespace merval
         {
             Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
 
-            if (FormMetodos.VentanaMensajeConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO") == DialogResult.OK)
+            if (Vm.VentanaMensajeConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO") == DialogResult.OK)
             {
                 listadoUsuarios.Remove(usuarioSeleccionado);///sacar usuario de la lista y grabar
                 Serializadora.GuardarListadoUsuarios(listadoUsuarios);
-                FormMetodos.VentanaMensaje("USUARIO", "ELIMINADO");
+                Vm.VentanaMensaje("USUARIO", "ELIMINADO");
                 dataGridView1.DataSource = Serializadora.LeerListadoUsuarios();
             }
             else
             {
-                FormMetodos.VentanaMensaje("OPERACION", "CANCELADA");
+                Vm.VentanaMensaje("OPERACION", "CANCELADA");
             }
         }
 

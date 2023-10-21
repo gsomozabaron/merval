@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -53,7 +52,7 @@ namespace merval
                 Acciones Seleccionado = (Acciones)Dtg1.SelectedRows[0].DataBoundItem;
 
                 txt_titulo.Text = Seleccionado.Nombre;
-                txt_cotizacion.Text = Seleccionado.Valor;
+                txt_cotizacion.Text = Seleccionado.ValorCompra.ToString();
             }
         }
 
@@ -61,7 +60,7 @@ namespace merval
         {
             if (txt_titulo.Text == "")
             {
-                FormMetodos.VentanaMensajeError("Selecciona un accion");
+                Vm.VentanaMensajeError("Selecciona un accion");
                 return;
             }
             try
@@ -73,25 +72,25 @@ namespace merval
 
                 if (cantidad <= 0)
                 {
-                    FormMetodos.VentanaMensajeError("La cantidad debe ser mayor que 0.");
+                    Vm.VentanaMensajeError("La cantidad debe ser mayor que 0.");
                     return;
                 }
 
                 if (usuarioActual.Saldo < totalCompra)
                 {
-                    FormMetodos.VentanaMensajeError("Saldo insuficiente.");
+                    Vm.VentanaMensajeError("Saldo insuficiente.");
                     return;
                 }
 
-                if (FormMetodos.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
+                if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
                 {
-                    FormMetodos.VentanaMensaje("Compra", "Cancelada");
+                    Vm.VentanaMensaje("Compra", "Cancelada");
                     return;
                 }
 
                 Acciones nuevaAccion = new Acciones();
                 nuevaAccion.Nombre = txt_titulo.Text;
-                nuevaAccion.Valor = txt_cotizacion.Text;
+                nuevaAccion.ValorCompra = decimal.Parse(txt_cotizacion.Text);
                 nuevaAccion.Fecha = DateTime.Now;
                 nuevaAccion.Cantidad = cantidad;
 
@@ -115,15 +114,15 @@ namespace merval
                 }
 
                 Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-                FormMetodos.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
+                Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
             }
             catch (FormatException)
             {
-                FormMetodos.VentanaMensajeError("Ingresa una cantidad valida.");
+                Vm.VentanaMensajeError("Ingresa una cantidad valida.");
             }
             catch (Exception ex)
             {
-                FormMetodos.VentanaMensajeError($"Error: {ex.Message}");
+                Vm.VentanaMensajeError($"Error: {ex.Message}");
             }
         }
 
@@ -139,7 +138,7 @@ namespace merval
             }
             catch (FormatException)
             {
-                FormMetodos.VentanaMensajeError("Ingresa una cantidad valida.");
+                Vm.VentanaMensajeError("Ingresa una cantidad valida.");
             }
         }
     }

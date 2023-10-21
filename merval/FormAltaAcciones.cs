@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,34 +21,37 @@ namespace merval
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             string titulo = txt_Titulo.Text;
-            string valor = Txt_precio.Text;
+            decimal valorCompra = decimal.Parse(Txt_precio.Text);
+            decimal valorVenta = decimal.Parse("agregar boton");
 
-            if (titulo == "" || valor.ToString() == "")
+            if (titulo == "" || valorCompra.ToString() == "" || valorVenta.ToString() == "")
             {
-                FormMetodos.VentanaMensajeError("Tanto el título como el precio \nson obligatorios.");
+                Vm.VentanaMensajeError("Tanto el título como los precios \nson obligatorios.");
                 return;
             }
 
 
-            if (!decimal.TryParse(valor, out decimal valorDec))
-            {
-                FormMetodos.VentanaMensajeError("El precio ingresado no es un valor numérico válido.");
-                return;
-            }
+            //if (!decimal.TryParse(valorCompra, out decimal valorDec))
+            //{
+            //    FormMetodos.VentanaMensajeError("El precio ingresado no es un valor numérico válido.");
+            //    return;
+            //}
 
             if (listaAccionesGral.Any(a => a.Nombre == titulo))
             {
-                FormMetodos.VentanaMensajeError("El título ya se encuentra dado de alta");
+                Vm.VentanaMensajeError("El título ya se encuentra dado de alta");
             }
             else
             {
-            Acciones nuevaAccion = new Acciones(titulo, valor);
-            listaAccionesGral.Add(nuevaAccion);
-            Serializadora.GuardarGralAcciones(listaAccionesGral);
-            FormMetodos.VentanaMensaje("Éxito", "Título ingresado correctamente.");
-            txt_Titulo.Clear(); // Limpiar los campos después de agregar
-            Txt_precio.Clear();
-                ///Guardar(titulo, valor);
+                //Acciones nuevaAccion = new Acciones(titulo, valor);
+                //listaAccionesGral.Add(nuevaAccion);
+                //Serializadora.GuardarGralAcciones(listaAccionesGral);
+                Acciones.CrearAccion(titulo,valorCompra, valorVenta, listaAccionesGral);
+            
+                Vm.VentanaMensaje("Éxito", "Título ingresado correctamente.");
+            
+                txt_Titulo.Clear(); // Limpiar los campos después de agregar
+                Txt_precio.Clear();
             }
         }
 
@@ -58,14 +60,6 @@ namespace merval
         {
             this.Close();
         }
-        /// <summary>
-        /// ////////////////////////////////////////////////////////////////////////////
-        /// </summary>
-        private void Guardar()///sacar a otra clase!!
-        {
-
-        }
-        //////////////////////////////////////////////////////////////////////////////////////
     }
 }
 

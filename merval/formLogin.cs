@@ -1,4 +1,3 @@
-using Entidades;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
@@ -75,7 +74,7 @@ namespace merval
                         mensaje = $"{u.Nombre}";    ///mensaje de bienvenida con el nombre del usuario
                         estaRegistrado = true;  ///pasamos a verdadero para entrar a la linea 93
 
-                        FormMetodos.VentanaMensaje(titulo, mensaje);//ventana emergente
+                        Vm.VentanaMensaje(titulo, mensaje);//ventana emergente
                         break;
                     }
 
@@ -83,7 +82,7 @@ namespace merval
                     else
                     {
                         mensaje = "password incorrecto";
-                        FormMetodos.VentanaMensajeError(mensaje);
+                        Vm.VentanaMensajeError(mensaje);
                         break;
                     }
                 }
@@ -92,7 +91,7 @@ namespace merval
             if (estaRegistrado == false)
             {
                 mensaje = "Login Error \nusuario no encontrado";
-                FormMetodos.VentanaMensajeError(mensaje);
+                Vm.VentanaMensajeError(mensaje);
                 LimpiarCampos();    // Limpiamos los campos
             }
 

@@ -1,6 +1,4 @@
-using Entidades;
-
-namespace merval
+namespace merval.entidades
 {
     internal static class Program
     {

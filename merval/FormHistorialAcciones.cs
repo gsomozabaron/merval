@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,7 +40,9 @@ namespace merval
         {
             string nombre;
             string fecha;
-            string valor;
+            decimal valorCompra;
+            decimal valorVenta;
+
             List<string> listaOrdenada = new List<string>();
             foreach (Acciones accion in historial)
             {
@@ -53,8 +54,10 @@ namespace merval
                     {
                         if (nombre.Equals(a.Nombre))
                         {
-                            valor = a.Valor;
-                            listaOrdenada.Add(valor);
+                            valorCompra = a.ValorCompra;
+                            valorVenta = a.ValorVenta; 
+                            listaOrdenada.Add(valorCompra.ToString());
+                            listaOrdenada.Add(valorVenta.ToString());
                         }
                     }
                 }

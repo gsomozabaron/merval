@@ -1,5 +1,4 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,7 +49,7 @@ namespace merval
                 }
                 else if (e.ColumnIndex == Dtg1.Columns["Cotizacion"].Index)
                 {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Valor.ToString();
+                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].ValorVenta.ToString();
                 }
                 else if (e.ColumnIndex == Dtg1.Columns["Cartera"].Index)
                 {
@@ -58,7 +57,7 @@ namespace merval
                 }
                 else if (e.ColumnIndex == Dtg1.Columns["PrecioCompra"].Index)
                 {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Valor.ToString();
+                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].ValorVenta.ToString();
                 }
                 else if (e.ColumnIndex == Dtg1.Columns["Cantidad"].Index)
                 {
@@ -90,11 +89,11 @@ namespace merval
             {
                 if (txt_Cantidad.Text == "")
                 {
-                    FormMetodos.VentanaMensajeError("Ingresa cantidad");
+                    Vm.VentanaMensajeError("Ingresa cantidad");
                 }
                 else
                 {
-                    FormMetodos.VentanaMensajeError("Solo numeros");
+                    Vm.VentanaMensajeError("Solo numeros");
                 }
             }
         }
@@ -106,7 +105,7 @@ namespace merval
                 Acciones Seleccionado = (Acciones)Dtg1.SelectedRows[0].DataBoundItem;
 
                 txt_titulo.Text = Seleccionado.Nombre;
-                txt_cotizacion.Text = Seleccionado.Valor;
+                txt_cotizacion.Text = Seleccionado.ValorVenta.ToString();
             }
         }
 
@@ -116,7 +115,7 @@ namespace merval
             {
                 if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
                 {
-                    if (FormMetodos.VentanaMensajeConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}") == DialogResult.OK)
+                    if (Vm.VentanaMensajeConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}") == DialogResult.OK)
                     {
                         a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
                         if (a.Cantidad == 0)
@@ -130,14 +129,14 @@ namespace merval
                     }
                     else
                     {
-                        FormMetodos.VentanaMensaje("Venta", "cancelada");
+                        Vm.VentanaMensaje("Venta", "cancelada");
                     }
                 }
                 else
                 {
                     if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) > a.Cantidad))
                     {
-                        FormMetodos.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
+                        Vm.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
                         break;
                     }
                 }
