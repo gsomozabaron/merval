@@ -49,7 +49,7 @@
             // 
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(734, 24);
+            menuStrip1.Size = new Size(835, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -58,7 +58,7 @@
             btn_Salir.BackColor = Color.Red;
             btn_Salir.Font = new Font("Times New Roman", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btn_Salir.ForeColor = Color.White;
-            btn_Salir.Location = new Point(631, 357);
+            btn_Salir.Location = new Point(732, 397);
             btn_Salir.Name = "btn_Salir";
             btn_Salir.Size = new Size(91, 37);
             btn_Salir.TabIndex = 1;
@@ -81,9 +81,10 @@
             Dtg1.GridColor = Color.Tomato;
             Dtg1.Location = new Point(12, 35);
             Dtg1.Name = "Dtg1";
+            Dtg1.RowHeadersVisible = false;
             Dtg1.RowTemplate.Height = 25;
             Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            Dtg1.Size = new Size(264, 359);
+            Dtg1.Size = new Size(381, 359);
             Dtg1.TabIndex = 2;
             Dtg1.CellMouseDoubleClick += Dtg1_CellMouseDoubleClick;
             // 
@@ -91,7 +92,7 @@
             // 
             txt_titulo.Enabled = false;
             txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txt_titulo.Location = new Point(298, 80);
+            txt_titulo.Location = new Point(399, 80);
             txt_titulo.Name = "txt_titulo";
             txt_titulo.PlaceholderText = "Titulo";
             txt_titulo.ReadOnly = true;
@@ -105,7 +106,7 @@
             btn_Comprar.BackgroundImageLayout = ImageLayout.Zoom;
             btn_Comprar.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_Comprar.ForeColor = SystemColors.ControlLightLight;
-            btn_Comprar.Location = new Point(298, 243);
+            btn_Comprar.Location = new Point(399, 243);
             btn_Comprar.Name = "btn_Comprar";
             btn_Comprar.Size = new Size(134, 117);
             btn_Comprar.TabIndex = 5;
@@ -118,9 +119,9 @@
             // 
             txt_cotizacion.Enabled = false;
             txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txt_cotizacion.Location = new Point(298, 109);
+            txt_cotizacion.Location = new Point(399, 109);
             txt_cotizacion.Name = "txt_cotizacion";
-            txt_cotizacion.PlaceholderText = "Cotizacion";
+            txt_cotizacion.PlaceholderText = "Precio";
             txt_cotizacion.ReadOnly = true;
             txt_cotizacion.Size = new Size(134, 26);
             txt_cotizacion.TabIndex = 7;
@@ -129,9 +130,9 @@
             // txt_Cantidad
             // 
             txt_Cantidad.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txt_Cantidad.Location = new Point(298, 138);
+            txt_Cantidad.Location = new Point(399, 138);
             txt_Cantidad.Name = "txt_Cantidad";
-            txt_Cantidad.PlaceholderText = "Cantidad?";
+            txt_Cantidad.PlaceholderText = "Ingrese cantidad?";
             txt_Cantidad.Size = new Size(134, 26);
             txt_Cantidad.TabIndex = 8;
             txt_Cantidad.TextAlign = HorizontalAlignment.Center;
@@ -141,7 +142,7 @@
             lbl_saldo.AutoSize = true;
             lbl_saldo.BackColor = Color.White;
             lbl_saldo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_saldo.Location = new Point(458, 243);
+            lbl_saldo.Location = new Point(559, 243);
             lbl_saldo.Name = "lbl_saldo";
             lbl_saldo.Size = new Size(46, 19);
             lbl_saldo.TabIndex = 10;
@@ -150,7 +151,7 @@
             // btn_calcularCompra
             // 
             btn_calcularCompra.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_calcularCompra.Location = new Point(298, 167);
+            btn_calcularCompra.Location = new Point(399, 167);
             btn_calcularCompra.Name = "btn_calcularCompra";
             btn_calcularCompra.Size = new Size(134, 31);
             btn_calcularCompra.TabIndex = 11;
@@ -162,7 +163,7 @@
             // 
             lbl_saldoTag.AutoSize = true;
             lbl_saldoTag.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_saldoTag.Location = new Point(458, 272);
+            lbl_saldoTag.Location = new Point(559, 272);
             lbl_saldoTag.Name = "lbl_saldoTag";
             lbl_saldoTag.Size = new Size(50, 19);
             lbl_saldoTag.TabIndex = 12;
@@ -172,7 +173,7 @@
             // 
             lbl_totalventa.AutoSize = true;
             lbl_totalventa.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_totalventa.Location = new Point(320, 211);
+            lbl_totalventa.Location = new Point(421, 211);
             lbl_totalventa.Name = "lbl_totalventa";
             lbl_totalventa.Size = new Size(49, 19);
             lbl_totalventa.TabIndex = 13;
@@ -186,7 +187,7 @@
             textBox1.Enabled = false;
             textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             textBox1.ForeColor = SystemColors.MenuText;
-            textBox1.Location = new Point(438, 35);
+            textBox1.Location = new Point(539, 35);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
@@ -201,7 +202,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(734, 406);
+            ClientSize = new Size(835, 446);
             ControlBox = false;
             Controls.Add(textBox1);
             Controls.Add(lbl_totalventa);
@@ -218,7 +219,7 @@
             MainMenuStrip = menuStrip1;
             Name = "FormOperar";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Comprar y Vender Titulos";
+            Text = "Comprar Titulos";
             Load += FormOperar_Load;
             ((System.ComponentModel.ISupportInitialize)Dtg1).EndInit();
             ResumeLayout(false);

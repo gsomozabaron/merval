@@ -42,6 +42,7 @@
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
             btn_ocultarDataGrid = new Button();
+            modificarDatosToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -93,7 +94,7 @@
             // 
             // ModificarTitulosToolStripMenuItem
             // 
-            ModificarTitulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { AltasAcciones, BajasAcciones });
+            ModificarTitulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { AltasAcciones, BajasAcciones, modificarDatosToolStripMenuItem });
             ModificarTitulosToolStripMenuItem.Name = "ModificarTitulosToolStripMenuItem";
             ModificarTitulosToolStripMenuItem.Size = new Size(123, 23);
             ModificarTitulosToolStripMenuItem.Text = "Modificar Titulos";
@@ -102,14 +103,14 @@
             // 
             AltasAcciones.AccessibleName = "altas";
             AltasAcciones.Name = "AltasAcciones";
-            AltasAcciones.Size = new Size(112, 24);
+            AltasAcciones.Size = new Size(180, 24);
             AltasAcciones.Text = "Altas";
             AltasAcciones.Click += AltasAcciones_Click;
             // 
             // BajasAcciones
             // 
             BajasAcciones.Name = "BajasAcciones";
-            BajasAcciones.Size = new Size(112, 24);
+            BajasAcciones.Size = new Size(180, 24);
             BajasAcciones.Text = "Bajas";
             BajasAcciones.Click += BajasAcciones_Click;
             // 
@@ -173,6 +174,13 @@
             btn_ocultarDataGrid.UseVisualStyleBackColor = true;
             btn_ocultarDataGrid.Click += btn_ocultarDataGrid_Click;
             // 
+            // modificarDatosToolStripMenuItem
+            // 
+            modificarDatosToolStripMenuItem.Name = "modificarDatosToolStripMenuItem";
+            modificarDatosToolStripMenuItem.Size = new Size(180, 24);
+            modificarDatosToolStripMenuItem.Text = "Modificar datos";
+            modificarDatosToolStripMenuItem.Click += modificarDatosToolStripMenuItem_Click;
+            // 
             // FormAdmin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -211,5 +219,6 @@
         private Button btn_salir;
         private Button btn_ocultarDataGrid;
         private ToolStripMenuItem Mts_ModificarDatos;
+        private ToolStripMenuItem modificarDatosToolStripMenuItem;
     }
 }

@@ -32,7 +32,8 @@
             btn_cancel = new Button();
             btn_aceptar = new Button();
             txt_Titulo = new TextBox();
-            Txt_precio = new TextBox();
+            Txt_ValorCompra = new TextBox();
+            txt_ValorVenta = new TextBox();
             SuspendLayout();
             // 
             // btn_cancel
@@ -72,15 +73,25 @@
             txt_Titulo.Tag = "";
             txt_Titulo.TextAlign = HorizontalAlignment.Center;
             // 
-            // Txt_precio
+            // Txt_ValorCompra
             // 
-            Txt_precio.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            Txt_precio.Location = new Point(141, 26);
-            Txt_precio.Name = "Txt_precio";
-            Txt_precio.PlaceholderText = "Cotizacion";
-            Txt_precio.Size = new Size(100, 22);
-            Txt_precio.TabIndex = 3;
-            Txt_precio.TextAlign = HorizontalAlignment.Center;
+            Txt_ValorCompra.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Txt_ValorCompra.Location = new Point(141, 26);
+            Txt_ValorCompra.Name = "Txt_ValorCompra";
+            Txt_ValorCompra.PlaceholderText = "Valor compra";
+            Txt_ValorCompra.Size = new Size(100, 22);
+            Txt_ValorCompra.TabIndex = 3;
+            Txt_ValorCompra.TextAlign = HorizontalAlignment.Center;
+            // 
+            // txt_ValorVenta
+            // 
+            txt_ValorVenta.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txt_ValorVenta.Location = new Point(247, 26);
+            txt_ValorVenta.Name = "txt_ValorVenta";
+            txt_ValorVenta.PlaceholderText = "Valor venta";
+            txt_ValorVenta.Size = new Size(100, 22);
+            txt_ValorVenta.TabIndex = 4;
+            txt_ValorVenta.TextAlign = HorizontalAlignment.Center;
             // 
             // FormAltaAcciones
             // 
@@ -90,7 +101,8 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(384, 162);
             ControlBox = false;
-            Controls.Add(Txt_precio);
+            Controls.Add(txt_ValorVenta);
+            Controls.Add(Txt_ValorCompra);
             Controls.Add(txt_Titulo);
             Controls.Add(btn_aceptar);
             Controls.Add(btn_cancel);
@@ -106,6 +118,7 @@
         private Button btn_cancel;
         private Button btn_aceptar;
         private TextBox txt_Titulo;
-        private TextBox Txt_precio;
+        private TextBox Txt_ValorCompra;
+        private TextBox txt_ValorVenta;
     }
 }

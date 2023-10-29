@@ -21,40 +21,35 @@ namespace merval
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             string titulo = txt_Titulo.Text;
-            decimal valorCompra = decimal.Parse(Txt_precio.Text);
-            decimal valorVenta = decimal.Parse("agregar boton");
-
-            if (titulo == "" || valorCompra.ToString() == "" || valorVenta.ToString() == "")
+            try
             {
-                Vm.VentanaMensajeError("Tanto el título como los precios \nson obligatorios.");
-                return;
+                decimal valorCompra = decimal.Parse(Txt_ValorCompra.Text);
+                decimal valorVenta = decimal.Parse(txt_ValorVenta.Text);
+                if (titulo == "" || valorCompra.ToString() == "" || valorVenta.ToString() == "")
+                {
+                    Vm.VentanaMensajeError("Tanto el título como los precios \nson obligatorios.");
+                    return;
+                }
+
+                if (listaAccionesGral.Any(a => a.Nombre == titulo))
+                {
+                    Vm.VentanaMensajeError("El título ya se encuentra dado de alta");
+                }
+                else
+                {
+                    Acciones.CrearAccion(titulo, valorCompra, valorVenta, listaAccionesGral);
+
+                    Vm.VentanaMensaje("Éxito", "Título ingresado correctamente.");
+
+                    txt_Titulo.Clear(); // Limpiar los campos después de agregar
+                    Txt_ValorCompra.Clear();
+                }
             }
-
-
-            //if (!decimal.TryParse(valorCompra, out decimal valorDec))
-            //{
-            //    FormMetodos.VentanaMensajeError("El precio ingresado no es un valor numérico válido.");
-            //    return;
-            //}
-
-            if (listaAccionesGral.Any(a => a.Nombre == titulo))
+            catch (Exception)
             {
-                Vm.VentanaMensajeError("El título ya se encuentra dado de alta");
-            }
-            else
-            {
-                //Acciones nuevaAccion = new Acciones(titulo, valor);
-                //listaAccionesGral.Add(nuevaAccion);
-                //Serializadora.GuardarGralAcciones(listaAccionesGral);
-                Acciones.CrearAccion(titulo,valorCompra, valorVenta, listaAccionesGral);
-            
-                Vm.VentanaMensaje("Éxito", "Título ingresado correctamente.");
-            
-                txt_Titulo.Clear(); // Limpiar los campos después de agregar
-                Txt_precio.Clear();
+                Vm.VentanaMensajeError("los precios ingresados no son un valor numérico válido.");
             }
         }
-
 
         private void btn_cancel_Click(object sender, EventArgs e)
         {

@@ -13,7 +13,6 @@ namespace merval
     public partial class FormVender : Form
     {
         private List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
-
         private Usuario usuarioActual;
 
         public FormVender(Usuario usuario)
@@ -24,50 +23,37 @@ namespace merval
 
         private void FormVender_Load(object sender, EventArgs e)
         {
-            Dtg1.AutoGenerateColumns = false;
-            Dtg1.Columns.Add("Titulo", "Título");
-            Dtg1.Columns.Add("Cotizacion", "Cotización");
-            Dtg1.Columns.Add("Cartera", "Cartera");
-            Dtg1.Columns.Add("PrecioCompra", "Precio de Compra");
-            Dtg1.Columns.Add("Cantidad", "Cantidad");
-            Dtg1.Columns.Add("FechaCompra", "Fecha de Compra");
-
-            Dtg1.DataSource = usuarioActual.ListadoDeAccionesPropias;
+            VerAccionesDatagrid();
         }
-        /// <summary>
-        /// esta mal el datagrid, tengo que hacer 2 uno para listado de acciones y otro para el de usuario
-        /// </summary>
-
-        private void Dtg1_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
+        private void VerAccionesDatagrid()
         {
-
-            if (e.RowIndex >= 0 && e.RowIndex < Dtg1.Rows.Count)
+            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            /////////////////
+            List<Acciones> listDTG = new List<Acciones>();
+            foreach (Acciones acc in usuarioActual.ListadoDeAccionesPropias)
             {
-                if (e.ColumnIndex == Dtg1.Columns["Titulo"].Index)
+                foreach (Acciones a in listaAccionesGral)
                 {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Nombre;
-                }
-                else if (e.ColumnIndex == Dtg1.Columns["Cotizacion"].Index)
-                {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].ValorVenta.ToString();
-                }
-                else if (e.ColumnIndex == Dtg1.Columns["Cartera"].Index)
-                {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Nombre;
-                }
-                else if (e.ColumnIndex == Dtg1.Columns["PrecioCompra"].Index)
-                {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].ValorVenta.ToString();
-                }
-                else if (e.ColumnIndex == Dtg1.Columns["Cantidad"].Index)
-                {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Cantidad.ToString();
-                }
-                else if (e.ColumnIndex == Dtg1.Columns["FechaCompra"].Index)
-                {
-                    e.Value = usuarioActual.ListadoDeAccionesPropias[e.RowIndex].Fecha.ToString("dd/MM/yyyy");
+                    if (acc.Nombre == a.Nombre)
+                    {
+                        string nombre = acc.Nombre;
+                        decimal compra = a.ValorCompra;
+                        decimal venta = a.ValorVenta;
+                        int cantidad = acc.Cantidad;
+
+                        Acciones dtg = new Acciones(nombre, compra, venta, cantidad);
+                        listDTG.Add(dtg);
+                    }
                 }
             }
+            this.Dtg1.DataSource = null;///para hacer un refresh
+            this.Dtg1.Visible = true;
+            this.Dtg1.DataSource = listDTG;
+            // Cambiar el orden de las columnas
+            this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
+            this.Dtg1.Columns["Cantidad"].DisplayIndex = 1;
+            this.Dtg1.Columns["ValorCompra"].DisplayIndex = 2;
+            this.Dtg1.Columns["ValorVenta"].DisplayIndex = 3;
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)
@@ -122,7 +108,7 @@ namespace merval
                         {
                             usuarioActual.ListadoDeAccionesPropias.Remove(a);
                         }
-                        usuarioActual.Saldo = usuarioActual.Saldo + float.Parse(lbl_totalVenta.Text);
+                        usuarioActual.Saldo = usuarioActual.Saldo + decimal.Parse(lbl_totalVenta.Text);
                         Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
                         this.Close();
                         break;
@@ -142,6 +128,5 @@ namespace merval
                 }
             }
         }
-
     }
 }

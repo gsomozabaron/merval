@@ -28,7 +28,7 @@ namespace merval
             //cambiar el punto por coma, no se por que si pongo 154.5 lo toma como 1545
             string puntoPorComa = txt_MontoAumentar.Text.Replace('.', ',');
 
-            if (float.TryParse(puntoPorComa, out float montoAumentar)&& (montoAumentar > 0))
+            if (decimal.TryParse(puntoPorComa, out decimal montoAumentar) && (montoAumentar > 0))
             {
                 if (Vm.VentanaMensajeConfirmar ("confirmar Transferencia", "Esta Seguro?") == DialogResult.OK)
                 {
@@ -72,7 +72,7 @@ namespace merval
             //cambiar el punto por coma, no se por que si pong 154.5 lo toma como 1545
             string puntoPorComa = txt_montoExtraer.Text.Replace('.', ',');
 
-            if (float.TryParse(puntoPorComa, out float montoExtraer)&& (montoExtraer > 0))
+            if (decimal.TryParse(puntoPorComa, out decimal montoExtraer)&& (montoExtraer > 0))
             {
                 if (usuarioActual.Saldo >= montoExtraer)///cheq si saldo es mayor al monto a extraer
                 {

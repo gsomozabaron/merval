@@ -27,5 +27,17 @@ namespace merval
         public string Nombre { get => nombre; set => nombre = value; }
         public decimal ValorCompra { get => valorCompra; set => valorCompra = value; }
         public decimal ValorVenta { get => valorVenta; set => valorVenta = value; }
+
+        public static void ModificarDato(string nombre, decimal valorCompra, decimal valorVenta, List<Activos> lista)
+        {
+            foreach (var activo in lista)
+            {
+                if (activo.Nombre == nombre)
+                {
+                    activo.ValorCompra = valorCompra;
+                    activo.ValorVenta = valorVenta;
+                } 
+            }
+        }
     }
 }

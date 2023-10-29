@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace merval
 {
@@ -22,25 +24,23 @@ namespace merval
             listaUsuarios = Serializadora.LeerListadoUsuarios();
         }
 
+
+        /// <summary>
+        /// muestra el form de compras
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormOperar_Load(object sender, EventArgs e)
         {
             CargarDatos();
         }
 
-        private void CargarDatos()
-        {
-            Dtg1.DataSource = Serializadora.LeerListaAcciones();
-            Dtg1.Columns["fecha"].Visible = false;
-            Dtg1.Columns["cantidad"].Visible = false;
-            lbl_saldo.Text = usuarioActual.Saldo.ToString();
-            btn_Comprar.Enabled = false;
-        }
 
-        private void btn_Salir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+        /// <summary>
+        /// selecciona el titulo con doble click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Dtg1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             btn_Comprar.Enabled = false;
@@ -56,90 +56,97 @@ namespace merval
             }
         }
 
+
+        /// <summary>
+        /// añade titulos a la lista de acciones del usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Comprar_Click(object sender, EventArgs e)
         {
-            if (txt_titulo.Text == "")
-            {
-                Vm.VentanaMensajeError("Selecciona un accion");
-                return;
-            }
-            try
-            {
-                float cotizacion = float.Parse(txt_cotizacion.Text);
-                int cantidad = int.Parse(txt_Cantidad.Text);
-                float totalCompra = cotizacion * cantidad;
-                lbl_totalventa.Text = totalCompra.ToString();
+            string titulo = txt_titulo.Text;
 
-                if (cantidad <= 0)
-                {
-                    Vm.VentanaMensajeError("La cantidad debe ser mayor que 0.");
-                    return;
-                }
+            (decimal cotizacion, int cantidad, decimal totalCompra) = calcularCompra();
 
-                if (usuarioActual.Saldo < totalCompra)
-                {
-                    Vm.VentanaMensajeError("Saldo insuficiente.");
-                    return;
-                }
-
-                if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
-                {
-                    Vm.VentanaMensaje("Compra", "Cancelada");
-                    return;
-                }
-
-                Acciones nuevaAccion = new Acciones();
-                nuevaAccion.Nombre = txt_titulo.Text;
-                nuevaAccion.ValorCompra = decimal.Parse(txt_cotizacion.Text);
-                nuevaAccion.Fecha = DateTime.Now;
-                nuevaAccion.Cantidad = cantidad;
-
-                usuarioActual.Saldo -= totalCompra;
-                usuarioActual.ListadoDeAccionesPropias = usuarioActual.ListadoDeAccionesPropias ?? new List<Acciones>();
-
-                bool estaEnLista = false;
-                foreach (Acciones a in usuarioActual.ListadoDeAccionesPropias)
-                {
-                    if (a.Nombre == nuevaAccion.Nombre)
-                    {
-                        a.Cantidad += nuevaAccion.Cantidad;
-                        estaEnLista = true;
-                        break;
-                    }
-                }
-
-                if (!estaEnLista)
-                {
-                    usuarioActual.ListadoDeAccionesPropias.Add(nuevaAccion);
-                }
-
-                Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-                Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
-            }
-            catch (FormatException)
-            {
-                Vm.VentanaMensajeError("Ingresa una cantidad valida.");
-            }
-            catch (Exception ex)
-            {
-                Vm.VentanaMensajeError($"Error: {ex.Message}");
-            }
+            Usuario.ComprarAccion(usuarioActual, titulo, cantidad, totalCompra);
+        
+            lbl_saldo.Text = null;  //borra saldo viejo para cargar el nuevo saldo
+            lbl_saldo.Text = usuarioActual.Saldo.ToString();    //refresh saldo
+            CargarDatos();  //efresh datagrid
         }
 
+
+        /// <summary>
+        /// llama a la funcion calcular compra
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_calcularCompra_Click(object sender, EventArgs e)
         {
             btn_Comprar.Enabled = true;
+            calcularCompra();
+        }
+
+
+        /// <summary>
+        /// clacula el total de la compra
+        /// </summary>
+        /// <returns></returns>
+        private (decimal cotizacion, int cantidad, decimal totalcompra) calcularCompra()
+        {
             try
             {
-                float cotizacion = float.Parse(txt_cotizacion.Text);
+                decimal cotizacion = decimal.Parse(txt_cotizacion.Text);
                 int cantidad = int.Parse(txt_Cantidad.Text);
-                float totalCompra = cotizacion * cantidad;
+                decimal totalCompra = cotizacion * cantidad;
                 lbl_totalventa.Text = totalCompra.ToString();
+                return (cotizacion, cantidad, totalCompra);
             }
             catch (FormatException)
             {
                 Vm.VentanaMensajeError("Ingresa una cantidad valida.");
+                return (0,0,0);
             }
+        }
+        
+
+        /// <summary>
+        /// genera una lista de acciones propias del usuario con sus precios y lo carga al datagrid
+        /// </summary>
+        private void CargarDatos()
+        {
+            List<Acciones>listaAcciones = Serializadora.LeerListaAcciones();
+            //Dtg1.Columns["cantidad"].Visible = false;
+            lbl_saldo.Text = usuarioActual.Saldo.ToString();
+
+            if (usuarioActual.ListadoDeAccionesPropias.Count > 0 ) //por si el usuario no tiene ninguna accion
+            {
+                foreach (Acciones a in listaAcciones) //a = acciones en listado general de acciones
+                {
+                    foreach (Acciones au in usuarioActual.ListadoDeAccionesPropias) //au = acciones usuario
+                    {
+                        if (a.Nombre == au.Nombre)
+                        {
+                            a.Cantidad = au.Cantidad;
+                        }
+                    }
+                }
+            }
+            this.Dtg1.DataSource = listaAcciones;
+            // Cambiar el orden de las columnas
+            this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
+            this.Dtg1.Columns["ValorCompra"].DisplayIndex = 1;
+            this.Dtg1.Columns["ValorVenta"].DisplayIndex = 2;
+            this.Dtg1.Columns["Cantidad"].DisplayIndex = 3;
+            this.Dtg1.Columns["Cantidad"].HeaderText = "Propias";
+            this.Dtg1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
+            this.Dtg1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
+            btn_Comprar.Enabled = false;
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

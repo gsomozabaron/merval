@@ -22,26 +22,41 @@ namespace merval
             this.usuario = usuarioActual;
         }
 
+        private void FormPrincipal_Load(object sender, EventArgs e)
+        {
+            this.dataGridView1.Visible = false;
+        }
+
+        /// <summary>
+        /// muestra los titulos disponibles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void verMercado_Click(object sender, EventArgs e)
         {
             List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = listaAccionesGral;
-            this.dataGridView1.Columns[2].Visible = false;
-            this.dataGridView1.Columns[3].Visible = false;
+
+            this.dataGridView1.Columns["Cantidad"].Visible = false;
         }
 
+        /// <summary>
+        /// muestra en un datagrid las acciones del usuario con sus valores
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Ver_AccionesPropias_Click(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = null;///para hacer un refresh
-            this.dataGridView1.Visible = true;
-            this.dataGridView1.DataSource = usuario.ListadoDeAccionesPropias;
-            this.dataGridView1.Columns[2].Visible = true;//columna de fecha
-            this.dataGridView1.Columns[3].Visible = true;//columna de cantidad
-            this.dataGridView1.Columns[2].DefaultCellStyle.Format = "dd/MM/yy";//para que no salga la hora
+            VerAccionesDatagrid();
         }
 
+        /// <summary>
+        /// dispara el form de compra
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComprarTitulos_Click(object sender, EventArgs e)
         {
             FormOperar Fo = new FormOperar(usuario);
@@ -49,6 +64,11 @@ namespace merval
             Fo.ShowDialog();
         }
 
+        /// <summary>
+        /// dispara el form de saldos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void consultarSaldo_TSM_Click(object sender, EventArgs e)
         {
             FormSaldo Fs = new FormSaldo(usuario);
@@ -56,17 +76,11 @@ namespace merval
             Fs.ShowDialog();
         }
 
-        private void btn_salir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Application.Exit();
-        }
-
-        private void FormPrincipal_Load(object sender, EventArgs e)
-        {
-            this.dataGridView1.Visible = false;
-        }
-
+        /// <summary>
+        /// dispara el form de venta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void venderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -75,14 +89,47 @@ namespace merval
         }
 
         /// <summary>
-        /// aca se van a ver los graficos
+        /// genera un listado de titulos con sus valores para mostrar en el datagrid
+        /// toma las acciones del usuario y le agrega los precios de compra y venta del listado de acciones general
         /// </summary>
-        private void historicoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void VerAccionesDatagrid()
         {
-            VentanaEmergente ve = new VentanaEmergente("Mil Disculpas", "en construccion");
-            ve.ShowDialog();
-            FormHistorialAcciones F = new FormHistorialAcciones();
-            F.ShowDialog();
+            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            
+            List<Acciones> listDTG = new List<Acciones>();
+            
+            foreach (Acciones acc in usuario.ListadoDeAccionesPropias)
+            {
+                foreach (Acciones a in listaAccionesGral)
+                {
+                    if (acc.Nombre == a.Nombre)
+                    {
+                        string nombre = acc.Nombre;
+                        decimal compra = a.ValorCompra;
+                        decimal venta = a.ValorVenta;
+                        int cantidad = acc.Cantidad;
+
+                        Acciones dtg = new Acciones(nombre, compra, venta, cantidad);
+                        listDTG.Add(dtg);
+                    }
+                }
+            }
+            this.dataGridView1.DataSource = null;///para hacer un refresh
+            this.dataGridView1.Visible = true;
+            this.dataGridView1.DataSource = listDTG;
+            // Cambiar el orden de las columnas
+            this.dataGridView1.Columns["Nombre"].DisplayIndex = 0;
+            this.dataGridView1.Columns["Cantidad"].DisplayIndex = 1;
+            this.dataGridView1.Columns["ValorCompra"].DisplayIndex = 2;
+            this.dataGridView1.Columns["ValorVenta"].DisplayIndex = 3;
+            this.dataGridView1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
+            this.dataGridView1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
+        }
+
+        private void btn_salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
         }
     }
 }

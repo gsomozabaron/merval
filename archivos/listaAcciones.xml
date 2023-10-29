@@ -2,43 +2,57 @@
 <ArrayOfAcciones xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Acciones>
     <Nombre>YPF</Nombre>
-    <Valor>480</Valor>
+    <ValorCompra>1500</ValorCompra>
+    <ValorVenta>1200</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Tesla Motors</Nombre>
-    <Valor>1200</Valor>
+    <ValorCompra>1000</ValorCompra>
+    <ValorVenta>900</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Telefonica</Nombre>
-    <Valor>120</Valor>
+    <ValorCompra>850</ValorCompra>
+    <ValorVenta>700</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Apple</Nombre>
-    <Valor>2600</Valor>
+    <ValorCompra>900</ValorCompra>
+    <ValorVenta>800</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>IBM</Nombre>
-    <Valor>2500</Valor>
+    <ValorCompra>980</ValorCompra>
+    <ValorVenta>900</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Volkswagen</Nombre>
-    <Valor>1200</Valor>
+    <ValorCompra>1150</ValorCompra>
+    <ValorVenta>1000</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>
   <Acciones>
     <Nombre>Creality</Nombre>
-    <Valor>1250</Valor>
+    <ValorCompra>2000</ValorCompra>
+    <ValorVenta>1900</ValorVenta>
+    <Fecha>0001-01-01T00:00:00</Fecha>
+    <Cantidad>0</Cantidad>
+  </Acciones>
+  <Acciones>
+    <Nombre>test</Nombre>
+    <ValorCompra>1500</ValorCompra>
+    <ValorVenta>1200</ValorVenta>
     <Fecha>0001-01-01T00:00:00</Fecha>
     <Cantidad>0</Cantidad>
   </Acciones>

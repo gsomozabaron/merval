@@ -37,12 +37,6 @@
             btn_Vender = new Button();
             txt_titulo = new TextBox();
             Dtg1 = new DataGridView();
-            titulo = new DataGridViewTextBoxColumn();
-            cotizacion = new DataGridViewTextBoxColumn();
-            cartera = new DataGridViewTextBoxColumn();
-            precioCompra = new DataGridViewTextBoxColumn();
-            Cantidad = new DataGridViewTextBoxColumn();
-            fechaCompra = new DataGridViewTextBoxColumn();
             btn_Salir = new Button();
             menuStrip1 = new MenuStrip();
             label1 = new Label();
@@ -125,7 +119,6 @@
             Dtg1.AllowUserToOrderColumns = true;
             Dtg1.BackgroundColor = Color.Tomato;
             Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Dtg1.Columns.AddRange(new DataGridViewColumn[] { titulo, cotizacion, cartera, precioCompra, Cantidad, fechaCompra });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.Tomato;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -137,53 +130,12 @@
             Dtg1.Location = new Point(12, 55);
             Dtg1.Name = "Dtg1";
             Dtg1.ReadOnly = true;
+            Dtg1.RowHeadersVisible = false;
             Dtg1.RowTemplate.Height = 25;
             Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             Dtg1.Size = new Size(543, 367);
             Dtg1.TabIndex = 16;
-            Dtg1.CellFormatting += Dtg1_CellFormatting_1;
             Dtg1.CellMouseDoubleClick += Dtg1_CellMouseDoubleClick;
-            // 
-            // titulo
-            // 
-            titulo.HeaderText = "Titulo";
-            titulo.Name = "titulo";
-            titulo.ReadOnly = true;
-            titulo.Width = 80;
-            // 
-            // cotizacion
-            // 
-            cotizacion.HeaderText = "Cotizacion Actual";
-            cotizacion.Name = "cotizacion";
-            cotizacion.ReadOnly = true;
-            cotizacion.Width = 80;
-            // 
-            // cartera
-            // 
-            cartera.HeaderText = "Cartera Propia";
-            cartera.Name = "cartera";
-            cartera.ReadOnly = true;
-            cartera.Width = 80;
-            // 
-            // precioCompra
-            // 
-            precioCompra.HeaderText = "Precio Adquirido";
-            precioCompra.Name = "precioCompra";
-            precioCompra.ReadOnly = true;
-            precioCompra.Width = 80;
-            // 
-            // Cantidad
-            // 
-            Cantidad.HeaderText = "Cantidad";
-            Cantidad.Name = "Cantidad";
-            Cantidad.ReadOnly = true;
-            Cantidad.Width = 80;
-            // 
-            // fechaCompra
-            // 
-            fechaCompra.HeaderText = "Feha Compra";
-            fechaCompra.Name = "fechaCompra";
-            fechaCompra.ReadOnly = true;
             // 
             // btn_Salir
             // 
@@ -234,7 +186,7 @@
             Controls.Add(btn_Salir);
             Controls.Add(menuStrip1);
             Name = "FormVender";
-            Text = "Vender Acciones";
+            Text = "Vender Titulos";
             Load += FormVender_Load;
             ((System.ComponentModel.ISupportInitialize)Dtg1).EndInit();
             ResumeLayout(false);
@@ -252,12 +204,6 @@
         private DataGridView Dtg1;
         private Button btn_Salir;
         private MenuStrip menuStrip1;
-        private DataGridViewTextBoxColumn titulo;
-        private DataGridViewTextBoxColumn cotizacion;
-        private DataGridViewTextBoxColumn cartera;
-        private DataGridViewTextBoxColumn precioCompra;
-        private DataGridViewTextBoxColumn Cantidad;
-        private DataGridViewTextBoxColumn fechaCompra;
         private Label label1;
     }
 }

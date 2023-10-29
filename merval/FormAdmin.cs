@@ -89,5 +89,12 @@ namespace merval
             FormBajaDeAcciones fb = new FormBajaDeAcciones();
             fb.ShowDialog();
         }
+
+        private void modificarDatosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.dataGridView1.Visible = false;
+            FormModificarAcciones fm = new FormModificarAcciones();
+            fm.ShowDialog();
+        }
     }
 }
