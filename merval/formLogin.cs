@@ -43,7 +43,6 @@ namespace merval
             InitializeComponent();
             listadoDeUsuarios = Serializadora.LeerListadoUsuarios();
             listaDeAccionesGral = Serializadora.LeerListaAcciones();
-
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -60,30 +59,32 @@ namespace merval
             string titulo;
             bool estaRegistrado = false;
 
-
-            foreach (Usuario u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
+            if (listadoDeUsuarios != null)// no rompe si los archivos xml no estan
             {
-                ///si encontramos el nombre...
-                if (u.NombreUsuario == usuario)
+                foreach (Usuario u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
                 {
-                    ///buscamos el pass, si coincide..
-                    if (u.Pass == password)
+                    ///si encontramos el nombre...
+                    if (u.NombreUsuario == usuario)
                     {
-                        usuarioActual = u;
-                        titulo = "bienvenido";  ///titulo para la ventana emergente 
-                        mensaje = $"{u.Nombre}";    ///mensaje de bienvenida con el nombre del usuario
-                        estaRegistrado = true;  ///pasamos a verdadero para entrar a la linea 93
+                        ///buscamos el pass, si coincide..
+                        if (u.Pass == password)
+                        {
+                            usuarioActual = u;
+                            titulo = "bienvenido";  ///titulo para la ventana emergente 
+                            mensaje = $"{u.Nombre}";    ///mensaje de bienvenida con el nombre del usuario
+                            estaRegistrado = true;  ///pasamos a verdadero para entrar a la linea 93
 
-                        Vm.VentanaMensaje(titulo, mensaje);//ventana emergente
-                        break;
-                    }
+                            Vm.VentanaMensaje(titulo, mensaje);//ventana emergente
+                            break;
+                        }
 
-                    //si coincide nombre usuario pero el pass no...
-                    else
-                    {
-                        mensaje = "password incorrecto";
-                        Vm.VentanaMensajeError(mensaje);
-                        break;
+                        //si coincide nombre usuario pero el pass no...
+                        else
+                        {
+                            mensaje = "password incorrecto";
+                            Vm.VentanaMensajeError(mensaje);
+                            break;
+                        }
                     }
                 }
             }

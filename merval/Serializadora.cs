@@ -15,11 +15,12 @@ namespace merval
         /// <summary>
         /// grabar XML lista de usuarios en listaUsuarios.xml
         /// </summary>
-        /// <param name="path">@"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.txt"</param>
+        /// <param name="path">ubicación relativa al directorio del proyecto>
         /// <param name="lista">listadoDeUsuarios</param>
         public static void GuardarListadoUsuarios(List<Usuario> lista)
         {
-            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.xml";
+            //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.xml";
+            string path = Path.Combine(Application.StartupPath, "listaUsuarios.xml");//guardar archivos en la ubicación relativa al directorio del proyecto
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Usuario>));
@@ -30,11 +31,12 @@ namespace merval
         /// <summary>
         /// leer XML lista de usuarios en listaUsuarios.xml
         /// </summary>
-        /// <param name="path">@"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.txt"</param>
+        /// <param name="path">ubicación relativa al directorio del proyecto>
         /// <returns>listadoDeUsuarios</returns>
         public static List<Usuario> LeerListadoUsuarios()
         {
-            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.xml";
+            //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.xml";
+            string path = Path.Combine(Application.StartupPath, "listaUsuarios.xml");//guardar archivos en la ubicación relativa al directorio del proyecto
             List<Usuario> lista = null;
 
             if (File.Exists(path))
@@ -49,15 +51,13 @@ namespace merval
         }
 
 
-
-
         ////////////listados de acciones general////////////
 
         /// guardar XML lista de usuarios en listaAcciones.xml
-
         public static void GuardarGralAcciones(List<Acciones> lista)
         {
-            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
+            //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
+            string path = Path.Combine(Application.StartupPath, "listaAcciones.xml");//guardar archivos en la ubicación relativa al directorio del proyecto
 
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
@@ -72,7 +72,8 @@ namespace merval
         /// <returns>listadoDeUsuarios</returns>
         public static List<Acciones> LeerListaAcciones()
         {
-            string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
+            //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
+            string path = Path.Combine(Application.StartupPath, "listaAcciones.xml"); //guardar archivos en la ubicación relativa al directorio del proyecto
 
             List<Acciones> lista = null;
 
@@ -86,8 +87,6 @@ namespace merval
             }
             return lista;
         }
-
-
 
 
         /// actualiza el usuario con sus atributos en el listado y graba a archivo
@@ -104,5 +103,29 @@ namespace merval
             Serializadora.GuardarListadoUsuarios(lista);
         }
 
+
+        public static void CopiarArchivos()
+        {
+            string sourceDirectory = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos";
+            string destinationDirectory = Path.Combine(Application.StartupPath, "Archivos");
+
+            // Verifica si la carpeta de destino no existe y créala si es necesario
+            if (!Directory.Exists(destinationDirectory))
+            {
+                Directory.CreateDirectory(destinationDirectory);
+            }
+
+            // Obtiene una lista de archivos en la carpeta de origen
+            string[] files = Directory.GetFiles(sourceDirectory);
+
+            // Copia cada archivo desde la carpeta de origen a la carpeta de destino
+            foreach (string file in files)
+            {
+                string fileName = Path.GetFileName(file);
+                string destinationPath = Path.Combine(destinationDirectory, fileName);
+                File.Copy(file, destinationPath, true); // El tercer argumento (true) permite sobrescribir si ya existe el archivo en la carpeta de destino
+            }
+
+        }
     }
 }
