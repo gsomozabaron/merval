@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace merval
 {
+    /// <summary>
+    /// manejador de ventanas emergentes
+    /// </summary>
     public class Vm
     {
         public static DialogResult VentanaMensaje(string titulo,string mensaje)

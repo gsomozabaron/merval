@@ -31,10 +31,18 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             menuStrip2 = new MenuStrip();
-            Ver_AccionesPropias = new ToolStripMenuItem();
+            Cartera = new ToolStripMenuItem();
+            TSM_carteraAcciones = new ToolStripMenuItem();
+            TSM_CarteraMonedas = new ToolStripMenuItem();
             operar = new ToolStripMenuItem();
-            venderToolStripMenuItem = new ToolStripMenuItem();
+            ComprarAcciones = new ToolStripMenuItem();
+            ComprarMonedas = new ToolStripMenuItem();
+            vender = new ToolStripMenuItem();
+            venderAcciones = new ToolStripMenuItem();
+            VenderMonedas = new ToolStripMenuItem();
             verMercado = new ToolStripMenuItem();
+            VerMercadoAcciones = new ToolStripMenuItem();
+            VerMercadoMonedas = new ToolStripMenuItem();
             consultarSaldo_TSM = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
@@ -44,40 +52,96 @@
             // 
             // menuStrip2
             // 
-            menuStrip2.Items.AddRange(new ToolStripItem[] { Ver_AccionesPropias, operar, venderToolStripMenuItem, verMercado, consultarSaldo_TSM });
+            menuStrip2.Items.AddRange(new ToolStripItem[] { Cartera, operar, vender, verMercado, consultarSaldo_TSM });
             menuStrip2.Location = new Point(0, 0);
             menuStrip2.Name = "menuStrip2";
             menuStrip2.Size = new Size(741, 24);
             menuStrip2.TabIndex = 3;
             menuStrip2.Text = "menuStrip2";
             // 
-            // Ver_AccionesPropias
+            // Cartera
             // 
-            Ver_AccionesPropias.Name = "Ver_AccionesPropias";
-            Ver_AccionesPropias.Size = new Size(124, 20);
-            Ver_AccionesPropias.Text = "Cartera de Acciones";
-            Ver_AccionesPropias.Click += Ver_AccionesPropias_Click;
+            Cartera.DropDownItems.AddRange(new ToolStripItem[] { TSM_carteraAcciones, TSM_CarteraMonedas });
+            Cartera.Name = "Cartera";
+            Cartera.Size = new Size(57, 20);
+            Cartera.Text = "Cartera";
+            // 
+            // TSM_carteraAcciones
+            // 
+            TSM_carteraAcciones.Name = "TSM_carteraAcciones";
+            TSM_carteraAcciones.Size = new Size(123, 22);
+            TSM_carteraAcciones.Text = "Acciones";
+            TSM_carteraAcciones.Click += TSM_carteraAcciones_Click;
+            // 
+            // TSM_CarteraMonedas
+            // 
+            TSM_CarteraMonedas.Name = "TSM_CarteraMonedas";
+            TSM_CarteraMonedas.Size = new Size(123, 22);
+            TSM_CarteraMonedas.Text = "Monedas";
+            TSM_CarteraMonedas.Click += TSM_CarteraMonedas_Click;
             // 
             // operar
             // 
+            operar.DropDownItems.AddRange(new ToolStripItem[] { ComprarAcciones, ComprarMonedas });
             operar.Name = "operar";
             operar.Size = new Size(66, 20);
             operar.Text = "Comprar";
-            operar.Click += ComprarTitulos_Click;
             // 
-            // venderToolStripMenuItem
+            // ComprarAcciones
             // 
-            venderToolStripMenuItem.Name = "venderToolStripMenuItem";
-            venderToolStripMenuItem.Size = new Size(55, 20);
-            venderToolStripMenuItem.Text = "Vender";
-            venderToolStripMenuItem.Click += venderToolStripMenuItem_Click;
+            ComprarAcciones.Name = "ComprarAcciones";
+            ComprarAcciones.Size = new Size(123, 22);
+            ComprarAcciones.Text = "Acciones";
+            ComprarAcciones.Click += ComprarAcciones_Click;
+            // 
+            // ComprarMonedas
+            // 
+            ComprarMonedas.Name = "ComprarMonedas";
+            ComprarMonedas.Size = new Size(123, 22);
+            ComprarMonedas.Text = "Monedas";
+            ComprarMonedas.Click += ComprarMonedas_Click;
+            // 
+            // vender
+            // 
+            vender.DropDownItems.AddRange(new ToolStripItem[] { venderAcciones, VenderMonedas });
+            vender.Name = "vender";
+            vender.Size = new Size(55, 20);
+            vender.Text = "Vender";
+            // 
+            // venderAcciones
+            // 
+            venderAcciones.Name = "venderAcciones";
+            venderAcciones.Size = new Size(180, 22);
+            venderAcciones.Text = "Acciones";
+            venderAcciones.Click += venderAcciones_Click;
+            // 
+            // VenderMonedas
+            // 
+            VenderMonedas.Name = "VenderMonedas";
+            VenderMonedas.Size = new Size(180, 22);
+            VenderMonedas.Text = "Monedas";
+            VenderMonedas.Click += VenderMonedas_Click;
             // 
             // verMercado
             // 
+            verMercado.DropDownItems.AddRange(new ToolStripItem[] { VerMercadoAcciones, VerMercadoMonedas });
             verMercado.Name = "verMercado";
             verMercado.Size = new Size(85, 20);
             verMercado.Text = "Ver Mercado";
-            verMercado.Click += verMercado_Click;
+            // 
+            // VerMercadoAcciones
+            // 
+            VerMercadoAcciones.Name = "VerMercadoAcciones";
+            VerMercadoAcciones.Size = new Size(123, 22);
+            VerMercadoAcciones.Text = "Acciones";
+            VerMercadoAcciones.Click += VerMercadoAcciones_Click;
+            // 
+            // VerMercadoMonedas
+            // 
+            VerMercadoMonedas.Name = "VerMercadoMonedas";
+            VerMercadoMonedas.Size = new Size(123, 22);
+            VerMercadoMonedas.Text = "Monedas";
+            VerMercadoMonedas.Click += VerMercadoMonedas_Click;
             // 
             // consultarSaldo_TSM
             // 
@@ -156,12 +220,20 @@
 
         private MenuStrip menuStrip1;
         private MenuStrip menuStrip2;
-        private ToolStripMenuItem Ver_AccionesPropias;
+        private ToolStripMenuItem Cartera;
         private DataGridView dataGridView1;
         private ToolStripMenuItem operar;
         private ToolStripMenuItem verMercado;
         private ToolStripMenuItem consultarSaldo_TSM;
         private Button btn_salir;
-        private ToolStripMenuItem venderToolStripMenuItem;
+        private ToolStripMenuItem vender;
+        private ToolStripMenuItem TSM_carteraAcciones;
+        private ToolStripMenuItem TSM_CarteraMonedas;
+        private ToolStripMenuItem ComprarAcciones;
+        private ToolStripMenuItem ComprarMonedas;
+        private ToolStripMenuItem venderAcciones;
+        private ToolStripMenuItem VenderMonedas;
+        private ToolStripMenuItem VerMercadoAcciones;
+        private ToolStripMenuItem VerMercadoMonedas;
     }
 }

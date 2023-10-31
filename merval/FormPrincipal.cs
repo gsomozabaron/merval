@@ -1,4 +1,5 @@
-﻿using System;
+﻿using merval.entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,42 +28,29 @@ namespace merval
             this.dataGridView1.Visible = false;
         }
 
-        /// <summary>
-        /// muestra los titulos disponibles
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void verMercado_Click(object sender, EventArgs e)
+        /// dispara el form de compra de acciones
+        private void ComprarAcciones_Click(object sender, EventArgs e)
         {
-            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
-            this.dataGridView1.DataSource = null;
-            this.dataGridView1.Visible = true;
-            this.dataGridView1.DataSource = listaAccionesGral;
-
-            this.dataGridView1.Columns["Cantidad"].Visible = false;
-        }
-
-        /// <summary>
-        /// muestra en un datagrid las acciones del usuario con sus valores
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Ver_AccionesPropias_Click(object sender, EventArgs e)
-        {
-            VerAccionesDatagrid();
-        }
-
-        /// <summary>
-        /// dispara el form de compra
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComprarTitulos_Click(object sender, EventArgs e)
-        {
-            FormOperar Fo = new FormOperar(usuario);
+            FormOperar Fo = new FormOperar(usuario, "Acciones");
             this.dataGridView1.Visible = false;
             Fo.ShowDialog();
         }
+        private void ComprarMonedas_Click(object sender, EventArgs e)
+        {
+            FormOperar Fo = new FormOperar(usuario, "Monedas");
+            this.dataGridView1.Visible = false;
+            Fo.ShowDialog();
+        }
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// dispara el form de saldos
@@ -81,24 +69,26 @@ namespace merval
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void venderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void venderAcciones_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
-            FormVender Fv = new FormVender(usuario);
+            FormVender Fv = new FormVender(usuario, "Acciones");
+            Fv.ShowDialog();
+        }
+        private void VenderMonedas_Click(object sender, EventArgs e)
+        {
+            this.dataGridView1.Visible = false;
+            FormVender Fv = new FormVender(usuario, "Monedas");
             Fv.ShowDialog();
         }
 
-        /// <summary>
-        /// genera un listado de titulos con sus valores para mostrar en el datagrid
-        /// toma las acciones del usuario y le agrega los precios de compra y venta del listado de acciones general
-        /// </summary>
-        private void VerAccionesDatagrid()
+        private void TSM_carteraAcciones_Click(object sender, EventArgs e)
         {
             List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
-            
+
             List<Acciones> listDTG = new List<Acciones>();
-            
-            foreach (Acciones acc in usuario.ListadoDeAccionesPropias)
+
+            foreach (Activos acc in usuario.ListadoDeActivosPropios)
             {
                 foreach (Acciones a in listaAccionesGral)
                 {
@@ -126,10 +116,66 @@ namespace merval
             this.dataGridView1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
         }
 
+        private void TSM_CarteraMonedas_Click(object sender, EventArgs e)
+        {
+            List<Monedas> lista = Serializadora.LeerListaMonedas();
+
+            List<Activos> monedasDTG = new List<Activos>();
+
+            foreach (Activos m in usuario.ListadoDeActivosPropios)
+            {
+                foreach (Monedas a in lista)
+                {
+                    if (m.Nombre == a.Nombre)
+                    {
+                        string nombre = m.Nombre;
+                        decimal compra = a.ValorCompra;
+                        decimal venta = a.ValorVenta;
+                        int cantidad = m.Cantidad;
+
+                        Monedas dtg = new Monedas(nombre, compra, venta, cantidad);
+                        monedasDTG.Add(dtg);
+                    }
+                }
+            }
+            this.dataGridView1.DataSource = null;///para hacer un refresh
+            this.dataGridView1.Visible = true;
+            this.dataGridView1.DataSource = monedasDTG;
+            // Cambiar el orden de las columnas
+            this.dataGridView1.Columns["Nombre"].DisplayIndex = 0;
+            this.dataGridView1.Columns["Cantidad"].DisplayIndex = 1;
+            this.dataGridView1.Columns["ValorCompra"].DisplayIndex = 2;
+            this.dataGridView1.Columns["ValorVenta"].DisplayIndex = 3;
+            this.dataGridView1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
+            this.dataGridView1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
+        }
+
         private void btn_salir_Click(object sender, EventArgs e)
         {
             this.Close();
             Application.Exit();
         }
+
+        private void VerMercadoMonedas_Click(object sender, EventArgs e)
+        {
+            List<Monedas> lista = Serializadora.LeerListaMonedas();
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Visible = true;
+            this.dataGridView1.DataSource = lista;
+
+            this.dataGridView1.Columns["Cantidad"].Visible = false;
+
+        }
+
+        private void VerMercadoAcciones_Click(object sender, EventArgs e)
+        {
+            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Visible = true;
+            this.dataGridView1.DataSource = listaAccionesGral;
+
+            this.dataGridView1.Columns["Cantidad"].Visible = false;
+        }
+
     }
 }

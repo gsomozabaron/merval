@@ -1,4 +1,5 @@
-﻿using System;
+﻿using merval.entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,18 +14,26 @@ namespace merval
     public partial class FormModificarAcciones : Form
     {
         List<Acciones> lista = Serializadora.LeerListaAcciones();
+        List<Monedas> listaM = Serializadora.LeerListaMonedas();
 
-        public FormModificarAcciones()
+
+
+        public FormModificarAcciones(string tipo)
         {
             InitializeComponent();
+            txt_tipo.Text = tipo;
+        }
+        private void FormModificarAcciones_Load(object sender, EventArgs e)
+        {
             ResetearBotones();
         }
 
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                Acciones seleccion = (Acciones)dataGridView1.SelectedRows[0].DataBoundItem;
+                Activos seleccion = (Activos)dataGridView1.SelectedRows[0].DataBoundItem;
                 ///llena las celdas con los datos de la accion seleccionada con doble click
                 txt_Titulo.Text = seleccion.Nombre;
                 txt_Vcompra.Text = seleccion.ValorCompra.ToString();
@@ -45,7 +54,7 @@ namespace merval
             txt_Vventa.Text = "Valor venta";
             string buscar = txt_BuscarTitulo.Text.ToLower();
 
-            foreach (Acciones a in lista)
+            foreach (Activos a in lista)
             {
                 try
                 {
@@ -76,11 +85,21 @@ namespace merval
 
         private void ResetearBotones()
         {
-            this.dataGridView1.DataSource = lista;
-            this.dataGridView1.Columns["cantidad"].Visible = false;
-            this.dataGridView1.Columns["fecha"].Visible = false;
-            this.Btn_modificar.Enabled = false;
-            this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
+            if (txt_tipo.Text == "Monedas")
+            {
+                this.dataGridView1.DataSource = listaM;
+                this.dataGridView1.Columns["cantidad"].Visible = false;
+                this.Btn_modificar.Enabled = false;
+                this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
+            }
+            else if (txt_tipo.Text == "Acciones")
+            {
+                this.dataGridView1.DataSource = lista;
+                this.dataGridView1.Columns["cantidad"].Visible = false;
+                this.Btn_modificar.Enabled = false;
+                this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
+            }
+
         }
 
         private void Btn_modificar_Click(object sender, EventArgs e)
@@ -92,7 +111,14 @@ namespace merval
                 string nombre = txt_Titulo.Text;
                 if (Vm.VentanaMensajeConfirmar("confirmar", "cambios") == DialogResult.OK)
                 {
-                    Acciones.ModificarDatos(nombre, valorCompra, valorVenta, lista);
+                    if (txt_tipo.Text == "Acciones")
+                    {
+                        Acciones.ModificarDatos(nombre, valorCompra, valorVenta, lista);
+                    }
+                    else if(txt_tipo.Text == "Monedas")
+                    {
+                        Monedas.ModificarDatos(nombre, valorCompra, valorVenta, listaM);
+                    }
                     dataGridView1.DataSource = null;
                     ResetearBotones();
                 }
@@ -112,5 +138,6 @@ namespace merval
         {
             this.Close();
         }
+
     }
 }

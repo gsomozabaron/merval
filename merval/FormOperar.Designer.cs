@@ -81,6 +81,7 @@
             Dtg1.GridColor = Color.Tomato;
             Dtg1.Location = new Point(12, 35);
             Dtg1.Name = "Dtg1";
+            Dtg1.ReadOnly = true;
             Dtg1.RowHeadersVisible = false;
             Dtg1.RowTemplate.Height = 25;
             Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

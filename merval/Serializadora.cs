@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using merval.entidades;
 using Newtonsoft.Json;
 
 
@@ -12,14 +13,10 @@ namespace merval
     public class Serializadora
     {
         //////////// listado general de usuarios ///////////////
-        /// <summary>
-        /// grabar XML lista de usuarios en listaUsuarios.xml
-        /// </summary>
-        /// <param name="path">ubicación relativa al directorio del proyecto>
-        /// <param name="lista">listadoDeUsuarios</param>
+      
+        // grabar XML lista de usuarios en listaUsuarios.xml
         public static void GuardarListadoUsuarios(List<Usuario> lista)
         {
-            //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.xml";
             string path = Path.Combine(Application.StartupPath, "listaUsuarios.xml");//guardar archivos en la ubicación relativa al directorio del proyecto
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
@@ -28,11 +25,7 @@ namespace merval
             }
         }
 
-        /// <summary>
-        /// leer XML lista de usuarios en listaUsuarios.xml
-        /// </summary>
-        /// <param name="path">ubicación relativa al directorio del proyecto>
-        /// <returns>listadoDeUsuarios</returns>
+        // leer XML lista de usuarios en listaUsuarios.xml
         public static List<Usuario> LeerListadoUsuarios()
         {
             //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaUsuarios.xml";
@@ -52,8 +45,6 @@ namespace merval
 
 
         ////////////listados de acciones general////////////
-
-        /// guardar XML lista de usuarios en listaAcciones.xml
         public static void GuardarGralAcciones(List<Acciones> lista)
         {
             //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
@@ -66,10 +57,6 @@ namespace merval
             }
         }
 
-        /// <summary>
-        /// leer XML lista de usuarios en listaAcciones.xml
-        /// </summary>
-        /// <returns>listadoDeUsuarios</returns>
         public static List<Acciones> LeerListaAcciones()
         {
             //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
@@ -96,36 +83,44 @@ namespace merval
             {
                 if (u.NombreUsuario == usuario.NombreUsuario)
                 {
-                    u.ListadoDeAccionesPropias = usuario.ListadoDeAccionesPropias;
+                    u.ListadoDeActivosPropios = usuario.ListadoDeActivosPropios;
                     u.Saldo = usuario.Saldo;
+                    break;
                 }
             }
             Serializadora.GuardarListadoUsuarios(lista);
         }
 
 
-        public static void CopiarArchivos()
+        /// ////////////////////// guardar lista monedas //////////////////////
+        public static void GuardarGralMonedas(List<Monedas> lista)
         {
-            string sourceDirectory = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos";
-            string destinationDirectory = Path.Combine(Application.StartupPath, "Archivos");
+            string path = Path.Combine(Application.StartupPath, "listaMonedas.xml");//guardar archivos en la ubicación relativa al directorio del proyecto
 
-            // Verifica si la carpeta de destino no existe y créala si es necesario
-            if (!Directory.Exists(destinationDirectory))
+            using (StreamWriter streamWriter = new StreamWriter(path))
             {
-                Directory.CreateDirectory(destinationDirectory);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Monedas>));
+                serializer.Serialize(streamWriter, lista);
             }
-
-            // Obtiene una lista de archivos en la carpeta de origen
-            string[] files = Directory.GetFiles(sourceDirectory);
-
-            // Copia cada archivo desde la carpeta de origen a la carpeta de destino
-            foreach (string file in files)
-            {
-                string fileName = Path.GetFileName(file);
-                string destinationPath = Path.Combine(destinationDirectory, fileName);
-                File.Copy(file, destinationPath, true); // El tercer argumento (true) permite sobrescribir si ya existe el archivo en la carpeta de destino
-            }
-
         }
+
+        public static List<Monedas> LeerListaMonedas()
+        {
+            //string path = @"E:\utnprogramacion1\2do cuatrimestre\progra 2B\merval\archivos\listaAcciones.xml";
+            string path = Path.Combine(Application.StartupPath, "listaMonedas.xml"); //guardar archivos en la ubicación relativa al directorio del proyecto
+
+            List<Monedas> lista = null;
+
+            if (File.Exists(path))
+            {
+                using (StreamReader streamReader = new StreamReader(path))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Monedas>));
+                    lista = (List<Monedas>)serializer.Deserialize(streamReader);
+                }
+            }
+            return lista;
+        }
+
     }
 }

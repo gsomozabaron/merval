@@ -51,23 +51,6 @@ namespace merval
                 return "sin acciones";
             } 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
 

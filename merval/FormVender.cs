@@ -14,23 +14,33 @@ namespace merval
     {
         private List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
         private Usuario usuarioActual;
+        private string tipoDeActivo;
 
-        public FormVender(Usuario usuario)
+        public FormVender(Usuario usuario, string tipo)
         {
             InitializeComponent();
             usuarioActual = usuario;
+            tipoDeActivo = tipo;    
         }
 
         private void FormVender_Load(object sender, EventArgs e)
         {
-            VerAccionesDatagrid();
+            if (tipoDeActivo == "Acciones")
+            {
+                VerAccionesDatagrid();
+            }
+            else if (tipoDeActivo == "Monedas")
+            {
+                VerMonedasDatagrid();
+            }
         }
+
         private void VerAccionesDatagrid()
         {
             List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
             /////////////////
             List<Acciones> listDTG = new List<Acciones>();
-            foreach (Acciones acc in usuarioActual.ListadoDeAccionesPropias)
+            foreach (Activos acc in usuarioActual.ListadoDeActivosPropios)
             {
                 foreach (Acciones a in listaAccionesGral)
                 {
@@ -42,6 +52,36 @@ namespace merval
                         int cantidad = acc.Cantidad;
 
                         Acciones dtg = new Acciones(nombre, compra, venta, cantidad);
+                        listDTG.Add(dtg);
+                    }
+                }
+            }
+            this.Dtg1.DataSource = null;///para hacer un refresh
+            this.Dtg1.Visible = true;
+            this.Dtg1.DataSource = listDTG;
+            // Cambiar el orden de las columnas
+            this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
+            this.Dtg1.Columns["Cantidad"].DisplayIndex = 1;
+            this.Dtg1.Columns["ValorCompra"].DisplayIndex = 2;
+            this.Dtg1.Columns["ValorVenta"].DisplayIndex = 3;
+        }
+        private void VerMonedasDatagrid()
+        {
+            List<Monedas> lista = Serializadora.LeerListaMonedas();
+            /////////////////
+            List<Activos> listDTG = new List<Activos>();
+            foreach (Activos acc in usuarioActual.ListadoDeActivosPropios)
+            {
+                foreach (Monedas a in lista)
+                {
+                    if (acc.Nombre == a.Nombre)
+                    {
+                        string nombre = acc.Nombre;
+                        decimal compra = a.ValorCompra;
+                        decimal venta = a.ValorVenta;
+                        int cantidad = acc.Cantidad;
+
+                        Monedas dtg = new Monedas(nombre, compra, venta, cantidad);
                         listDTG.Add(dtg);
                     }
                 }
@@ -88,7 +128,7 @@ namespace merval
         {
             if (Dtg1.SelectedRows.Count > 0)
             {
-                Acciones Seleccionado = (Acciones)Dtg1.SelectedRows[0].DataBoundItem;
+                Activos Seleccionado = (Activos)Dtg1.SelectedRows[0].DataBoundItem;
 
                 txt_titulo.Text = Seleccionado.Nombre;
                 txt_cotizacion.Text = Seleccionado.ValorVenta.ToString();
@@ -97,7 +137,7 @@ namespace merval
 
         private void btn_Vender_Click(object sender, EventArgs e)
         {
-            foreach (Acciones a in usuarioActual.ListadoDeAccionesPropias)
+            foreach (Activos a in usuarioActual.ListadoDeActivosPropios)
             {
                 if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
                 {
@@ -106,7 +146,7 @@ namespace merval
                         a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
                         if (a.Cantidad == 0)
                         {
-                            usuarioActual.ListadoDeAccionesPropias.Remove(a);
+                            usuarioActual.ListadoDeActivosPropios.Remove(a);
                         }
                         usuarioActual.Saldo = usuarioActual.Saldo + decimal.Parse(lbl_totalVenta.Text);
                         Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);

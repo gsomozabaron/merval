@@ -3,6 +3,7 @@ using System.Text;
 
 namespace merval
 {
+    [Serializable]
     public abstract class Persona
     {
         private string _nombreUsuario;

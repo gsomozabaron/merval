@@ -119,7 +119,8 @@ namespace merval
             {
                 // Guardar usuario modificado y actualizar el DataGridView
                 Serializadora.GuardarListadoUsuarios(listadoUsuarios);
-                dataGridView1.DataSource = Serializadora.LeerListadoUsuarios();
+                this.Close();
+                //dataGridView1.DataSource = Serializadora.LeerListadoUsuarios();
             }
             else
             {

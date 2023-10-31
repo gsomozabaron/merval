@@ -16,33 +16,32 @@ namespace merval
         // listado de usuarios
         private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
         /// listado general de acciones
-        private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
+        //private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
 
         private static Usuario usuarioActual = new Usuario();
         #endregion
 
-        #region seters y getters listas
-        public static Usuario UsuarioActual
-        {
-            get => usuarioActual; set => usuarioActual = value;
-        }
+        //#region seters y getters listas
+        //public static Usuario UsuarioActual
+        //{
+        //    get => usuarioActual; set => usuarioActual = value;
+        //}
 
-        public static List<Usuario> ListadoDeUsuarios
-        {
-            get => listadoDeUsuarios; set => listadoDeUsuarios = value;
-        }
+        //public static List<Usuario> ListadoDeUsuarios
+        //{
+        //    get => listadoDeUsuarios; set => listadoDeUsuarios = value;
+        //}
 
-        public static List<Acciones> ListadeAccionesGral
-        {
-            get => listaDeAccionesGral; set => listaDeAccionesGral = value;
-        }
-        #endregion
+        //public static List<Acciones> ListadeAccionesGral
+        //{
+        //    get => listaDeAccionesGral; set => listaDeAccionesGral = value;
+        //}
+        //#endregion
 
         public formLogin()
-        {/// asignamos a las listas los valores guardados en los archivos
+        {
             InitializeComponent();
             listadoDeUsuarios = Serializadora.LeerListadoUsuarios();
-            listaDeAccionesGral = Serializadora.LeerListaAcciones();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -70,7 +69,7 @@ namespace merval
                         if (u.Pass == password)
                         {
                             usuarioActual = u;
-                            titulo = "bienvenido";  ///titulo para la ventana emergente 
+                            titulo = "Bienvenido";  ///titulo para la ventana emergente 
                             mensaje = $"{u.Nombre}";    ///mensaje de bienvenida con el nombre del usuario
                             estaRegistrado = true;  ///pasamos a verdadero para entrar a la linea 93
 

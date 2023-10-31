@@ -1,4 +1,5 @@
-﻿using System;
+﻿using merval.entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -55,7 +56,7 @@ namespace merval
             long saldo = 0;
             string apellido = this.txt_Apellido.Text;
 
-            List<Acciones> listadoDeAccionesPropias = new List<Acciones>();
+            List<Activos> ListadoDeActivosPropios = new List<Activos>();
             List<Clientes> listaDeClientes = new List<Clientes>();
 
             chk_comisionista.Visible = false; // cuando tengo lo del comisionista lo muestro
@@ -120,7 +121,10 @@ namespace merval
                     tipoDeUsuario = Tipo.normal;
                 }
 
-                Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, saldo, apellido);
+                Usuario nuevoUsuario = Usuario.CrearUsuario
+                    (nombre, Dni, nombreUsuario, password, tipoDeUsuario,
+                    ListadoDeActivosPropios, saldo, apellido);
+
                 listaDeUsuarios.Add(nuevoUsuario);
 
                 Serializadora.GuardarListadoUsuarios(listaDeUsuarios);

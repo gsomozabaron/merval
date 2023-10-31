@@ -1,12 +1,20 @@
-﻿using System;
+﻿using merval;
+using merval.entidades;
+using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+
 
 namespace merval
 {
     [Serializable]
+    [XmlInclude(typeof(Activos))]
+    [XmlInclude(typeof(Acciones))]
+    [XmlInclude(typeof(Monedas))]
     public class Usuario : Persona
     {
         #region atributos
@@ -14,25 +22,27 @@ namespace merval
         private string _apellido;
         private string _dni;
         private Tipo _tipoDeUsuario;
-        private List<Acciones> _listadoDeAccionesPropias;
+        [XmlArray("ListadoDeActivosPropios")]
+        [XmlArrayItem("Activos", typeof(Activos))]
+        private List<Activos> _listadoDeActivosPropios;
         private decimal _saldo;
         #endregion
 
         #region constructores
-        public Usuario():base(string.Empty, string.Empty)
+        public Usuario() : base(string.Empty, string.Empty)
         {
         }
-       
-        public Usuario(string nombre, string dni, string nombreUsuario, string pass, 
-            Tipo tipoDeUsuario, List<Acciones> listadoDeAccionesPropias, decimal saldo, string apellido) 
-            : base(nombreUsuario,pass)
+
+        public Usuario(string nombre, string dni, string nombreUsuario, string pass,
+            Tipo tipoDeUsuario, List<Activos> listadoDeActivosPropios, decimal saldo, string apellido)
+            : base(nombreUsuario, pass)
         {
             this._nombre = nombre;
             this._dni = dni;
             this._tipoDeUsuario = tipoDeUsuario;
-            this._listadoDeAccionesPropias = listadoDeAccionesPropias;
+            this._listadoDeActivosPropios = listadoDeActivosPropios;
             this._saldo = saldo;
-            this._apellido = apellido;  
+            this._apellido = apellido;
         }
         #endregion
 
@@ -41,105 +51,114 @@ namespace merval
         public string Apellido { get => _apellido; set => _apellido = value; }
         public string Dni { get => _dni; set => _dni = value; }
         public Tipo TipoDeUsuario { get => _tipoDeUsuario; set => _tipoDeUsuario = value; }
-        public List<Acciones> ListadoDeAccionesPropias { get => _listadoDeAccionesPropias; set => _listadoDeAccionesPropias = value; }
+        public List<Activos> ListadoDeActivosPropios { get => _listadoDeActivosPropios; set => _listadoDeActivosPropios = value; }
         public decimal Saldo { get => _saldo; set => _saldo = value; }
         #endregion
 
-        /// <summary>
+    
         /// crear nuevo usuario
-        /// </summary>
-        /// <param name="nombre"></param>
-        /// <param name="dni"></param>
-        /// <param name="nombreUsuario"></param>
-        /// <param name="pass"></param>
-        /// <param name="tipoDeUsuario"></param>
-        /// <param name="listadoDeAccionesPropias"></param>
-        /// <param name="saldo"></param>
-        /// <param name="apellido"></param>
-        /// <returns></returns>
-        public static Usuario CrearUsuario(string nombre, string dni, string nombreUsuario, 
-            string pass, Tipo tipoDeUsuario, List<Acciones> listadoDeAccionesPropias, decimal saldo, string apellido)
+        public static Usuario CrearUsuario(string nombre, string dni, string nombreUsuario, string pass, Tipo tipoDeUsuario, List<Activos> listadoDeActivosPropios, decimal saldo, string apellido)
         {
-            Usuario nuevoUsuario = new (nombre, dni, nombreUsuario, pass, tipoDeUsuario, listadoDeAccionesPropias, saldo, apellido);
+            Usuario nuevoUsuario = new(nombre, dni, nombreUsuario, pass, tipoDeUsuario, listadoDeActivosPropios, saldo, apellido);
             return nuevoUsuario;
         }
 
-        /// <summary>
-        /// añade acciones a la lista de acciones de un usuario
-        /// </summary>
-        /// <param name="usuarioActual"></param>
-        /// <param name="titulo"></param>
-        /// <param name="cantidad"></param>
-        /// <param name="totalCompra"></param>
-        public static void ComprarAccion(Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra)
+        // añade acciones a la lista de acciones de un usuario
+        public static void ComprarActivo (Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra, string tipo)
         {
+            HacerValidaciones(usuarioActual, titulo, cantidad, totalCompra);
+           
+            usuarioActual.Saldo -= totalCompra;
+            
+            if (usuarioActual.ListadoDeActivosPropios == null) 
+            { 
+                usuarioActual.ListadoDeActivosPropios = new List<Activos>();
+            }
 
-            if (titulo == "")
+            if (tipo == "Acciones")
+            {
+                ComprarAcciones(usuarioActual, titulo, cantidad);
+            }
+            else if (tipo == "Monedas")
+            {
+                ComprarMoneda(usuarioActual, titulo, cantidad);
+            }
+        }
+
+        private static void HacerValidaciones(Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra)
+        {
+            if (titulo == "")   //validar que haya algun titulo seleccionado
             {
                 Vm.VentanaMensajeError("Selecciona un accion");
                 return;
             }
-            try
+             
+            if (cantidad <= 0)  //validar cantidad mayor a cero
             {
-                //validar cantidad mayor a cero
-                if (cantidad <= 0)
-                {
-                    Vm.VentanaMensajeError("La cantidad debe ser mayor que 0.");
-                    return;
-                }
-
-                //validar que saldo sea mayor a compra
-                if (usuarioActual.Saldo < totalCompra)
-                {
-                    Vm.VentanaMensajeError("Saldo insuficiente.");
-                    return;
-                }
-
-                //cancelar compra
-                if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
-                {
-                    Vm.VentanaMensaje("Compra", "Cancelada");
-                    return;
-                }
-
-                //si llego hasta aca, hacer la compra
-                Acciones nuevaAccion = new Acciones();
-                nuevaAccion.Nombre = titulo;
-                nuevaAccion.Cantidad = cantidad;
-
-                usuarioActual.Saldo -= totalCompra;
-                usuarioActual.ListadoDeAccionesPropias = usuarioActual.ListadoDeAccionesPropias ?? new List<Acciones>();
-                //??: Este operador se llama "operador de fusión nula" y se utiliza para
-                //proporcionar un valor predeterminado en caso de que el
-                //operando izquierdo sea nulo. En ese caso crea una nueva lista.
-
-                bool estaEnLista = false;
-                foreach (Acciones a in usuarioActual.ListadoDeAccionesPropias)
-                {
-                    if (a.Nombre == nuevaAccion.Nombre)
-                    {
-                        a.Cantidad += nuevaAccion.Cantidad;
-                        estaEnLista = true;
-                        break;
-                    }
-                }
-
-                if (!estaEnLista)
-                {
-                    usuarioActual.ListadoDeAccionesPropias.Add(nuevaAccion);
-                }
-                List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
-                Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-                Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
+                Vm.VentanaMensajeError("La cantidad debe ser mayor que 0.");
+                return;
             }
-            catch (FormatException)
+
+            if (usuarioActual.Saldo < totalCompra)  //validar que saldo sea mayor a compra
             {
-                Vm.VentanaMensajeError("Ingresa una cantidad valida.");
+                Vm.VentanaMensajeError("Saldo insuficiente.");
+                return;
             }
-            catch (Exception ex)
+
+            //cancelar compra
+            if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
             {
-                Vm.VentanaMensajeError($"Error: {ex.Message}");
+                Vm.VentanaMensaje("Compra", "Cancelada");
+                return;
             }
         }
+
+        private static void ComprarAcciones(Usuario usuarioActual, string titulo, int cantidad)
+        {
+            Acciones nuevaAccion = new Acciones();
+            nuevaAccion.Nombre = titulo;
+            nuevaAccion.Cantidad = cantidad;
+            bool estaEnLista = EstaEnLista(usuarioActual, nuevaAccion);
+            if (!estaEnLista)
+            {
+                usuarioActual.ListadoDeActivosPropios.Add(nuevaAccion);
+            }
+            List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
+            Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
+            Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
+
+
+        }
+        
+        private static void ComprarMoneda(Usuario usuarioActual, string titulo, int cantidad)
+        {
+            Monedas nuevaAccion = new Monedas();
+            nuevaAccion.Nombre = titulo;
+            nuevaAccion.Cantidad = cantidad;
+            bool estaEnLista = EstaEnLista(usuarioActual, nuevaAccion);
+            if (!estaEnLista)
+            {
+                usuarioActual.ListadoDeActivosPropios.Add(nuevaAccion);
+            }
+            List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
+            Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
+            Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
+        }
+
+        private static bool EstaEnLista(Usuario usuarioActual, Activos nuevaAccion)
+        {
+            bool estaEnLista = false;
+            foreach (Activos a in usuarioActual.ListadoDeActivosPropios)
+            {
+                if (a.Nombre == nuevaAccion.Nombre)
+                {
+                    a.Cantidad += nuevaAccion.Cantidad;
+                    estaEnLista = true;
+                    break;
+                }
+            }
+            return estaEnLista;
+        }
+
     }
 }

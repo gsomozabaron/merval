@@ -36,13 +36,20 @@
             altasUsuarios = new ToolStripMenuItem();
             Mts_ModificarDatos = new ToolStripMenuItem();
             VerTitulos = new ToolStripMenuItem();
+            TSP_AccionesVerTitulos = new ToolStripMenuItem();
+            TSM_VerMonedas = new ToolStripMenuItem();
             ModificarTitulosToolStripMenuItem = new ToolStripMenuItem();
-            AltasAcciones = new ToolStripMenuItem();
-            BajasAcciones = new ToolStripMenuItem();
+            TSP_acciones = new ToolStripMenuItem();
+            TSP_AccionesAltas = new ToolStripMenuItem();
+            TSP_AccionesBajas = new ToolStripMenuItem();
+            TSP_AccionesModificar = new ToolStripMenuItem();
+            monedasToolStripMenuItem1 = new ToolStripMenuItem();
+            TSM_altasMoneda = new ToolStripMenuItem();
+            TSM_bajasMoneda = new ToolStripMenuItem();
+            TSM_modificarMoneda = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
             btn_ocultarDataGrid = new Button();
-            modificarDatosToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -87,32 +94,87 @@
             // 
             // VerTitulos
             // 
+            VerTitulos.DropDownItems.AddRange(new ToolStripItem[] { TSP_AccionesVerTitulos, TSM_VerMonedas });
             VerTitulos.Name = "VerTitulos";
             VerTitulos.Size = new Size(85, 23);
             VerTitulos.Text = "Ver Titulos";
-            VerTitulos.Click += VerTitulos_Click;
+            // 
+            // TSP_AccionesVerTitulos
+            // 
+            TSP_AccionesVerTitulos.Name = "TSP_AccionesVerTitulos";
+            TSP_AccionesVerTitulos.Size = new Size(180, 24);
+            TSP_AccionesVerTitulos.Text = "Acciones";
+            TSP_AccionesVerTitulos.Click += TSP_AccionesVerTitulos_Click;
+            // 
+            // TSM_VerMonedas
+            // 
+            TSM_VerMonedas.Name = "TSM_VerMonedas";
+            TSM_VerMonedas.Size = new Size(180, 24);
+            TSM_VerMonedas.Text = "Monedas";
+            TSM_VerMonedas.Click += TSM_VerMonedas_Click;
             // 
             // ModificarTitulosToolStripMenuItem
             // 
-            ModificarTitulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { AltasAcciones, BajasAcciones, modificarDatosToolStripMenuItem });
+            ModificarTitulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { TSP_acciones, monedasToolStripMenuItem1 });
             ModificarTitulosToolStripMenuItem.Name = "ModificarTitulosToolStripMenuItem";
             ModificarTitulosToolStripMenuItem.Size = new Size(123, 23);
             ModificarTitulosToolStripMenuItem.Text = "Modificar Titulos";
             // 
-            // AltasAcciones
+            // TSP_acciones
             // 
-            AltasAcciones.AccessibleName = "altas";
-            AltasAcciones.Name = "AltasAcciones";
-            AltasAcciones.Size = new Size(180, 24);
-            AltasAcciones.Text = "Altas";
-            AltasAcciones.Click += AltasAcciones_Click;
+            TSP_acciones.DropDownItems.AddRange(new ToolStripItem[] { TSP_AccionesAltas, TSP_AccionesBajas, TSP_AccionesModificar });
+            TSP_acciones.Name = "TSP_acciones";
+            TSP_acciones.Size = new Size(135, 24);
+            TSP_acciones.Text = "Acciones";
             // 
-            // BajasAcciones
+            // TSP_AccionesAltas
             // 
-            BajasAcciones.Name = "BajasAcciones";
-            BajasAcciones.Size = new Size(180, 24);
-            BajasAcciones.Text = "Bajas";
-            BajasAcciones.Click += BajasAcciones_Click;
+            TSP_AccionesAltas.Name = "TSP_AccionesAltas";
+            TSP_AccionesAltas.Size = new Size(137, 24);
+            TSP_AccionesAltas.Text = "Altas";
+            TSP_AccionesAltas.Click += TSP_AccionesAltas_Click;
+            // 
+            // TSP_AccionesBajas
+            // 
+            TSP_AccionesBajas.Name = "TSP_AccionesBajas";
+            TSP_AccionesBajas.Size = new Size(137, 24);
+            TSP_AccionesBajas.Text = "Bajas";
+            TSP_AccionesBajas.Click += TSP_AccionesBajas_Click;
+            // 
+            // TSP_AccionesModificar
+            // 
+            TSP_AccionesModificar.Name = "TSP_AccionesModificar";
+            TSP_AccionesModificar.Size = new Size(137, 24);
+            TSP_AccionesModificar.Text = "Modificar";
+            TSP_AccionesModificar.Click += TSP_AccionesModificar_Click;
+            // 
+            // monedasToolStripMenuItem1
+            // 
+            monedasToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { TSM_altasMoneda, TSM_bajasMoneda, TSM_modificarMoneda });
+            monedasToolStripMenuItem1.Name = "monedasToolStripMenuItem1";
+            monedasToolStripMenuItem1.Size = new Size(135, 24);
+            monedasToolStripMenuItem1.Text = "Monedas";
+            // 
+            // TSM_altasMoneda
+            // 
+            TSM_altasMoneda.Name = "TSM_altasMoneda";
+            TSM_altasMoneda.Size = new Size(157, 24);
+            TSM_altasMoneda.Text = "Altas";
+            TSM_altasMoneda.Click += TSM_altasMoneda_Click;
+            // 
+            // TSM_bajasMoneda
+            // 
+            TSM_bajasMoneda.Name = "TSM_bajasMoneda";
+            TSM_bajasMoneda.Size = new Size(157, 24);
+            TSM_bajasMoneda.Text = "Bajas";
+            TSM_bajasMoneda.Click += TSM_bajasMoneda_Click;
+            // 
+            // TSM_modificarMoneda
+            // 
+            TSM_modificarMoneda.Name = "TSM_modificarMoneda";
+            TSM_modificarMoneda.Size = new Size(157, 24);
+            TSM_modificarMoneda.Text = "Modificacion";
+            TSM_modificarMoneda.Click += TSM_modificarMoneda_Click;
             // 
             // dataGridView1
             // 
@@ -132,7 +194,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.SkyBlue;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
@@ -174,13 +236,6 @@
             btn_ocultarDataGrid.UseVisualStyleBackColor = true;
             btn_ocultarDataGrid.Click += btn_ocultarDataGrid_Click;
             // 
-            // modificarDatosToolStripMenuItem
-            // 
-            modificarDatosToolStripMenuItem.Name = "modificarDatosToolStripMenuItem";
-            modificarDatosToolStripMenuItem.Size = new Size(180, 24);
-            modificarDatosToolStripMenuItem.Text = "Modificar datos";
-            modificarDatosToolStripMenuItem.Click += modificarDatosToolStripMenuItem_Click;
-            // 
             // FormAdmin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -198,7 +253,6 @@
             Name = "FormAdmin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Principal Administrador";
-            Load += FormAdmin_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -213,12 +267,19 @@
         private ToolStripMenuItem altasUsuarios;
         private ToolStripMenuItem VerTitulos;
         private ToolStripMenuItem ModificarTitulosToolStripMenuItem;
-        private ToolStripMenuItem AltasAcciones;
-        private ToolStripMenuItem BajasAcciones;
         private DataGridView dataGridView1;
         private Button btn_salir;
         private Button btn_ocultarDataGrid;
         private ToolStripMenuItem Mts_ModificarDatos;
-        private ToolStripMenuItem modificarDatosToolStripMenuItem;
+        private ToolStripMenuItem TSP_AccionesVerTitulos;
+        private ToolStripMenuItem TSM_VerMonedas;
+        private ToolStripMenuItem TSP_acciones;
+        private ToolStripMenuItem TSP_AccionesAltas;
+        private ToolStripMenuItem TSP_AccionesBajas;
+        private ToolStripMenuItem TSP_AccionesModificar;
+        private ToolStripMenuItem monedasToolStripMenuItem1;
+        private ToolStripMenuItem TSM_altasMoneda;
+        private ToolStripMenuItem TSM_bajasMoneda;
+        private ToolStripMenuItem TSM_modificarMoneda;
     }
 }

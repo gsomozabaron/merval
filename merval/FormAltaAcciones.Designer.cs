@@ -34,6 +34,7 @@
             txt_Titulo = new TextBox();
             Txt_ValorCompra = new TextBox();
             txt_ValorVenta = new TextBox();
+            txt_tipo = new TextBox();
             SuspendLayout();
             // 
             // btn_cancel
@@ -93,6 +94,15 @@
             txt_ValorVenta.TabIndex = 4;
             txt_ValorVenta.TextAlign = HorizontalAlignment.Center;
             // 
+            // txt_tipo
+            // 
+            txt_tipo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_tipo.Location = new Point(14, 54);
+            txt_tipo.Name = "txt_tipo";
+            txt_tipo.Size = new Size(100, 26);
+            txt_tipo.TabIndex = 5;
+            txt_tipo.TextAlign = HorizontalAlignment.Center;
+            // 
             // FormAltaAcciones
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -101,6 +111,7 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(384, 162);
             ControlBox = false;
+            Controls.Add(txt_tipo);
             Controls.Add(txt_ValorVenta);
             Controls.Add(Txt_ValorCompra);
             Controls.Add(txt_Titulo);
@@ -108,7 +119,7 @@
             Controls.Add(btn_cancel);
             Name = "FormAltaAcciones";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Alta De Acciones";
+            Text = "Altas";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -120,5 +131,6 @@
         private TextBox txt_Titulo;
         private TextBox Txt_ValorCompra;
         private TextBox txt_ValorVenta;
+        private TextBox txt_tipo;
     }
 }
