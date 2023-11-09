@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using merval.Serializadores;
 
 namespace merval
 {
     [Serializable]
     public class Monedas : Activos
     {
-        private int cantidad;
+        private int _id;
 
         public Monedas() : base()
         {
@@ -18,34 +19,35 @@ namespace merval
         public Monedas(string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : base(nombre, valorCompra, valorVenta, cantidad)
         {
         }
-
-        public static void CrearMoneda(string titulo, decimal valorCompra, decimal valorVenta, List<Monedas> listaMonedasGral)
+        public Monedas(int id, string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : base(nombre, valorCompra, valorVenta, cantidad)
         {
-            if (listaMonedasGral == null)
-            {
-                listaMonedasGral = new List<Monedas>();
-            }
+            Id = id;
+        }
+
+        public int Id { get => _id; set => _id = value; }
+
+        public static Monedas CrearMoneda(string titulo, decimal valorCompra, decimal valorVenta)
+        {
             int cantidad = 0;
             Monedas nuevaMoneda = new Monedas(titulo, valorCompra, valorVenta, cantidad);
-            listaMonedasGral.Add(nuevaMoneda);
 
-            Serializadora.GuardarGralMonedas(listaMonedasGral);
-
+            return nuevaMoneda;
         }
 
-        public static void ModificarDatos (string nombre, decimal valorCompra, decimal valorVenta, List<Monedas> lista)
-        {
-            foreach (Monedas a in lista)
-            {
-                if (a.Nombre == nombre)
-                {
-                    a.ValorCompra = valorCompra;
-                    a.ValorVenta = valorVenta;
-                    Serializadora.GuardarGralMonedas(lista);
-                    break;
-                }
-            }
-        }
+
+        //public static void ModificarDatos (string nombre, decimal valorCompra, decimal valorVenta, List<Monedas> lista)
+        //{
+        //    foreach (Monedas a in lista)
+        //    {
+        //        if (a.Nombre == nombre)
+        //        {
+        //            a.ValorCompra = valorCompra;
+        //            a.ValorVenta = valorVenta;
+        //            Serializadora.GuardarGralMonedas(lista);
+        //            break;
+        //        }
+        //    }
+        //}
         
     }
 }

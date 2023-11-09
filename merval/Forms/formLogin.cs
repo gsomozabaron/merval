@@ -4,6 +4,8 @@ using System.IO;
 using System.Xml.Serialization;
 using FastReport.DataVisualization.Charting;
 using System.Windows.Forms;
+using merval.Serializadores;
+using merval.DB;
 
 namespace merval
 {
@@ -15,41 +17,37 @@ namespace merval
 
         // listado de usuarios
         private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
-        /// listado general de acciones
-        //private static List<Acciones> listaDeAccionesGral = new List<Acciones>();
-
         private static Usuario usuarioActual = new Usuario();
+
         #endregion
 
-        //#region seters y getters listas
-        //public static Usuario UsuarioActual
-        //{
-        //    get => usuarioActual; set => usuarioActual = value;
-        //}
-
-        //public static List<Usuario> ListadoDeUsuarios
-        //{
-        //    get => listadoDeUsuarios; set => listadoDeUsuarios = value;
-        //}
-
-        //public static List<Acciones> ListadeAccionesGral
-        //{
-        //    get => listaDeAccionesGral; set => listaDeAccionesGral = value;
-        //}
-        //#endregion
 
         public formLogin()
         {
             InitializeComponent();
-            listadoDeUsuarios = Serializadora.LeerListadoUsuarios();
+            //List<Usuario> listadoDeUsuarios = DatabaseSQL.Select("Usuario");
+            //listadoDeUsuarios = Serializadora.LeerListadoUsuarios();  //carga datos desde XML"en desuso"
+            ///DatabaseSQL.CargaSQL();// por unica vez para cargar de xml a DB
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+        /// <summary>
+        /// trae la lista de usuarios desde la base de datos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void formLogin_Load(object sender, EventArgs e)
+        {    
+            listadoDeUsuarios = DatabaseSQL.GetUsuarios();
         }
+
 
         #region login
+
+        /// <summary>
+        /// loguea al usuario y lanza la pantalla de usuario normal o la de administrador
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string usuario = this.txtUsuario.Text;
@@ -58,7 +56,8 @@ namespace merval
             string titulo;
             bool estaRegistrado = false;
 
-            if (listadoDeUsuarios != null)// no rompe si los archivos xml no estan
+
+            if (listadoDeUsuarios != null)// no rompe si no carga la lista
             {
                 foreach (Usuario u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
                 {
@@ -115,6 +114,11 @@ namespace merval
         }
         #endregion
 
+        /// <summary>
+        /// lanza el formulario de registro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
             string alta = "normal";
@@ -146,10 +150,24 @@ namespace merval
         }
         #endregion
 
+
+        /// <summary>
+        /// limpia los campos de usuario y passs despues de una carga NO exitosa
+        /// </summary>
         private void LimpiarCampos()
         {
             txtUsuario.Text = string.Empty;
             txtPassword.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// abandona el programa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

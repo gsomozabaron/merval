@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using merval.DB;
+using merval.Serializadores;
 
 namespace merval
 {
     public partial class FormVender : Form
     {
-        private List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
+        //private List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
+        private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
         private Usuario usuarioActual;
         private string tipoDeActivo;
 
@@ -37,7 +40,8 @@ namespace merval
 
         private void VerAccionesDatagrid()
         {
-            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            //List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
             /////////////////
             List<Acciones> listDTG = new List<Acciones>();
             foreach (Activos acc in usuarioActual.ListadoDeActivosPropios)

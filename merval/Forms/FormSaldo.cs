@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using merval.DB;
+using merval.Serializadores;
 
 namespace merval
 {
@@ -19,7 +21,8 @@ namespace merval
         {
             InitializeComponent();
             usuarioActual = usuario;
-            listaUsuarios = Serializadora.LeerListadoUsuarios();
+            //listaUsuarios = Serializadora.LeerListadoUsuarios();
+            listaUsuarios = DatabaseSQL.GetUsuarios();
         }
 
 

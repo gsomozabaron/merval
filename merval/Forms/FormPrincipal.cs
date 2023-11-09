@@ -1,4 +1,6 @@
-﻿using merval.entidades;
+﻿using merval.DB;
+using merval.entidades;
+using merval.Serializadores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -84,7 +86,8 @@ namespace merval
 
         private void TSM_carteraAcciones_Click(object sender, EventArgs e)
         {
-            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            //List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
 
             List<Acciones> listDTG = new List<Acciones>();
 
@@ -169,7 +172,8 @@ namespace merval
 
         private void VerMercadoAcciones_Click(object sender, EventArgs e)
         {
-            List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            //List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
+            List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = listaAccionesGral;

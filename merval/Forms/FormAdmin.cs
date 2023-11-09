@@ -10,15 +10,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
 using merval.entidades;
+using merval.Serializadores;
+using merval.DB;
 
 namespace merval
 {
     public partial class FormAdmin : Form
     {
-        List<Usuario> listUsuarios = Serializadora.LeerListadoUsuarios();
-        List<Acciones> listadeAccionesGral = Serializadora.LeerListaAcciones();
-        List<Monedas> listaMonedasGral = Serializadora.LeerListaMonedas();
-
         public FormAdmin()
         {
             InitializeComponent();
@@ -28,26 +26,27 @@ namespace merval
         {
             this.dataGridView1.Visible = false;
         }
-       
+
 
         //////////////////////ver y modificar usuarios//////////////////////////////
+  
         /// <summary>
         /// muestra un listado con todos los usuarios y sus datos, oculta el password y el saldo
         /// </summary>
-        private void VerUsuarios_Click(object sender, EventArgs e)
-        {
-            listUsuarios = Serializadora.LeerListadoUsuarios();
-            this.dataGridView1.DataSource = this.listUsuarios;
-            this.dataGridView1.Visible = true;
-            this.dataGridView1.Columns["Pass"].Visible = false;
-            this.dataGridView1.Columns["saldo"].Visible = false;
-        }
-
-        /// <summary>
-        /// altas de usuarios
-        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void VerUsuarios_Click(object sender, EventArgs e)
+        {
+            List<Usuario> lista = DatabaseSQL.GetUsuarios();
+            dataGridView1.DataSource = lista;
+            this.dataGridView1.Columns["Pass"].Visible = false;
+            this.dataGridView1.Columns["saldo"].Visible = false;
+            this.dataGridView1.Visible = true;
+            
+        }
+
+
+        /// altas de usuarios
         private void altasUsuarios_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -55,12 +54,8 @@ namespace merval
             FormRegistroUsuarios fr = new FormRegistroUsuarios(alta);
             fr.ShowDialog();
         }
-
-        /// <summary>
-        /// bajar o modificar datos de usuarios 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
+        /// bajar o modificar datos de usuarios                 
         private void Mts_ModificarDatos_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -71,10 +66,15 @@ namespace merval
 
         ///////////// alta,baja,modificacion y vista de titulos////////////////
         /////////////////////    acciones    //////////////////////
+        
+        /// <summary>
+        /// muestra el listado de acciones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TSP_AccionesVerTitulos_Click(object sender, EventArgs e)
         {
-            listadeAccionesGral = Serializadora.LeerListaAcciones();
-            this.dataGridView1.DataSource = listadeAccionesGral;
+            this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Acciones");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;
         }
@@ -101,16 +101,14 @@ namespace merval
             fm.ShowDialog();
         }
 
-        /////////////////////////  monedas ///////////////////////////////
-        
 
+        /////////////////////////  monedas ///////////////////////////////
         private void TSM_altasMoneda_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
             FormAltaAcciones fa = new FormAltaAcciones("Monedas");
             fa.ShowDialog();
         }
-
         private void TSM_bajasMoneda_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -119,7 +117,6 @@ namespace merval
             fb.ShowDialog();
 
         }
-
         private void TSM_modificarMoneda_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -128,16 +125,14 @@ namespace merval
             fm.ShowDialog();
 
         }
-
         private void TSM_VerMonedas_Click(object sender, EventArgs e)
         {
-            listaMonedasGral = Serializadora.LeerListaMonedas();
-            this.dataGridView1.DataSource = listaMonedasGral;
+            
+            this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Monedas");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;
+
         }
-
-
 
 
         //////////////////////////salir de la aplicacion/////////////////////////////// 

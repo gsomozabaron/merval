@@ -9,12 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using merval.Serializadores;
+using merval.DB;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using merval.entidades;
 
 namespace merval
 {
     public partial class FormModificarUsuario : Form
     {
-        private List<Usuario> listadoUsuarios = Serializadora.LeerListadoUsuarios();
+        //leer desde archivo
+        //private List<Usuario> listadoUsuarios = Serializadora.LeerListadoUsuarios();
+        private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();    //leer desde DB
 
 
         public FormModificarUsuario()
@@ -36,7 +42,7 @@ namespace merval
 
         private void CargarDatos()
         {
-            dataGridView1.DataSource = listadoUsuarios;
+            dataGridView1.DataSource = listaUsuarios;
             dataGridView1.Columns["pass"].Visible = false;
             dataGridView1.Columns["saldo"].Visible = false;
         }
@@ -51,7 +57,7 @@ namespace merval
             txt_NombreUsuario.Text = "nombre usuario";
             string buscar = txt_clave.Text.ToLower();
 
-            foreach (Usuario u in listadoUsuarios)
+            foreach (Usuario u in listaUsuarios)
             {
                 try
                 {
@@ -75,11 +81,13 @@ namespace merval
                 catch (Exception ex)
                 {
                     Vm.VentanaMensajeError($"Error: {ex.Message}");
+                    LimpiarCampos();
                 }
             }
             if (!encontro)
             {
                 Vm.VentanaMensajeError("Usuario no encontrado");
+                LimpiarCampos();
             }
         }
 
@@ -103,13 +111,18 @@ namespace merval
 
         private void btn_actualizar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txt_Nombre.Text) || string.IsNullOrWhiteSpace(txt_Apellido.Text) || string.IsNullOrWhiteSpace(txt_DNI.Text) || string.IsNullOrWhiteSpace(txt_NombreUsuario.Text))
+            if (ValidarDatos.CadenaVacia(txt_Nombre.Text)
+                    || ValidarDatos.CadenaVacia(txt_Apellido.Text)
+                    || ValidarDatos.CadenaVacia(txt_DNI.Text))
             {
                 Vm.VentanaMensajeError("Todos los campos deben estar llenos.");
                 return;
             }
 
+
+
             Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
+            int id = usuarioSeleccionado.Id;
             usuarioSeleccionado.Apellido = txt_Apellido.Text;
             usuarioSeleccionado.Dni = txt_DNI.Text;
             usuarioSeleccionado.Nombre = txt_Nombre.Text;
@@ -117,14 +130,16 @@ namespace merval
 
             if (Vm.VentanaMensajeConfirmar("ATENCION", "¿Está seguro?\nSe sobrescribirá el archivo.") == DialogResult.OK)
             {
-                // Guardar usuario modificado y actualizar el DataGridView
-                Serializadora.GuardarListadoUsuarios(listadoUsuarios);
-                this.Close();
-                //dataGridView1.DataSource = Serializadora.LeerListadoUsuarios();
+                DatabaseSQL.ModificarUsuarios(usuarioSeleccionado);
+
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = DatabaseSQL.GetUsuarios();
+                LimpiarCampos();
             }
             else
             {
-                dataGridView1.DataSource = listadoUsuarios;
+                dataGridView1.DataSource = listaUsuarios;
+                LimpiarCampos();
             }
         }
 
@@ -135,17 +150,26 @@ namespace merval
 
             if (Vm.VentanaMensajeConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO") == DialogResult.OK)
             {
-                listadoUsuarios.Remove(usuarioSeleccionado);///sacar usuario de la lista y grabar
-                Serializadora.GuardarListadoUsuarios(listadoUsuarios);
+                DatabaseSQL.EliminarUsuario(usuarioSeleccionado);
+
                 Vm.VentanaMensaje("USUARIO", "ELIMINADO");
-                dataGridView1.DataSource = Serializadora.LeerListadoUsuarios();
+                dataGridView1.DataSource = DatabaseSQL.GetUsuarios();
+                LimpiarCampos();
             }
             else
             {
                 Vm.VentanaMensaje("OPERACION", "CANCELADA");
+                LimpiarCampos();
             }
         }
 
+        private void LimpiarCampos()
+        {
+            txt_Apellido.Text = string.Empty;
+            txt_DNI.Text = string.Empty;
+            txt_Nombre.Text = string.Empty;
+            txt_NombreUsuario.Text = string.Empty;
+        }
 
     }
 }

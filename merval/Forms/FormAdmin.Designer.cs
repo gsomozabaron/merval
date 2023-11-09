@@ -102,14 +102,14 @@
             // TSP_AccionesVerTitulos
             // 
             TSP_AccionesVerTitulos.Name = "TSP_AccionesVerTitulos";
-            TSP_AccionesVerTitulos.Size = new Size(180, 24);
+            TSP_AccionesVerTitulos.Size = new Size(135, 24);
             TSP_AccionesVerTitulos.Text = "Acciones";
             TSP_AccionesVerTitulos.Click += TSP_AccionesVerTitulos_Click;
             // 
             // TSM_VerMonedas
             // 
             TSM_VerMonedas.Name = "TSM_VerMonedas";
-            TSM_VerMonedas.Size = new Size(180, 24);
+            TSM_VerMonedas.Size = new Size(135, 24);
             TSM_VerMonedas.Text = "Monedas";
             TSM_VerMonedas.Click += TSM_VerMonedas_Click;
             // 
@@ -181,11 +181,11 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaption;
             dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;

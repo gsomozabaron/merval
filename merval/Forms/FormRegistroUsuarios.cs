@@ -1,4 +1,6 @@
-﻿using merval.entidades;
+﻿using merval.DB;
+using merval.entidades;
+using merval.Serializadores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +15,8 @@ namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
-        List<Usuario> listaDeUsuarios = Serializadora.LeerListadoUsuarios();
+        List<Usuario> listaDeUsuarios = DatabaseSQL.GetUsuarios();
+
         private string alta;
 
         public FormRegistroUsuarios(string alta)
@@ -49,18 +52,14 @@ namespace merval
             string Dni = this.txt_Dni.Text;
             string nombreUsuario = this.txt_NombreUsuario.Text;
             string password = this.txt_Pass.Text;
-            bool esComisionista = this.chk_comisionista.Checked;
             bool esAdmin = this.chk_esAdmin.Checked;
             string passCheck = this.txt_PassCheck.Text;
             Tipo tipoDeUsuario;/// = Tipo.normal;
             long saldo = 0;
             string apellido = this.txt_Apellido.Text;
 
-            List<Activos> ListadoDeActivosPropios = new List<Activos>();
-            List<Clientes> listaDeClientes = new List<Clientes>();
-
-            chk_comisionista.Visible = false; // cuando tengo lo del comisionista lo muestro
-
+            ///List<Activos> ListadoDeActivosPropios = new List<Activos>();
+            
             #region validar DNI
             ///****************************************************************************///
             /// validación de número de DNI
@@ -101,35 +100,27 @@ namespace merval
             #region crear usuarios
             ///****************************************************************************///
             /// crear usuarios
-            if (esComisionista == true) // falta completar comisionista
+            
+            if (esAdmin == false)
             {
-                //tipoDeUsuario = Tipo.Comisionista;
-                //Comisionista nuevoUsuario = Comisionista.CrearComisionista(nombre, Dni, nombreUsuario, password, tipoDeUsuario, listadoDeAccionesPropias, listaDeClientes);
-                //listaDeUsuarios.Add(nuevoUsuario);
-
-                //Serializadora.GuardarListadoUsuarios(listaDeUsuarios) ;
-                //ve.ShowDialog();
+                tipoDeUsuario = Tipo.normal;
             }
             else
             {
-                if (esAdmin == true)
-                {
-                    tipoDeUsuario = Tipo.Admin;
-                }
-                else
-                {
-                    tipoDeUsuario = Tipo.normal;
-                }
-
-                Usuario nuevoUsuario = Usuario.CrearUsuario
-                    (nombre, Dni, nombreUsuario, password, tipoDeUsuario,
-                    ListadoDeActivosPropios, saldo, apellido);
-
-                listaDeUsuarios.Add(nuevoUsuario);
-
-                Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
-                Vm.VentanaMensaje("Registro exitoso.", "Usuario dado de alta");
+                tipoDeUsuario = Tipo.Admin;
             }
+
+            Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, saldo, apellido);
+
+            /////////////codigo viejo XML//////////////////////////////////////////
+            //listaDeUsuarios.Add(nuevoUsuario);
+            //Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
+            ///////////////////////////////////////////////////////////////////////////
+            
+            DatabaseSQL.InsertarUsuario(nuevoUsuario);
+            
+            Vm.VentanaMensaje("Registro exitoso.", "Usuario dado de alta");
+            
             this.Close();
         }
         #endregion
@@ -138,11 +129,6 @@ namespace merval
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void btn_agregarUsuario_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

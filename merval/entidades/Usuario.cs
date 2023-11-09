@@ -1,5 +1,6 @@
-﻿using merval;
+﻿using merval.DB;
 using merval.entidades;
+using merval.Serializadores;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
@@ -15,17 +16,21 @@ namespace merval
     [XmlInclude(typeof(Activos))]
     [XmlInclude(typeof(Acciones))]
     [XmlInclude(typeof(Monedas))]
+
     public class Usuario : Persona
     {
         #region atributos
+        [XmlArray("ListadoDeActivosPropios")]
+        [XmlArrayItem("Activos", typeof(Activos))]
+
+        private int _id;
         private string _nombre;
         private string _apellido;
         private string _dni;
         private Tipo _tipoDeUsuario;
-        [XmlArray("ListadoDeActivosPropios")]
-        [XmlArrayItem("Activos", typeof(Activos))]
         private List<Activos> _listadoDeActivosPropios;
         private decimal _saldo;
+        
         #endregion
 
         #region constructores
@@ -34,34 +39,58 @@ namespace merval
         }
 
         public Usuario(string nombre, string dni, string nombreUsuario, string pass,
-            Tipo tipoDeUsuario, List<Activos> listadoDeActivosPropios, decimal saldo, string apellido)
+            Tipo tipoDeUsuario, decimal saldo, string apellido)
             : base(nombreUsuario, pass)
         {
             this._nombre = nombre;
             this._dni = dni;
             this._tipoDeUsuario = tipoDeUsuario;
-            this._listadoDeActivosPropios = listadoDeActivosPropios;
             this._saldo = saldo;
             this._apellido = apellido;
         }
+
+        public Usuario(int id, string nombre, string dni, string nombreUsuario, string pass,
+            Tipo tipoDeUsuario, decimal saldo, string apellido)
+            : base(nombreUsuario, pass)
+        {
+            this._id = id;
+            this._nombre = nombre;
+            this._dni = dni;
+            this._tipoDeUsuario = tipoDeUsuario;
+            this._saldo = saldo;
+            this._apellido = apellido;
+        }
+
+        public Usuario(int id, List<Activos> listadoDeActivosPropios) : this()
+        {
+            this._id = id;
+            this._listadoDeActivosPropios = listadoDeActivosPropios;
+        }
+
+
+
         #endregion
 
         #region propiedades
+        public int Id { get => _id; set => _id = value; }
         public string Nombre { get => _nombre; set => _nombre = value; }
         public string Apellido { get => _apellido; set => _apellido = value; }
         public string Dni { get => _dni; set => _dni = value; }
         public Tipo TipoDeUsuario { get => _tipoDeUsuario; set => _tipoDeUsuario = value; }
         public List<Activos> ListadoDeActivosPropios { get => _listadoDeActivosPropios; set => _listadoDeActivosPropios = value; }
         public decimal Saldo { get => _saldo; set => _saldo = value; }
+
+
         #endregion
 
-    
+
         /// crear nuevo usuario
-        public static Usuario CrearUsuario(string nombre, string dni, string nombreUsuario, string pass, Tipo tipoDeUsuario, List<Activos> listadoDeActivosPropios, decimal saldo, string apellido)
+        public static Usuario CrearUsuario(string nombre, string dni, string nombreUsuario, string pass, Tipo tipoDeUsuario, decimal saldo, string apellido)
         {
-            Usuario nuevoUsuario = new(nombre, dni, nombreUsuario, pass, tipoDeUsuario, listadoDeActivosPropios, saldo, apellido);
+            Usuario nuevoUsuario = new (nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido);
             return nuevoUsuario;
         }
+       
 
         // añade acciones a la lista de acciones de un usuario
         public static void ComprarActivo (Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra, string tipo)
@@ -118,12 +147,13 @@ namespace merval
             Acciones nuevaAccion = new Acciones();
             nuevaAccion.Nombre = titulo;
             nuevaAccion.Cantidad = cantidad;
+
             bool estaEnLista = EstaEnLista(usuarioActual, nuevaAccion);
             if (!estaEnLista)
             {
                 usuarioActual.ListadoDeActivosPropios.Add(nuevaAccion);
             }
-            List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
+            List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
             Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
             Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
 
@@ -140,7 +170,7 @@ namespace merval
             {
                 usuarioActual.ListadoDeActivosPropios.Add(nuevaAccion);
             }
-            List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
+            List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
             Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
             Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
         }
@@ -159,6 +189,8 @@ namespace merval
             }
             return estaEnLista;
         }
+
+        
 
     }
 }

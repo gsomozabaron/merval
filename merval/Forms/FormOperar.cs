@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using merval.entidades;
+using merval.Serializadores;
+using merval.DB;
 
 namespace merval
 {
@@ -24,7 +26,8 @@ namespace merval
             InitializeComponent();
             tipoDeActivo = tipo;
             usuarioActual = usuario;
-            listaUsuarios = Serializadora.LeerListadoUsuarios();
+            //listaUsuarios = Serializadora.LeerListadoUsuarios();
+            listaUsuarios = DatabaseSQL.GetUsuarios();
         }
 
 
@@ -134,7 +137,9 @@ namespace merval
             }
             else if (tipoDeActivo == "Acciones")
             {
-                List<Acciones> listaAcciones = Serializadora.LeerListaAcciones();
+                //List<Acciones> listaAcciones = Serializadora.LeerListaAcciones();
+                List<Acciones> listaAcciones = DatabaseSQL.CrearListaAcciones();
+
                 if (usuarioActual.ListadoDeActivosPropios.Count > 0) //por si el usuario no tiene ninguna accion
                 {
                     foreach (Activos a in listaAcciones) //a = acciones en listado general de acciones

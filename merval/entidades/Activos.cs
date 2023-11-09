@@ -29,8 +29,11 @@ namespace merval
         }
 
         public string Nombre { get => nombre; set => nombre = value; }
+        
         public decimal ValorCompra { get => valorCompra; set => valorCompra = value; }
+        
         public decimal ValorVenta { get => valorVenta; set => valorVenta = value; }
+        
         public int Cantidad { get => cantidad; set => cantidad = value; }   
 
 

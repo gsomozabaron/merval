@@ -162,6 +162,7 @@
             Name = "formLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Mc Pato Bursatil 1.0";
+            Load += formLogin_Load;
             ResumeLayout(false);
             PerformLayout();
         }

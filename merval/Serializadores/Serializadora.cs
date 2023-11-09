@@ -8,12 +8,12 @@ using merval.entidades;
 using Newtonsoft.Json;
 
 
-namespace merval
+namespace merval.Serializadores
 {
     public class Serializadora
     {
         //////////// listado general de usuarios ///////////////
-      
+
         // grabar XML lista de usuarios en listaUsuarios.xml
         public static void GuardarListadoUsuarios(List<Usuario> lista)
         {
@@ -88,7 +88,7 @@ namespace merval
                     break;
                 }
             }
-            Serializadora.GuardarListadoUsuarios(lista);
+            GuardarListadoUsuarios(lista);
         }
 
 

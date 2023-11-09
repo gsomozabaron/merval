@@ -1,1 +1,1 @@
-﻿public enum Tipo { Admin, Comisionista, normal }
+﻿public enum Tipo { Admin, Comisionista, normal, monedas, acciones }
