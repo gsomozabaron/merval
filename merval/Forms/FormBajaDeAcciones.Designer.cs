@@ -35,7 +35,6 @@
             btn_salir = new Button();
             btn_EliminarAccion = new Button();
             lbl_nombre = new Label();
-            btn_actualizar = new Button();
             txt_Nombre = new TextBox();
             txt_clave = new TextBox();
             btn_Buscar = new Button();
@@ -98,9 +97,9 @@
             btn_EliminarAccion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btn_EliminarAccion.ForeColor = Color.Yellow;
             btn_EliminarAccion.ImageAlign = ContentAlignment.BottomCenter;
-            btn_EliminarAccion.Location = new Point(661, 71);
+            btn_EliminarAccion.Location = new Point(590, 71);
             btn_EliminarAccion.Name = "btn_EliminarAccion";
-            btn_EliminarAccion.Size = new Size(86, 79);
+            btn_EliminarAccion.Size = new Size(157, 79);
             btn_EliminarAccion.TabIndex = 29;
             btn_EliminarAccion.Text = "Eliminar Titulo";
             btn_EliminarAccion.UseVisualStyleBackColor = false;
@@ -115,18 +114,6 @@
             lbl_nombre.Size = new Size(45, 19);
             lbl_nombre.TabIndex = 25;
             lbl_nombre.Text = "Titulo:";
-            // 
-            // btn_actualizar
-            // 
-            btn_actualizar.BackColor = Color.Lime;
-            btn_actualizar.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_actualizar.Location = new Point(569, 71);
-            btn_actualizar.Name = "btn_actualizar";
-            btn_actualizar.Size = new Size(86, 79);
-            btn_actualizar.TabIndex = 24;
-            btn_actualizar.Text = "Actualizar datos";
-            btn_actualizar.UseVisualStyleBackColor = false;
-            btn_actualizar.Click += btn_actualizar_Click;
             // 
             // txt_Nombre
             // 
@@ -168,7 +155,7 @@
             // 
             textBox1.BackColor = SystemColors.InactiveCaption;
             textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox1.Location = new Point(569, 156);
+            textBox1.Location = new Point(600, 156);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(137, 105);
@@ -194,7 +181,6 @@
             Controls.Add(textBox1);
             Controls.Add(btn_EliminarAccion);
             Controls.Add(lbl_nombre);
-            Controls.Add(btn_actualizar);
             Controls.Add(txt_Nombre);
             Controls.Add(txt_clave);
             Controls.Add(btn_Buscar);
@@ -216,7 +202,6 @@
         private Button btn_salir;
         internal Button btn_EliminarAccion;
         private Label lbl_nombre;
-        private Button btn_actualizar;
         private TextBox txt_Nombre;
         private TextBox txt_clave;
         private Button btn_Buscar;

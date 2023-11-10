@@ -18,8 +18,6 @@ namespace merval
 {
     public partial class FormModificarUsuario : Form
     {
-        //leer desde archivo
-        //private List<Usuario> listadoUsuarios = Serializadora.LeerListadoUsuarios();
         private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();    //leer desde DB
 
 
@@ -111,15 +109,11 @@ namespace merval
 
         private void btn_actualizar_Click(object sender, EventArgs e)
         {
-            if (ValidarDatos.CadenaVacia(txt_Nombre.Text)
-                    || ValidarDatos.CadenaVacia(txt_Apellido.Text)
-                    || ValidarDatos.CadenaVacia(txt_DNI.Text))
+            if (string.IsNullOrEmpty(txt_Nombre.Text) || string.IsNullOrEmpty(txt_Apellido.Text) || string.IsNullOrEmpty(txt_DNI.Text))
             {
                 Vm.VentanaMensajeError("Todos los campos deben estar llenos.");
                 return;
             }
-
-
 
             Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
             int id = usuarioSeleccionado.Id;

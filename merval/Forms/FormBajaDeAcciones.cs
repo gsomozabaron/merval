@@ -34,10 +34,12 @@ namespace merval
         {
             if (txt_tipo.Text == "Acciones")
             {
+                listadeAccionesGral = DatabaseSQL.CrearListaAcciones();
                 DTG_BajaAcciones.DataSource = listadeAccionesGral;
             }
             if (txt_tipo.Text == "Monedas")
             {
+                listadeMonedasGral = DatabaseSQL.CrearListaMonedas();
                 DTG_BajaAcciones.DataSource = listadeMonedasGral;
             }
             DTG_BajaAcciones.Columns["cantidad"].Visible = false;
@@ -98,12 +100,12 @@ namespace merval
             {
                 Vm.VentanaMensajeError($"Error: {ex.Message}");    //si rompe.. mensaje
             }
-                
+
         }
 
         private void btn_EliminarAccion_Click(object sender, EventArgs e)
         {
-            Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
+            Activos a = (Activos)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
 
             if (Vm.VentanaMensaje("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL TITULO") == DialogResult.OK)
             {
@@ -113,7 +115,6 @@ namespace merval
             {
                 Vm.VentanaMensaje("OPERACION", "CANCELADA");
             }
-            DTG_BajaAcciones = null;
             CargarDatos();
         }
 
@@ -133,48 +134,11 @@ namespace merval
                 if (DTG_BajaAcciones.SelectedRows.Count > 0)
                 {
                     Monedas a = (Monedas)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
-                    txt_Nombre.Text = a.Nombre;              
+                    txt_Nombre.Text = a.Nombre;
                 }
             }
         }
 
-        private void btn_actualizar_Click(object sender, EventArgs e)
-        {
-
-            if (txt_tipo.Text == "Acciones")
-            {
-                Acciones a = (Acciones)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
-                a.Nombre = txt_Nombre.Text;
-
-                if (Vm.VentanaMensajeConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ") == DialogResult.OK)
-                {
-                    Serializadora.GuardarGralAcciones(listadeAccionesGral);
-                    //DTG_BajaAcciones.DataSource = Serializadora.LeerListaAcciones();
-                    DTG_BajaAcciones.DataSource = DatabaseSQL.CrearListaAcciones();
-                }
-                else
-                {
-                    DTG_BajaAcciones.DataSource = listadeAccionesGral;
-                }
-            }
-            else if (txt_tipo.Text == "Monedas")
-            {
-                Monedas a = (Monedas)DTG_BajaAcciones.SelectedRows[0].DataBoundItem;
-                a.Nombre = txt_Nombre.Text;
-
-                if (Vm.VentanaMensajeConfirmar("ATENCION", "esta seguro?\nSe sobreescribira el archivo ") == DialogResult.OK)
-                {
-                    Serializadora.GuardarGralMonedas(listadeMonedasGral);
-                    DTG_BajaAcciones.DataSource = Serializadora.LeerListaMonedas();
-                }
-                else
-                {
-                    DTG_BajaAcciones.DataSource = listadeMonedasGral;
-                }
-            }
-        }
-        
-        
         
         private void btn_salir_Click(object sender, EventArgs e)
         {

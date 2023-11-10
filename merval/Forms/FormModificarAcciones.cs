@@ -40,6 +40,7 @@ namespace merval
                 txt_Titulo.Text = seleccion.Nombre;
                 txt_Vcompra.Text = seleccion.ValorCompra.ToString();
                 txt_Vventa.Text = seleccion.ValorVenta.ToString();
+                txt_id.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 txt_Vcompra.Enabled = true;
                 txt_Vventa.Enabled = true;
                 Btn_modificar.Enabled = true;
@@ -89,15 +90,17 @@ namespace merval
         {
             if (txt_tipo.Text == "Monedas")
             {
+                List<Monedas> listaM = DatabaseSQL.CrearListaMonedas();
                 this.dataGridView1.DataSource = listaM;
             }
             else if (txt_tipo.Text == "Acciones")
             {
+                List<Acciones> lista = DatabaseSQL.CrearListaAcciones();
                 this.dataGridView1.DataSource = lista;
             }
-                this.dataGridView1.Columns["cantidad"].Visible = false;
-                this.Btn_modificar.Enabled = false;
-                this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
+            this.dataGridView1.Columns["cantidad"].Visible = false;
+            this.Btn_modificar.Enabled = false;
+            this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
 
         }
 
@@ -105,22 +108,16 @@ namespace merval
         {
             try
             {
+                string tipo = txt_tipo.Text;
                 decimal valorCompra = decimal.Parse(txt_Vcompra.Text);
                 decimal valorVenta = decimal.Parse(txt_Vventa.Text);
                 string nombre = txt_Titulo.Text;
-                
+                string id = txt_id.Text;
+
                 if (Vm.VentanaMensajeConfirmar("confirmar", "cambios") == DialogResult.OK)
                 {
-                    DatabaseSQL.ModificarActivo("Acciones", nombre,valorCompra,valorVenta);
+                    DatabaseSQL.ModificarActivo(tipo, nombre, valorCompra, valorVenta, id);
 
-                    if (txt_tipo.Text == "Acciones")
-                    {
-                        //Acciones.ModificarDatos(nombre, valorCompra, valorVenta, lista);
-                    }
-                    else if(txt_tipo.Text == "Monedas")
-                    {
-                        //Monedas.ModificarDatos(nombre, valorCompra, valorVenta, listaM);
-                    }
                     dataGridView1.DataSource = null;
                     ResetearBotones();
                 }

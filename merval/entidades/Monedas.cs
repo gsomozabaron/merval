@@ -10,6 +10,7 @@ namespace merval
     [Serializable]
     public class Monedas : Activos
     {
+
         private int _id;
 
         public Monedas() : base()

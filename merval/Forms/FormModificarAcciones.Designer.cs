@@ -43,6 +43,7 @@
             Btn_modificar = new Button();
             btn_salir = new Button();
             txt_tipo = new TextBox();
+            txt_id = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -92,6 +93,7 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 192, 192);
             dataGridViewCellStyle1.SelectionForeColor = Color.Black;
             dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.Tomato;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.Salmon;
@@ -111,7 +113,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.GridColor = Color.MistyRose;
-            dataGridView1.Location = new Point(9, 106);
+            dataGridView1.Location = new Point(12, 117);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -132,7 +134,7 @@
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(343, 214);
+            dataGridView1.Size = new Size(424, 214);
             dataGridView1.TabIndex = 3;
             dataGridView1.MouseDoubleClick += dataGridView1_MouseDoubleClick;
             // 
@@ -195,6 +197,18 @@
             txt_tipo.TabIndex = 8;
             txt_tipo.TextAlign = HorizontalAlignment.Center;
             // 
+            // txt_id
+            // 
+            txt_id.Enabled = false;
+            txt_id.Font = new Font("Times New Roman", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_id.Location = new Point(40, 50);
+            txt_id.Name = "txt_id";
+            txt_id.PlaceholderText = "id";
+            txt_id.Size = new Size(100, 22);
+            txt_id.TabIndex = 9;
+            txt_id.TextAlign = HorizontalAlignment.Center;
+            txt_id.Visible = false;
+            // 
             // FormModificarAcciones
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -203,6 +217,7 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(821, 403);
             ControlBox = false;
+            Controls.Add(txt_id);
             Controls.Add(txt_tipo);
             Controls.Add(btn_salir);
             Controls.Add(Btn_modificar);
@@ -232,5 +247,6 @@
         private Button Btn_modificar;
         private Button btn_salir;
         private TextBox txt_tipo;
+        private TextBox txt_id;
     }
 }

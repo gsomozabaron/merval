@@ -28,7 +28,7 @@ namespace merval
         {
             string form = "Admin, Alta de acciones";
                
-            ManejadorDeExcepciones.ManejarExcepcion(form, () =>
+            ManejadorDeExcepciones.ManejarExcepcion(form, () => //manejador de excepciones
             {
                 string titulo = txt_Titulo.Text;
         
@@ -39,9 +39,8 @@ namespace merval
                 decimal valorCompra = decimal.Parse(Txt_ValorCompra.Text);
                 decimal valorVenta = decimal.Parse(txt_ValorVenta.Text);
 
-                if (ValidarDatos.CadenaVacia(titulo) 
-                    || ValidarDatos.CadenaVacia(valorCompra.ToString()) 
-                    || ValidarDatos.CadenaVacia(valorVenta.ToString()))
+                if (string.IsNullOrEmpty(titulo) || string.IsNullOrEmpty(valorCompra.ToString()) || string.IsNullOrEmpty(valorVenta.ToString()))
+                    
                 {
                     Vm.VentanaMensajeError("Tanto el titulo como los precios \nson obligatorios.");
                     return;

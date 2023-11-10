@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace merval
 {
     [Serializable]
-    public abstract class Activos
+    public class Activos
     {
         private string nombre;
         private decimal valorCompra;
@@ -28,15 +28,40 @@ namespace merval
             this.cantidad = cantidad;
         }
 
+
+        public Activos(string nombre, int cantidad)
+        {
+            this.nombre = nombre;
+            this.cantidad = cantidad;
+        }
+
         public string Nombre { get => nombre; set => nombre = value; }
         
         public decimal ValorCompra { get => valorCompra; set => valorCompra = value; }
         
         public decimal ValorVenta { get => valorVenta; set => valorVenta = value; }
         
-        public int Cantidad { get => cantidad; set => cantidad = value; }   
+        public int Cantidad { get => cantidad; set => cantidad = value; }
 
 
+        public static bool operator ==(Activos activo1, Activos activo2)
+        {
+            if (ReferenceEquals(activo1, activo2))
+            {
+                return true;
+            }
 
+            if (ReferenceEquals(activo1, null) || ReferenceEquals(activo2, null))
+            {
+                return false;
+            }
+
+            return activo1.nombre == activo2.nombre;
+        }
+
+        public static bool operator !=(Activos activo1, Activos activo2)
+        {
+            return !(activo1 == activo2);
+        }
     }
 }

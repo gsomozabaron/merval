@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,14 +39,7 @@ namespace merval
                 chk_comisionista.Visible = false;
             }
         }
-
-        private bool EsDniValido(string dni)
-        {
-            // Verificar si el DNI tiene 7 u 8 dígitos numéricos
-            return System.Text.RegularExpressions.Regex.IsMatch(dni, @"^\d{7,8}$");
-        }
-
-        #region formulario alta de usuarios
+       
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string nombre = this.txt_Nombre.Text;
@@ -58,49 +52,26 @@ namespace merval
             long saldo = 0;
             string apellido = this.txt_Apellido.Text;
 
-            ///List<Activos> ListadoDeActivosPropios = new List<Activos>();
-            
-            #region validar DNI
-            ///****************************************************************************///
-            /// validación de número de DNI
-            if (!EsDniValido(Dni))
+            /// chequeo si se completaron todos los datos
+            if (string.IsNullOrEmpty(nombre) ||
+                string.IsNullOrEmpty(Dni) || 
+                string.IsNullOrEmpty(nombreUsuario) || 
+                string.IsNullOrEmpty(password) ||
+                string.IsNullOrEmpty(apellido))
             {
-                Vm.VentanaMensajeError("Nro de DNI inválido.\nIngrese un número de 6 o 7 dígitos.");
-                txt_Dni.Clear(); // limpiamos la casilla
-                return;
+                Vm.VentanaMensajeError("Campos incompletos");
+                return; 
             }
-            #endregion
 
-            #region validar contraseña
-            ///****************************************************************************///
-            /// chequeo de coincidencia de contraseña de las dos casillas
-            if (password != passCheck)
-            {
-                Vm.VentanaMensajeError("Las contraseñas no coinciden.\nPor favor, vuelva a ingresarlas.");
-                this.txt_Pass.Clear();
-                this.txt_Pass.Clear();
-                return;
-            }
-            #endregion
-
-            #region validar nombre de usuario en uso
             ///****************************************************************************///
             /// chequeo si el nombre de usuario ya está en uso
-            foreach (Usuario u in listaDeUsuarios)
+            /// validación de número de DNI que sean 7 u 8 numeros 
+            /// validacion de coincidencia de password y reigreso de password
+            if (ValidarNombreEnUso(nombreUsuario) || ValidarPass(password, passCheck) || !EsDniValido(Dni))
             {
-                if (u.NombreUsuario == nombreUsuario)
-                {
-                    this.txt_NombreUsuario.Clear();
-                    Vm.VentanaMensaje("El nombre de usuario ya existe.", "Por favor, elija otro.");
-                    return;
-                }
+                return;
             }
-            #endregion
-
-            #region crear usuarios
-            ///****************************************************************************///
-            /// crear usuarios
-            
+           
             if (esAdmin == false)
             {
                 tipoDeUsuario = Tipo.normal;
@@ -112,19 +83,50 @@ namespace merval
 
             Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, saldo, apellido);
 
-            /////////////codigo viejo XML//////////////////////////////////////////
-            //listaDeUsuarios.Add(nuevoUsuario);
-            //Serializadora.GuardarListadoUsuarios(listaDeUsuarios);
-            ///////////////////////////////////////////////////////////////////////////
-            
             DatabaseSQL.InsertarUsuario(nuevoUsuario);
-            
-            Vm.VentanaMensaje("Registro exitoso.", "Usuario dado de alta");
-            
+                        
             this.Close();
         }
-        #endregion
-        #endregion
+        private bool EsDniValido(string dni)
+        {
+            bool dniValido = System.Text.RegularExpressions.Regex.IsMatch(dni, @"^\d{7,8}$");
+            if (!dniValido)
+            {
+                Vm.VentanaMensajeError("Nro de DNI inválido.\nIngrese un número de 6 o 7 dígitos.");
+                txt_Dni.Clear(); // limpiamos la casilla
+            }
+            return dniValido;
+        }
+
+        private bool ValidarPass(string password, string passCheck)
+        {
+            bool noCoinciden = false;
+            if (password != passCheck)
+            {
+                Vm.VentanaMensajeError("Las contraseñas no coinciden.\nPor favor, vuelva a ingresarlas.");
+                this.txt_Pass.Clear();
+                this.txt_PassCheck.Clear();
+                noCoinciden = true;
+            }
+            return noCoinciden;
+        }
+
+        private bool ValidarNombreEnUso(string nombreUsuario)
+        {
+            bool estaDuplicado = false;
+            foreach (Usuario u in listaDeUsuarios)
+            {
+                if (u.NombreUsuario == nombreUsuario)
+                {
+                    this.txt_NombreUsuario.Clear();
+                    Vm.VentanaMensaje("El nombre de usuario ya existe.", "Por favor, elija otro.");
+                    estaDuplicado = true;
+                    break;
+                }
+            }
+            return estaDuplicado;
+
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {

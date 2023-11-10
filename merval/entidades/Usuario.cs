@@ -3,6 +3,7 @@ using merval.entidades;
 using merval.Serializadores;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
@@ -95,102 +96,106 @@ namespace merval
         // añade acciones a la lista de acciones de un usuario
         public static void ComprarActivo (Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra, string tipo)
         {
-            HacerValidaciones(usuarioActual, titulo, cantidad, totalCompra);
-           
-            usuarioActual.Saldo -= totalCompra;
+            if (HacerValidaciones(usuarioActual, titulo, cantidad, totalCompra))
+            {
+                usuarioActual.Saldo -= totalCompra;
             
-            if (usuarioActual.ListadoDeActivosPropios == null) 
-            { 
-                usuarioActual.ListadoDeActivosPropios = new List<Activos>();
-            }
-
-            if (tipo == "Acciones")
-            {
-                ComprarAcciones(usuarioActual, titulo, cantidad);
-            }
-            else if (tipo == "Monedas")
-            {
-                ComprarMoneda(usuarioActual, titulo, cantidad);
+                if (usuarioActual.ListadoDeActivosPropios == null) 
+                { 
+                    usuarioActual.ListadoDeActivosPropios = new List<Activos>();
+                }
+                DatabaseSQL.ModificarSaldo(usuarioActual);
+                ActualizarActivos(usuarioActual, titulo, cantidad);   
             }
         }
 
-        private static void HacerValidaciones(Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra)
+        //public static void VenderActivo(Usuario usuarioActual, string titulo, int cantidad, decimal totalVenta)
+        //{
+        //    if (HacerValidaciones(usuarioActual, titulo, cantidad, totalVenta))
+        //    {
+        //        usuarioActual.Saldo += totalVenta;
+
+        //        ActualizarActivos(usuarioActual, titulo, cantidad * -1);
+        //    }
+
+        //}
+
+        private static bool HacerValidaciones(Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra)
         {
+            bool todook = true;
+
             if (titulo == "")   //validar que haya algun titulo seleccionado
             {
                 Vm.VentanaMensajeError("Selecciona un accion");
-                return;
+                todook = false;
             }
              
             if (cantidad <= 0)  //validar cantidad mayor a cero
             {
                 Vm.VentanaMensajeError("La cantidad debe ser mayor que 0.");
-                return;
+                todook = false;
             }
 
             if (usuarioActual.Saldo < totalCompra)  //validar que saldo sea mayor a compra
             {
                 Vm.VentanaMensajeError("Saldo insuficiente.");
-                return;
+                todook = false;
             }
 
             //cancelar compra
-            if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
+            if (todook)
             {
-                Vm.VentanaMensaje("Compra", "Cancelada");
-                return;
+                if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
+                {
+                    Vm.VentanaMensaje("Compra", "Cancelada");
+                    todook = false;
+                }
             }
+            return todook;
         }
 
-        private static void ComprarAcciones(Usuario usuarioActual, string titulo, int cantidad)
+        private static void ActualizarActivos(Usuario usuarioActual, string titulo, int cantidad)
         {
-            Acciones nuevaAccion = new Acciones();
-            nuevaAccion.Nombre = titulo;
-            nuevaAccion.Cantidad = cantidad;
+            Activos nuevoActivo = new Activos();
+            nuevoActivo.Nombre = titulo;
+            nuevoActivo.Cantidad = cantidad;
+            bool encontrada = false;
 
-            bool estaEnLista = EstaEnLista(usuarioActual, nuevaAccion);
-            if (!estaEnLista)
-            {
-                usuarioActual.ListadoDeActivosPropios.Add(nuevaAccion);
-            }
-            List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
-            Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-            Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
-
-
-        }
-        
-        private static void ComprarMoneda(Usuario usuarioActual, string titulo, int cantidad)
-        {
-            Monedas nuevaAccion = new Monedas();
-            nuevaAccion.Nombre = titulo;
-            nuevaAccion.Cantidad = cantidad;
-            bool estaEnLista = EstaEnLista(usuarioActual, nuevaAccion);
-            if (!estaEnLista)
-            {
-                usuarioActual.ListadoDeActivosPropios.Add(nuevaAccion);
-            }
-            List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
-            Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-            Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevaAccion.Nombre}");
-        }
-
-        private static bool EstaEnLista(Usuario usuarioActual, Activos nuevaAccion)
-        {
-            bool estaEnLista = false;
             foreach (Activos a in usuarioActual.ListadoDeActivosPropios)
             {
-                if (a.Nombre == nuevaAccion.Nombre)
+                if (a.Nombre == nuevoActivo.Nombre)
                 {
-                    a.Cantidad += nuevaAccion.Cantidad;
-                    estaEnLista = true;
+                    nuevoActivo.Cantidad += a.Cantidad;
+                    DatabaseSQL.modificarCartera(usuarioActual, nuevoActivo);
+                    encontrada = true;
                     break;
                 }
             }
-            return estaEnLista;
+            if (!encontrada)
+            {
+                DatabaseSQL.comprarActivo(usuarioActual, nuevoActivo);
+            }
+            Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevoActivo.Nombre}");
         }
 
+        public static void ActivosUsuario(Usuario usuario, string tipo)
+        {
+            if (usuario.ListadoDeActivosPropios == null)
+            {
+                usuario.ListadoDeActivosPropios = new List<Activos>();  
+            }
+
+            List<Activos> lista = DatabaseSQL.CarteraUsuario(usuario, tipo);
+            foreach (Activos a in lista)
+            {
+                usuario.ListadoDeActivosPropios.Add(a); 
+            }
+        }
         
+        public static void BajaDeActivosEnCartera(Usuario usuario, Activos activos)
+        {
+            DatabaseSQL.BajasEnCartera(usuario, activos);
+        }
 
     }
 }

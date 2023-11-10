@@ -21,8 +21,6 @@ namespace merval
         {
             InitializeComponent();
             usuarioActual = usuario;
-            //listaUsuarios = Serializadora.LeerListadoUsuarios();
-            listaUsuarios = DatabaseSQL.GetUsuarios();
         }
 
 
@@ -41,7 +39,7 @@ namespace merval
                     lbl_NuevoSaldoTag.Text = "Nuevo saldo";
 
                     ///actualizar usuario recorre la lista de usuarios general para guardar los cambios
-                    Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
+                    DatabaseSQL.ModificarSaldo(usuarioActual);
                     txt_MontoAumentar.Clear();///limpia la casilla 
                 }
                 else
@@ -87,7 +85,7 @@ namespace merval
                         txt_montoExtraer.Clear();
                         ///actualizar usuario recorre la lista de usuarios general, 
                         ///actualiza los valores del usuario en uso y graba el archivo
-                        Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
+                        DatabaseSQL.ModificarSaldo(usuarioActual);
                     }
                     else
                     {
@@ -106,7 +104,7 @@ namespace merval
             else
             {
                 ///si se ingresan letras o simbolos o falla el parse_float
-                Vm.VentanaMensajeError("solo numeros mayores a 0");
+                Vm.VentanaMensajeError("Solo numeros mayores a 0");
                 txt_montoExtraer.Clear();
             }
         }

@@ -17,7 +17,6 @@ namespace merval
 {
     public partial class FormOperar : Form
     {
-        private List<Usuario> listaUsuarios;
         private Usuario usuarioActual;
         private string tipoDeActivo;
 
@@ -26,8 +25,7 @@ namespace merval
             InitializeComponent();
             tipoDeActivo = tipo;
             usuarioActual = usuario;
-            //listaUsuarios = Serializadora.LeerListadoUsuarios();
-            listaUsuarios = DatabaseSQL.GetUsuarios();
+            //listaUsuarios = DatabaseSQL.GetUsuarios();
         }
 
 
@@ -52,18 +50,16 @@ namespace merval
             }
         }
 
-
-
-
-
-
-
-
-
      
         /// añade titulos a la lista de acciones del usuario
         private void btn_Comprar_Click(object sender, EventArgs e)
         {
+            btn_Comprar.Enabled = false;
+
+            if (txt_cotizacion.Text != "$$$$$")
+            {
+                btn_Comprar.Enabled = true;
+            }
             string titulo = txt_titulo.Text;
 
             (decimal cotizacion,int cantidad, decimal totalCompra) = calcularCompra();
@@ -75,8 +71,6 @@ namespace merval
             CargarDatos();  //refresh datagrid
         }
 
-
-   
         /// llama a la funcion calcular compra
         private void btn_calcularCompra_Click(object sender, EventArgs e)
         {
@@ -107,63 +101,45 @@ namespace merval
         {
             
             lbl_saldo.Text = usuarioActual.Saldo.ToString();
-            
-            if (tipoDeActivo == "Monedas")
-            {
-                List<Monedas> listaMonedas = Serializadora.LeerListaMonedas();
-                if (usuarioActual.ListadoDeActivosPropios.Count > 0) //por si el usuario no tiene ninguna accion
-                {
-                    foreach (Activos a in listaMonedas) //a = acciones en listado general de acciones
-                    {
-                        foreach (Activos ac in usuarioActual.ListadoDeActivosPropios) //au = acciones usuario
-                        {
-                            if (a.Nombre == ac.Nombre)
-                            {
-                                a.Cantidad = ac.Cantidad;
-                            }
-                        }
-                    }
-                }
-                this.Dtg1.DataSource = listaMonedas;
-                // Cambiar el orden de las columnas
-                this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
-                this.Dtg1.Columns["ValorCompra"].DisplayIndex = 1;
-                this.Dtg1.Columns["ValorVenta"].DisplayIndex = 2;
-                this.Dtg1.Columns["Cantidad"].DisplayIndex = 3;
-                this.Dtg1.Columns["Cantidad"].HeaderText = "Propias";
-                this.Dtg1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
-                this.Dtg1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
-                btn_Comprar.Enabled = false;
-            }
-            else if (tipoDeActivo == "Acciones")
-            {
-                //List<Acciones> listaAcciones = Serializadora.LeerListaAcciones();
-                List<Acciones> listaAcciones = DatabaseSQL.CrearListaAcciones();
 
-                if (usuarioActual.ListadoDeActivosPropios.Count > 0) //por si el usuario no tiene ninguna accion
+            string tipo = tipoDeActivo;
+            
+            List<Activos> todas = DatabaseSQL.CrearListaDeActivos(tipoDeActivo);
+            List<Activos> propias = DatabaseSQL.CarteraUsuario(usuarioActual, tipo);
+            List<Activos> listaDTG = new List<Activos>();
+
+            
+            foreach (var a in todas)
+            {
+                Activos existente = listaDTG.Find(x => x.Nombre == a.Nombre);
+
+                if (existente != null)
                 {
-                    foreach (Activos a in listaAcciones) //a = acciones en listado general de acciones
-                    {
-                        foreach (Activos ac in usuarioActual.ListadoDeActivosPropios) //au = acciones usuario
-                        {
-                            if (a.Nombre == ac.Nombre)
-                            {
-                                a.Cantidad = ac.Cantidad;
-                            }
-                        }
-                    }
+                    // La acción ya está en la lista, actualiza la cantidad
+                    existente.Cantidad += propias.Find(b => b.Nombre == a.Nombre)?.Cantidad ?? 0;
                 }
-                this.Dtg1.DataSource = listaAcciones;
-                // Cambiar el orden de las columnas
-                this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
-                this.Dtg1.Columns["ValorCompra"].DisplayIndex = 1;
-                this.Dtg1.Columns["ValorVenta"].DisplayIndex = 2;
-                this.Dtg1.Columns["Cantidad"].DisplayIndex = 3;
-                this.Dtg1.Columns["Cantidad"].HeaderText = "Propias";
-                this.Dtg1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
-                this.Dtg1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
-                btn_Comprar.Enabled = false;
+                else
+                {
+                    // La acción no está en la lista, agrégala
+                    Activos dtg = new Activos(a.Nombre, a.ValorCompra, a.ValorVenta,
+                        propias.Find(b => b.Nombre == a.Nombre)?.Cantidad ?? 0);
+                    listaDTG.Add(dtg);
+                }
             }
+
+            
+
+            this.Dtg1.DataSource = listaDTG;
+            // Cambiar el orden de las columnas
+            this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
+            this.Dtg1.Columns["ValorCompra"].DisplayIndex = 1;
+            this.Dtg1.Columns["ValorVenta"].DisplayIndex = 2;
+            this.Dtg1.Columns["Cantidad"].DisplayIndex = 3;
+            this.Dtg1.Columns["Cantidad"].HeaderText = "Propias";
+            this.Dtg1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
+            this.Dtg1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
+            btn_Comprar.Enabled = false;
+            
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)

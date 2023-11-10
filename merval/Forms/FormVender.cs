@@ -14,8 +14,8 @@ namespace merval
 {
     public partial class FormVender : Form
     {
-        //private List<Usuario> listaUsuarios = Serializadora.LeerListadoUsuarios();
-        private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
+        
+        //private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
         private Usuario usuarioActual;
         private string tipoDeActivo;
 
@@ -36,77 +36,37 @@ namespace merval
             {
                 VerMonedasDatagrid();
             }
+            btn_Vender.Enabled = false;
         }
 
         private void VerAccionesDatagrid()
         {
-            //List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
-            List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
-            /////////////////
-            List<Acciones> listDTG = new List<Acciones>();
-            foreach (Activos acc in usuarioActual.ListadoDeActivosPropios)
-            {
-                foreach (Acciones a in listaAccionesGral)
-                {
-                    if (acc.Nombre == a.Nombre)
-                    {
-                        string nombre = acc.Nombre;
-                        decimal compra = a.ValorCompra;
-                        decimal venta = a.ValorVenta;
-                        int cantidad = acc.Cantidad;
-
-                        Acciones dtg = new Acciones(nombre, compra, venta, cantidad);
-                        listDTG.Add(dtg);
-                    }
-                }
-            }
-            this.Dtg1.DataSource = null;///para hacer un refresh
-            this.Dtg1.Visible = true;
-            this.Dtg1.DataSource = listDTG;
-            // Cambiar el orden de las columnas
-            this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
-            this.Dtg1.Columns["Cantidad"].DisplayIndex = 1;
-            this.Dtg1.Columns["ValorCompra"].DisplayIndex = 2;
-            this.Dtg1.Columns["ValorVenta"].DisplayIndex = 3;
+            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
+            LlenarDatagrid(listDTG);
         }
+
         private void VerMonedasDatagrid()
         {
-            List<Monedas> lista = Serializadora.LeerListaMonedas();
-            /////////////////
-            List<Activos> listDTG = new List<Activos>();
-            foreach (Activos acc in usuarioActual.ListadoDeActivosPropios)
-            {
-                foreach (Monedas a in lista)
-                {
-                    if (acc.Nombre == a.Nombre)
-                    {
-                        string nombre = acc.Nombre;
-                        decimal compra = a.ValorCompra;
-                        decimal venta = a.ValorVenta;
-                        int cantidad = acc.Cantidad;
+            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
+            LlenarDatagrid(listDTG);
+        }
 
-                        Monedas dtg = new Monedas(nombre, compra, venta, cantidad);
-                        listDTG.Add(dtg);
-                    }
-                }
-            }
+        private void LlenarDatagrid(List<Activos> listDTG) 
+        {
             this.Dtg1.DataSource = null;///para hacer un refresh
             this.Dtg1.Visible = true;
             this.Dtg1.DataSource = listDTG;
-            // Cambiar el orden de las columnas
+            // Cambiar el orden de las columnas 
             this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
             this.Dtg1.Columns["Cantidad"].DisplayIndex = 1;
             this.Dtg1.Columns["ValorCompra"].DisplayIndex = 2;
             this.Dtg1.Columns["ValorVenta"].DisplayIndex = 3;
-        }
-
-        private void btn_Salir_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void btn_calcularVenta_Click(object sender, EventArgs e)
         {
+            btn_Vender.Enabled = true;
+
             try
             {
                 float cotizacion = float.Parse(txt_cotizacion.Text);
@@ -139,38 +99,60 @@ namespace merval
             }
         }
 
+
         private void btn_Vender_Click(object sender, EventArgs e)
-        {
-            foreach (Activos a in usuarioActual.ListadoDeActivosPropios)
+        {   
+            try
             {
-                if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
+                decimal totalVenta = decimal.Parse(lbl_totalVenta.Text);
+
+                usuarioActual.Saldo = usuarioActual.Saldo + totalVenta;
+
+                foreach (Activos a in usuarioActual.ListadoDeActivosPropios)
                 {
-                    if (Vm.VentanaMensajeConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}") == DialogResult.OK)
+                    if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
                     {
-                        a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
-                        if (a.Cantidad == 0)
+                        if (Vm.VentanaMensajeConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}") == DialogResult.OK)
                         {
-                            usuarioActual.ListadoDeActivosPropios.Remove(a);
+                            a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
+                            if (a.Cantidad == 0)
+                            {
+                                Usuario.BajaDeActivosEnCartera(usuarioActual,a);
+                            }
+                            else
+                            {
+                                DatabaseSQL.modificarCartera(usuarioActual,a);
+                            }
+                            DatabaseSQL.ModificarSaldo(usuarioActual);
+                            this.Close();
+                            break;
                         }
-                        usuarioActual.Saldo = usuarioActual.Saldo + decimal.Parse(lbl_totalVenta.Text);
-                        Serializadora.ActualizarUsuario(usuarioActual, listaUsuarios);
-                        this.Close();
-                        break;
+                        else
+                        {
+                            Vm.VentanaMensaje("Venta", "cancelada");
+                        }
                     }
                     else
                     {
-                        Vm.VentanaMensaje("Venta", "cancelada");
+                        if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) > a.Cantidad))
+                        {
+                            Vm.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
+                            break;
+                        }
                     }
                 }
-                else
-                {
-                    if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) > a.Cantidad))
-                    {
-                        Vm.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
-                        break;
-                    }
-                }
+
             }
+            catch (Exception)
+            {
+                Vm.VentanaMensajeError("Faltan datos");
+                btn_Vender.Enabled = false;
+            }
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

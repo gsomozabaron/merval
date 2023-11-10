@@ -11,7 +11,7 @@ namespace merval.Excepciones
     public class ManejadorDeExcepciones
     {
 
-        //ManejadorDeExcepciones.ManejarExcepcion(form, () =>
+        //ManejadorDeExcepciones.ManejarExcepcion(form, () => 
         //    {});
 
         public static void ManejarExcepcion(string formName, Action codigo)
@@ -24,6 +24,7 @@ namespace merval.Excepciones
             //{
             //    Vm.VentanaMensajeError("No se pudo grabar el Archivo");
             //}
+
             string mensaje;
             try
             {

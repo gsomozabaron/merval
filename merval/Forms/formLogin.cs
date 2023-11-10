@@ -141,10 +141,15 @@ namespace merval
                     this.txtUsuario.Text = "gsomoza";
                     this.txtPassword.Text = "gpass";
                     break;
+                case 2:
+                    Contador += 1;
+                    this.txtUsuario.Text = "gala";
+                    this.txtPassword.Text = "perrito";
+                    break;
                 default:
                     Contador = 0;
-                    this.txtUsuario.Text = "fmario";
-                    this.txtPassword.Text = "mariopass";
+                    this.txtUsuario.Text = "ivi";
+                    this.txtPassword.Text = "coco";
                     break;
             }
         }

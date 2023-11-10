@@ -14,7 +14,7 @@ namespace merval
         public static void cargarListayDicc(Dictionary<string, string> dictUsuarioPassword, List<Usuario> listadoDeUsuarios, List<Acciones> listaDeAccionesGral)      
         {
             List<Acciones> listaDeAcciones = new List<Acciones>();
-            List<Clientes> listaDeClientes = new List<Clientes>();
+            
 
             Acciones YPF = new Acciones("YPF", 150, 140, 0);
             Acciones Acindar = new Acciones("Acindar", 250,240, 0);

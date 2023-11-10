@@ -23,6 +23,8 @@ namespace merval
             InitializeComponent();
             this.IsMdiContainer = true;
             this.usuario = usuarioActual;
+            Usuario.ActivosUsuario(usuarioActual, "acciones");
+            Usuario.ActivosUsuario(usuarioActual, "Monedas");
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -43,14 +45,6 @@ namespace merval
             this.dataGridView1.Visible = false;
             Fo.ShowDialog();
         }
-
-
-
-
-
-
-
-
 
 
 
@@ -77,6 +71,12 @@ namespace merval
             FormVender Fv = new FormVender(usuario, "Acciones");
             Fv.ShowDialog();
         }
+
+        /// <summary>
+        /// dispara el form de venta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VenderMonedas_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -84,29 +84,22 @@ namespace merval
             Fv.ShowDialog();
         }
 
+
         private void TSM_carteraAcciones_Click(object sender, EventArgs e)
         {
-            //List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
-            List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
+            string tipo = "Acciones";
+            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuario, tipo);
+            DatagridCarteraUsuario(listDTG);           
+        }
+        private void TSM_CarteraMonedas_Click(object sender, EventArgs e)
+        {
+            string tipo = "Monedas";
+            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuario, tipo);
+            DatagridCarteraUsuario(listDTG);
+        }
 
-            List<Acciones> listDTG = new List<Acciones>();
-
-            foreach (Activos acc in usuario.ListadoDeActivosPropios)
-            {
-                foreach (Acciones a in listaAccionesGral)
-                {
-                    if (acc.Nombre == a.Nombre)
-                    {
-                        string nombre = acc.Nombre;
-                        decimal compra = a.ValorCompra;
-                        decimal venta = a.ValorVenta;
-                        int cantidad = acc.Cantidad;
-
-                        Acciones dtg = new Acciones(nombre, compra, venta, cantidad);
-                        listDTG.Add(dtg);
-                    }
-                }
-            }
+        private void DatagridCarteraUsuario(List<Activos> listDTG) 
+        {
             this.dataGridView1.DataSource = null;///para hacer un refresh
             this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = listDTG;
@@ -117,51 +110,16 @@ namespace merval
             this.dataGridView1.Columns["ValorVenta"].DisplayIndex = 3;
             this.dataGridView1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
             this.dataGridView1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
+
         }
 
-        private void TSM_CarteraMonedas_Click(object sender, EventArgs e)
-        {
-            List<Monedas> lista = Serializadora.LeerListaMonedas();
 
-            List<Activos> monedasDTG = new List<Activos>();
-
-            foreach (Activos m in usuario.ListadoDeActivosPropios)
-            {
-                foreach (Monedas a in lista)
-                {
-                    if (m.Nombre == a.Nombre)
-                    {
-                        string nombre = m.Nombre;
-                        decimal compra = a.ValorCompra;
-                        decimal venta = a.ValorVenta;
-                        int cantidad = m.Cantidad;
-
-                        Monedas dtg = new Monedas(nombre, compra, venta, cantidad);
-                        monedasDTG.Add(dtg);
-                    }
-                }
-            }
-            this.dataGridView1.DataSource = null;///para hacer un refresh
-            this.dataGridView1.Visible = true;
-            this.dataGridView1.DataSource = monedasDTG;
-            // Cambiar el orden de las columnas
-            this.dataGridView1.Columns["Nombre"].DisplayIndex = 0;
-            this.dataGridView1.Columns["Cantidad"].DisplayIndex = 1;
-            this.dataGridView1.Columns["ValorCompra"].DisplayIndex = 2;
-            this.dataGridView1.Columns["ValorVenta"].DisplayIndex = 3;
-            this.dataGridView1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
-            this.dataGridView1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
-        }
-
-        private void btn_salir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Application.Exit();
-        }
 
         private void VerMercadoMonedas_Click(object sender, EventArgs e)
         {
-            List<Monedas> lista = Serializadora.LeerListaMonedas();
+            string tipo = "monedas";
+            List<Activos> lista = DatabaseSQL.CrearListaDeActivos(tipo);
+            
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
             this.dataGridView1.DataSource = lista;
@@ -172,14 +130,21 @@ namespace merval
 
         private void VerMercadoAcciones_Click(object sender, EventArgs e)
         {
-            //List<Acciones> listaAccionesGral = Serializadora.LeerListaAcciones();
-            List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
+            string tipo = "Acciones";
+            List<Activos> lista = DatabaseSQL.CrearListaDeActivos(tipo);
+            //List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
+            
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
-            this.dataGridView1.DataSource = listaAccionesGral;
+            this.dataGridView1.DataSource = lista;
 
             this.dataGridView1.Columns["Cantidad"].Visible = false;
         }
 
+        private void btn_salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
+        }
     }
 }
