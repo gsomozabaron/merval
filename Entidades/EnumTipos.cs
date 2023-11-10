@@ -1,1 +1,0 @@
-﻿public enum Tipo { Admin, Comisionista, normal }
