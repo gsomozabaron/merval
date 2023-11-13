@@ -1,4 +1,5 @@
-﻿using merval.DB;
+﻿using merval.DAO;
+using merval.DB;
 using merval.entidades;
 using merval.Serializadores;
 using System;
@@ -16,7 +17,10 @@ namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
-        List<Usuario> listaDeUsuarios = DatabaseSQL.GetUsuarios();
+        //List<Usuario> listaDeUsuarios = DatabaseSQL.GetUsuarios();  //codigo viejo
+        private List<Usuario> listaUsuarios = new List<Usuario>(); // Cambiado para ser un campo de la clase
+        private Usuario usuario = new Usuario(); // Agregado para ser un campo de la clase
+
 
         private string alta;
 
@@ -28,6 +32,9 @@ namespace merval
 
         private void FormRegistroUsuarios_Load(object sender, EventArgs e)
         {
+            //Usuario usuario = new Usuario();
+            listaUsuarios = usuario.MostrarUsuarios(); 
+
             if (alta == "admin")
             {
                 chk_esAdmin.Visible = true;
@@ -83,7 +90,8 @@ namespace merval
 
             Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, saldo, apellido);
 
-            DatabaseSQL.InsertarUsuario(nuevoUsuario);
+            //DatabaseSQL.InsertarUsuario(nuevoUsuario);    codigo viejo
+            usuario.AgregarUsuario(nuevoUsuario);
                         
             this.Close();
         }
@@ -114,7 +122,7 @@ namespace merval
         private bool ValidarNombreEnUso(string nombreUsuario)
         {
             bool estaDuplicado = false;
-            foreach (Usuario u in listaDeUsuarios)
+            foreach (Usuario u in listaUsuarios)
             {
                 if (u.NombreUsuario == nombreUsuario)
                 {

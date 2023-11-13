@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using merval.DAO;
 using merval.DB;
+using merval.entidades;
 using merval.Serializadores;
 
 namespace merval
@@ -16,6 +18,7 @@ namespace merval
     {
         private Usuario usuarioActual;
         private List<Usuario> listaUsuarios;
+       
 
         public FormSaldo(Usuario usuario)
         {
@@ -39,7 +42,8 @@ namespace merval
                     lbl_NuevoSaldoTag.Text = "Nuevo saldo";
 
                     ///actualizar usuario recorre la lista de usuarios general para guardar los cambios
-                    DatabaseSQL.ModificarSaldo(usuarioActual);
+                    //DatabaseSQL.ModificarSaldo(usuarioActual);
+                    usuarioActual.ModificarSaldo(usuarioActual);
                     txt_MontoAumentar.Clear();///limpia la casilla 
                 }
                 else
@@ -85,7 +89,8 @@ namespace merval
                         txt_montoExtraer.Clear();
                         ///actualizar usuario recorre la lista de usuarios general, 
                         ///actualiza los valores del usuario en uso y graba el archivo
-                        DatabaseSQL.ModificarSaldo(usuarioActual);
+                        //DatabaseSQL.ModificarSaldo(usuarioActual);    codigo viejo
+                        usuarioActual.ModificarSaldo(usuarioActual);
                     }
                     else
                     {

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using merval.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,8 +11,9 @@ using System.Threading.Tasks;
 namespace merval
 {
     [Serializable]
-    public class Activos
+    public class Activos 
     {
+        #region constructores atributos y propiedades
         private string nombre;
         private decimal valorCompra;
         private decimal valorVenta;
@@ -63,5 +66,17 @@ namespace merval
         {
             return !(activo1 == activo2);
         }
+        #endregion
+
+
+
+
+       
+
+
+
+
+
+
     }
 }

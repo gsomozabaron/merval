@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using merval.DB;
+using merval.Opercaciones;
 using merval.Serializadores;
 
 namespace merval
 {
     public partial class FormVender : Form
     {
-        
-        //private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();
+
         private Usuario usuarioActual;
         private string tipoDeActivo;
 
@@ -23,7 +23,7 @@ namespace merval
         {
             InitializeComponent();
             usuarioActual = usuario;
-            tipoDeActivo = tipo;    
+            tipoDeActivo = tipo;
         }
 
         private void FormVender_Load(object sender, EventArgs e)
@@ -37,6 +37,8 @@ namespace merval
                 VerMonedasDatagrid();
             }
             btn_Vender.Enabled = false;
+
+
         }
 
         private void VerAccionesDatagrid()
@@ -51,7 +53,7 @@ namespace merval
             LlenarDatagrid(listDTG);
         }
 
-        private void LlenarDatagrid(List<Activos> listDTG) 
+        private void LlenarDatagrid(List<Activos> listDTG)
         {
             this.Dtg1.DataSource = null;///para hacer un refresh
             this.Dtg1.Visible = true;
@@ -101,53 +103,15 @@ namespace merval
 
 
         private void btn_Vender_Click(object sender, EventArgs e)
-        {   
-            try
-            {
-                decimal totalVenta = decimal.Parse(lbl_totalVenta.Text);
+        {
+            string Ventastr = lbl_totalVenta.Text;
+            string titulo = txt_titulo.Text;
+            string cantidadStr = txt_Cantidad.Text;
+            
+            Operaciones.VentaDeActivos(usuarioActual,tipoDeActivo,Ventastr,titulo,cantidadStr);
 
-                usuarioActual.Saldo = usuarioActual.Saldo + totalVenta;
-
-                foreach (Activos a in usuarioActual.ListadoDeActivosPropios)
-                {
-                    if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) <= a.Cantidad))
-                    {
-                        if (Vm.VentanaMensajeConfirmar("Comfirmar venta?", $"{txt_Cantidad.Text} de: {txt_titulo.Text}") == DialogResult.OK)
-                        {
-                            a.Cantidad = a.Cantidad - int.Parse(txt_Cantidad.Text);
-                            if (a.Cantidad == 0)
-                            {
-                                Usuario.BajaDeActivosEnCartera(usuarioActual,a);
-                            }
-                            else
-                            {
-                                DatabaseSQL.modificarCartera(usuarioActual,a);
-                            }
-                            DatabaseSQL.ModificarSaldo(usuarioActual);
-                            this.Close();
-                            break;
-                        }
-                        else
-                        {
-                            Vm.VentanaMensaje("Venta", "cancelada");
-                        }
-                    }
-                    else
-                    {
-                        if ((a.Nombre == txt_titulo.Text) && (int.Parse(txt_Cantidad.Text) > a.Cantidad))
-                        {
-                            Vm.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
-                            break;
-                        }
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-                Vm.VentanaMensajeError("Faltan datos");
-                btn_Vender.Enabled = false;
-            }
+            btn_Vender.Enabled = false;
+            this.Close();
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)

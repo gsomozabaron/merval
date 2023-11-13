@@ -12,6 +12,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using merval.entidades;
 using merval.Serializadores;
 using merval.DB;
+using merval.DAO;
+using merval.Opercaciones;
+using MySql.Data.MySqlClient;
 
 namespace merval
 {
@@ -25,7 +28,6 @@ namespace merval
             InitializeComponent();
             tipoDeActivo = tipo;
             usuarioActual = usuario;
-            //listaUsuarios = DatabaseSQL.GetUsuarios();
         }
 
 
@@ -64,7 +66,8 @@ namespace merval
 
             (decimal cotizacion,int cantidad, decimal totalCompra) = calcularCompra();
 
-            Usuario.ComprarActivo(usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
+            Operaciones.CompraDeActivos(usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
+            //Usuario.ComprarActivo(usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
 
             lbl_saldo.Text = null;  //borra saldo viejo para cargar el nuevo saldo
             lbl_saldo.Text = usuarioActual.Saldo.ToString();    //refresh saldo
@@ -105,7 +108,10 @@ namespace merval
             string tipo = tipoDeActivo;
             
             List<Activos> todas = DatabaseSQL.CrearListaDeActivos(tipoDeActivo);
-            List<Activos> propias = DatabaseSQL.CarteraUsuario(usuarioActual, tipo);
+
+            //List<Activos> propias = Usuario.CarteraUsuario(usuarioActual, tipo);
+            List<Activos> propias = Operaciones.CarteraUsuario(usuarioActual, tipo);
+            
             List<Activos> listaDTG = new List<Activos>();
 
             
@@ -128,7 +134,7 @@ namespace merval
             }
 
             
-
+            this.Dtg1.DataSource = null;
             this.Dtg1.DataSource = listaDTG;
             // Cambiar el orden de las columnas
             this.Dtg1.Columns["Nombre"].DisplayIndex = 0;
@@ -141,6 +147,44 @@ namespace merval
             btn_Comprar.Enabled = false;
             
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void btn_Salir_Click(object sender, EventArgs e)
         {

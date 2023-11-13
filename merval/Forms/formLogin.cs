@@ -6,6 +6,8 @@ using FastReport.DataVisualization.Charting;
 using System.Windows.Forms;
 using merval.Serializadores;
 using merval.DB;
+using merval.entidades;
+using merval.DAO;
 
 namespace merval
 {
@@ -16,8 +18,13 @@ namespace merval
         int Contador = 0;
 
         // listado de usuarios
-        private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
+        
+        //private List<Usuario> listaUsuarios; // Cambiado para ser un campo de la clase
+        //private IUsuarioDao usuarioDao; // Agregado para ser un campo de la clase
+        
         private static Usuario usuarioActual = new Usuario();
+        private static List<Usuario> listadoDeUsuarios = usuarioActual.MostrarUsuarios();
+
 
         #endregion
 
@@ -36,8 +43,10 @@ namespace merval
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void formLogin_Load(object sender, EventArgs e)
-        {    
-            listadoDeUsuarios = DatabaseSQL.GetUsuarios();
+        {
+            //listadoDeUsuarios = DatabaseSQL.GetUsuarios();
+            //usuarioActual = new Usuario();
+            //List<Usuario> listadoDeUsuarios = usuarioActual.MostrarUsuarios();
         }
 
 

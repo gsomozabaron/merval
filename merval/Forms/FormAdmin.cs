@@ -12,11 +12,14 @@ using System.Xml.Serialization;
 using merval.entidades;
 using merval.Serializadores;
 using merval.DB;
+using merval.DAO;
 
 namespace merval
 {
     public partial class FormAdmin : Form
     {
+        private List<Usuario> lista; /// para usar la interface
+
         public FormAdmin()
         {
             InitializeComponent();
@@ -29,7 +32,7 @@ namespace merval
 
 
         //////////////////////ver y modificar usuarios//////////////////////////////
-  
+
         /// <summary>
         /// muestra un listado con todos los usuarios y sus datos, oculta el password y el saldo
         /// </summary>
@@ -37,12 +40,15 @@ namespace merval
         /// <param name="e"></param>
         private void VerUsuarios_Click(object sender, EventArgs e)
         {
-            List<Usuario> lista = DatabaseSQL.GetUsuarios();
+            Usuario usuario = new Usuario();
+            lista = usuario.MostrarUsuarios();
             dataGridView1.DataSource = lista;
-            this.dataGridView1.Columns["Pass"].Visible = false;
-            this.dataGridView1.Columns["saldo"].Visible = false;
+            //this.dataGridView1.Columns["Pass"].Visible = false;     //[5]
+            //this.dataGridView1.Columns["Saldo"].Visible = false;    //[7]
+            this.dataGridView1.Columns[5].Visible = false;     //[5]
+            this.dataGridView1.Columns[7].Visible = false;    //[7]
             this.dataGridView1.Visible = true;
-            
+
         }
 
 
@@ -54,7 +60,7 @@ namespace merval
             FormRegistroUsuarios fr = new FormRegistroUsuarios(alta);
             fr.ShowDialog();
         }
-        
+
         /// bajar o modificar datos de usuarios                 
         private void Mts_ModificarDatos_Click(object sender, EventArgs e)
         {
@@ -66,7 +72,7 @@ namespace merval
 
         ///////////// alta,baja,modificacion y vista de titulos////////////////
         /////////////////////    acciones    //////////////////////
-        
+
         /// <summary>
         /// muestra el listado de acciones
         /// </summary>
@@ -127,7 +133,7 @@ namespace merval
         }
         private void TSM_VerMonedas_Click(object sender, EventArgs e)
         {
-            
+
             this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Monedas");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;

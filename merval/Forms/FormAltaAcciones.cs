@@ -25,10 +25,8 @@ namespace merval
 
         //aceptar da de alta nuevos activos
         private void btn_aceptar_Click(object sender, EventArgs e)
-        {
-            string form = "Admin, Alta de acciones";
-               
-            ManejadorDeExcepciones.ManejarExcepcion(form, () => //manejador de excepciones
+        {      
+            try
             {
                 string titulo = txt_Titulo.Text;
         
@@ -72,7 +70,12 @@ namespace merval
                     txt_ValorVenta.Clear();
                 }
 
-            });
+            }
+            catch (Exception ex)
+            {
+                string form = "Admin, Alta de acciones";
+
+            }
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)

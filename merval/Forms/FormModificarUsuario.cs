@@ -13,12 +13,15 @@ using merval.Serializadores;
 using merval.DB;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using merval.entidades;
+using merval.DAO;
 
 namespace merval
 {
     public partial class FormModificarUsuario : Form
     {
-        private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();    //leer desde DB
+        //private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();    //leer desde DB metodo anterior a la interface
+        private List<Usuario> listaUsuarios; // Cambiado para ser un campo de la clase
+        private Usuario usuario; // Agregado para ser un campo de la clase
 
 
         public FormModificarUsuario()
@@ -35,6 +38,8 @@ namespace merval
 
         private void FormModificarUsuario_Load(object sender, EventArgs e)
         {
+            usuario = new Usuario();
+            listaUsuarios = usuario.MostrarUsuarios();
             CargarDatos();
         }
 
@@ -124,10 +129,13 @@ namespace merval
 
             if (Vm.VentanaMensajeConfirmar("ATENCION", "¿Está seguro?\nSe sobrescribirá el archivo.") == DialogResult.OK)
             {
-                DatabaseSQL.ModificarUsuarios(usuarioSeleccionado);
+                ////DatabaseSQL.ModificarUsuarios(usuarioSeleccionado);
+                //Usuario usuario = new Usuario();
+                usuario.ModificarUsuarios(usuarioSeleccionado);
 
+                List<Usuario> listaUsuarios = usuario.MostrarUsuarios();
                 dataGridView1.DataSource = null;
-                dataGridView1.DataSource = DatabaseSQL.GetUsuarios();
+                dataGridView1.DataSource = listaUsuarios;
                 LimpiarCampos();
             }
             else
@@ -144,10 +152,13 @@ namespace merval
 
             if (Vm.VentanaMensajeConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO") == DialogResult.OK)
             {
-                DatabaseSQL.EliminarUsuario(usuarioSeleccionado);
-
+                //DatabaseSQL.EliminarUsuario(usuarioSeleccionado); //codigo viejo
+                usuario.BajaUsuario(usuarioSeleccionado);
+                
                 Vm.VentanaMensaje("USUARIO", "ELIMINADO");
-                dataGridView1.DataSource = DatabaseSQL.GetUsuarios();
+                listaUsuarios = usuario.MostrarUsuarios();
+                dataGridView1.DataSource = listaUsuarios;
+                //dataGridView1.DataSource = DatabaseSQL.GetUsuarios(); //codigo viejo
                 LimpiarCampos();
             }
             else

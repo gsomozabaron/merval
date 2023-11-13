@@ -1,4 +1,5 @@
-﻿using merval.DB;
+﻿using merval.DAO;
+using merval.DB;
 using merval.entidades;
 using merval.Serializadores;
 using System;
@@ -23,8 +24,8 @@ namespace merval
             InitializeComponent();
             this.IsMdiContainer = true;
             this.usuario = usuarioActual;
-            Usuario.ActivosUsuario(usuarioActual, "acciones");
-            Usuario.ActivosUsuario(usuarioActual, "Monedas");
+            //Usuario.ActivosUsuario(usuarioActual, "acciones");    //feo codigo viejo
+            //Usuario.ActivosUsuario(usuarioActual, "Monedas");     //feo codigo viejo
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -88,13 +89,15 @@ namespace merval
         private void TSM_carteraAcciones_Click(object sender, EventArgs e)
         {
             string tipo = "Acciones";
-            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuario, tipo);
+            
+            List<Activos> listDTG = Usuario.CarteraUsuario(usuario, tipo);
             DatagridCarteraUsuario(listDTG);           
         }
         private void TSM_CarteraMonedas_Click(object sender, EventArgs e)
         {
             string tipo = "Monedas";
-            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuario, tipo);
+            
+            List<Activos> listDTG = Usuario.CarteraUsuario(usuario, tipo);
             DatagridCarteraUsuario(listDTG);
         }
 

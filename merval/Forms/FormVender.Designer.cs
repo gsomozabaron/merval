@@ -1,4 +1,6 @@
-﻿namespace merval
+﻿using System.Windows.Forms;
+
+namespace merval
 {
     partial class FormVender
     {
@@ -29,17 +31,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVender));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             lbl_totalVenta = new Label();
             btn_calcularVenta = new Button();
             txt_Cantidad = new TextBox();
             txt_cotizacion = new TextBox();
             btn_Vender = new Button();
             txt_titulo = new TextBox();
-            Dtg1 = new DataGridView();
             btn_Salir = new Button();
-            menuStrip1 = new MenuStrip();
             label1 = new Label();
+            Dtg1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)Dtg1).BeginInit();
             SuspendLayout();
             // 
@@ -112,31 +113,6 @@
             txt_titulo.TabIndex = 17;
             txt_titulo.TextAlign = HorizontalAlignment.Center;
             // 
-            // Dtg1
-            // 
-            Dtg1.AllowUserToAddRows = false;
-            Dtg1.AllowUserToDeleteRows = false;
-            Dtg1.AllowUserToOrderColumns = true;
-            Dtg1.BackgroundColor = Color.Tomato;
-            Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.Tomato;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlLightLight;
-            dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            Dtg1.DefaultCellStyle = dataGridViewCellStyle1;
-            Dtg1.Location = new Point(12, 55);
-            Dtg1.Name = "Dtg1";
-            Dtg1.ReadOnly = true;
-            Dtg1.RowHeadersVisible = false;
-            Dtg1.RowTemplate.Height = 25;
-            Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            Dtg1.Size = new Size(543, 367);
-            Dtg1.TabIndex = 16;
-            Dtg1.CellMouseDoubleClick += Dtg1_CellMouseDoubleClick;
-            // 
             // btn_Salir
             // 
             btn_Salir.BackColor = Color.Red;
@@ -150,23 +126,40 @@
             btn_Salir.UseVisualStyleBackColor = false;
             btn_Salir.Click += btn_Salir_Click;
             // 
-            // menuStrip1
-            // 
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 14;
-            menuStrip1.Text = "menuStrip1";
-            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(31, 35);
+            label1.Location = new Point(23, 9);
             label1.Name = "label1";
             label1.Size = new Size(501, 15);
             label1.TabIndex = 25;
             label1.Text = "selecciona la accion con el mouse, ingresa la cantidad, calcula la venta y hace click en vender";
+            // 
+            // Dtg1
+            // 
+            Dtg1.AllowUserToAddRows = false;
+            Dtg1.AllowUserToDeleteRows = false;
+            Dtg1.AllowUserToOrderColumns = true;
+            Dtg1.BackgroundColor = Color.Tomato;
+            Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.Tomato;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlLightLight;
+            dataGridViewCellStyle2.SelectionBackColor = Color.DarkOrange;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            Dtg1.DefaultCellStyle = dataGridViewCellStyle2;
+            Dtg1.Location = new Point(12, 55);
+            Dtg1.Name = "Dtg1";
+            Dtg1.ReadOnly = true;
+            Dtg1.RowHeadersVisible = false;
+            Dtg1.RowTemplate.Height = 25;
+            Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            Dtg1.Size = new Size(543, 367);
+            Dtg1.TabIndex = 16;
+            Dtg1.CellMouseDoubleClick += Dtg1_CellMouseDoubleClick;
             // 
             // FormVender
             // 
@@ -175,6 +168,7 @@
             BackColor = Color.Tomato;
             ClientSize = new Size(800, 450);
             ControlBox = false;
+            Controls.Add(Dtg1);
             Controls.Add(label1);
             Controls.Add(lbl_totalVenta);
             Controls.Add(btn_calcularVenta);
@@ -182,9 +176,7 @@
             Controls.Add(txt_cotizacion);
             Controls.Add(btn_Vender);
             Controls.Add(txt_titulo);
-            Controls.Add(Dtg1);
             Controls.Add(btn_Salir);
-            Controls.Add(menuStrip1);
             Name = "FormVender";
             Text = "Vender Titulos";
             Load += FormVender_Load;
@@ -201,9 +193,8 @@
         private TextBox txt_cotizacion;
         private Button btn_Vender;
         private TextBox txt_titulo;
-        private DataGridView Dtg1;
         private Button btn_Salir;
-        private MenuStrip menuStrip1;
         private Label label1;
+        private DataGridView Dtg1;
     }
 }
