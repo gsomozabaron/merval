@@ -213,48 +213,6 @@ namespace merval
 
         }
 
-        public List<Usuario> MostrarUsuarios()
-        {
-            List<Usuario> lista = new List<Usuario>();
-
-            try
-            {
-                Connection.Open();
-                commandSql.CommandText = string.Empty;
-                var query = "SELECT * FROM Usuario";
-                commandSql.CommandText = query;
-
-                using var reader = commandSql.ExecuteReader();
-                {
-                    while (reader.Read())
-                    {
-                        var id = Convert.ToInt32(reader["id"].ToString());
-                        var nombre = reader["nombre"].ToString();
-                        var dni = reader["dni"].ToString();
-                        var nombreUsuario = reader["nombreUsuario"].ToString();
-                        var pass = reader["pass"].ToString();
-                        var tipoDeUsuario = (Tipo)Enum.Parse(typeof(Tipo), reader["tipoDeUsuario"].ToString());
-                        var saldo = reader.GetDecimal(reader.GetOrdinal("saldo"));
-                        var apellido = reader["apellido"].ToString();
-
-                        
-                        Usuario usuario = new Usuario(id, nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido);
-                        
-                        lista.Add(usuario);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Vm.VentanaMensajeError("No se pudo conectar a la DB");
-            }
-            finally
-            {
-                Connection.Close();
-            }
-
-            return lista;
-        }
         #endregion
 
 
@@ -385,6 +343,48 @@ namespace merval
 
 
 
+        public static List<Usuario> MostrarUsuarios()
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            try
+            {
+                Connection.Open();
+                commandSql.CommandText = string.Empty;
+                var query = "SELECT * FROM Usuario";
+                commandSql.CommandText = query;
+
+                using var reader = commandSql.ExecuteReader();
+                {
+                    while (reader.Read())
+                    {
+                        var id = Convert.ToInt32(reader["id"].ToString());
+                        var nombre = reader["nombre"].ToString();
+                        var dni = reader["dni"].ToString();
+                        var nombreUsuario = reader["nombreUsuario"].ToString();
+                        var pass = reader["pass"].ToString();
+                        var tipoDeUsuario = (Tipo)Enum.Parse(typeof(Tipo), reader["tipoDeUsuario"].ToString());
+                        var saldo = reader.GetDecimal(reader.GetOrdinal("saldo"));
+                        var apellido = reader["apellido"].ToString();
+
+                        
+                        Usuario usuario = new Usuario(id, nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido);
+                        
+                        lista.Add(usuario);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError("No se pudo conectar a la DB");
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return lista;
+        }
 
 
         /// <summary>

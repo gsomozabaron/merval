@@ -147,7 +147,7 @@ namespace merval.Opercaciones
             }
             if (!encontrada)
             {
-                DatabaseSQL.comprarActivo(usuarioActual, nuevoActivo);
+                nuevoActivo.comprarActivo(usuarioActual, nuevoActivo);
             }
             Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevoActivo.Nombre}");
         }
@@ -246,8 +246,17 @@ namespace merval.Opercaciones
             return lista;
         }
 
-        
 
+        // public static "async" void nombremetodo()
+        //{  
+        //Task.Run(async () =>
+        //{
+        // comunicar con la BD 
+        // await antes de cada metodo
+        //}).Wait(); // Esperar a que la tarea se complete " }).wait();" no olvidarme!!
+
+        //return si hace falta;
+        //}
 
 
 

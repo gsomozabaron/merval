@@ -40,8 +40,7 @@ namespace merval
         /// <param name="e"></param>
         private void VerUsuarios_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-            lista = usuario.MostrarUsuarios();
+            lista = Usuario.MostrarUsuarios();
             dataGridView1.DataSource = lista;
             //this.dataGridView1.Columns["Pass"].Visible = false;     //[5]
             //this.dataGridView1.Columns["Saldo"].Visible = false;    //[7]
@@ -80,7 +79,8 @@ namespace merval
         /// <param name="e"></param>
         private void TSP_AccionesVerTitulos_Click(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Acciones");
+            Activos activos = new Activos();
+            this.dataGridView1.DataSource = activos.MostrarActivos("Acciones");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;
         }
@@ -133,8 +133,9 @@ namespace merval
         }
         private void TSM_VerMonedas_Click(object sender, EventArgs e)
         {
-
-            this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Monedas");
+            Activos activos = new Activos();
+            //this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Monedas");
+            this.dataGridView1.DataSource = activos.MostrarActivos("Monedas");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;
 

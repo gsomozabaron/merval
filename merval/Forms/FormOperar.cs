@@ -106,8 +106,9 @@ namespace merval
             lbl_saldo.Text = usuarioActual.Saldo.ToString();
 
             string tipo = tipoDeActivo;
-            
-            List<Activos> todas = DatabaseSQL.CrearListaDeActivos(tipoDeActivo);
+            Activos listaActivo = new Activos();
+            //List<Activos> todas = DatabaseSQL.CrearListaDeActivos(tipoDeActivo);
+            List<Activos> todas = listaActivo.CrearListaDeActivos(tipoDeActivo);
 
             //List<Activos> propias = Usuario.CarteraUsuario(usuarioActual, tipo);
             List<Activos> propias = Operaciones.CarteraUsuario(usuarioActual, tipo);

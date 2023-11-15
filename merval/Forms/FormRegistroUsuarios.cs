@@ -33,7 +33,7 @@ namespace merval
         private void FormRegistroUsuarios_Load(object sender, EventArgs e)
         {
             //Usuario usuario = new Usuario();
-            listaUsuarios = usuario.MostrarUsuarios(); 
+            listaUsuarios = Usuario.MostrarUsuarios(); 
 
             if (alta == "admin")
             {

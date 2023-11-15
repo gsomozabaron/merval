@@ -38,8 +38,8 @@ namespace merval
 
         private void FormModificarUsuario_Load(object sender, EventArgs e)
         {
-            usuario = new Usuario();
-            listaUsuarios = usuario.MostrarUsuarios();
+            
+            listaUsuarios = Usuario.MostrarUsuarios();
             CargarDatos();
         }
 
@@ -133,7 +133,7 @@ namespace merval
                 //Usuario usuario = new Usuario();
                 usuario.ModificarUsuarios(usuarioSeleccionado);
 
-                List<Usuario> listaUsuarios = usuario.MostrarUsuarios();
+                List<Usuario> listaUsuarios = Usuario.MostrarUsuarios();
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = listaUsuarios;
                 LimpiarCampos();
@@ -156,7 +156,7 @@ namespace merval
                 usuario.BajaUsuario(usuarioSeleccionado);
                 
                 Vm.VentanaMensaje("USUARIO", "ELIMINADO");
-                listaUsuarios = usuario.MostrarUsuarios();
+                listaUsuarios = Usuario.MostrarUsuarios();
                 dataGridView1.DataSource = listaUsuarios;
                 //dataGridView1.DataSource = DatabaseSQL.GetUsuarios(); //codigo viejo
                 LimpiarCampos();

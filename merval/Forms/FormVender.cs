@@ -43,13 +43,15 @@ namespace merval
 
         private void VerAccionesDatagrid()
         {
-            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
+            //List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
+            List<Activos> listDTG = Usuario.CarteraUsuario(usuarioActual, tipoDeActivo);
             LlenarDatagrid(listDTG);
         }
 
         private void VerMonedasDatagrid()
         {
-            List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
+            //List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
+            List<Activos> listDTG = Usuario.CarteraUsuario(usuarioActual, tipoDeActivo);
             LlenarDatagrid(listDTG);
         }
 

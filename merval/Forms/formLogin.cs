@@ -19,11 +19,8 @@ namespace merval
 
         // listado de usuarios
         
-        //private List<Usuario> listaUsuarios; // Cambiado para ser un campo de la clase
-        //private IUsuarioDao usuarioDao; // Agregado para ser un campo de la clase
-        
         private static Usuario usuarioActual = new Usuario();
-        private static List<Usuario> listadoDeUsuarios = usuarioActual.MostrarUsuarios();
+        //private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
 
 
         #endregion
@@ -32,9 +29,6 @@ namespace merval
         public formLogin()
         {
             InitializeComponent();
-            //List<Usuario> listadoDeUsuarios = DatabaseSQL.Select("Usuario");
-            //listadoDeUsuarios = Serializadora.LeerListadoUsuarios();  //carga datos desde XML"en desuso"
-            ///DatabaseSQL.CargaSQL();// por unica vez para cargar de xml a DB
         }
 
         /// <summary>
@@ -44,9 +38,7 @@ namespace merval
         /// <param name="e"></param>
         private void formLogin_Load(object sender, EventArgs e)
         {
-            //listadoDeUsuarios = DatabaseSQL.GetUsuarios();
-            //usuarioActual = new Usuario();
-            //List<Usuario> listadoDeUsuarios = usuarioActual.MostrarUsuarios();
+            
         }
 
 
@@ -59,6 +51,8 @@ namespace merval
         /// <param name="e"></param>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            List<Usuario> listadoDeUsuarios = new List<Usuario>();  
+            listadoDeUsuarios = Usuario.MostrarUsuarios();
             string usuario = this.txtUsuario.Text;
             string password = this.txtPassword.Text;
             string mensaje;

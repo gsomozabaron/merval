@@ -24,14 +24,14 @@ namespace merval
         }
 
         //aceptar da de alta nuevos activos
-        private void btn_aceptar_Click(object sender, EventArgs e)
+        private async void btn_aceptar_Click(object sender, EventArgs e)
         {      
             try
             {
                 string titulo = txt_Titulo.Text;
         
-                List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
-                List<Monedas> listaMonedasGral = DatabaseSQL.CrearListaMonedas();
+                List<Acciones> listaAccionesGral = Acciones.CrearListaAcciones();
+                List<Monedas> listaMonedasGral = Monedas.CrearListaMonedas();
 
                 
                 decimal valorCompra = decimal.Parse(Txt_ValorCompra.Text);
@@ -56,13 +56,13 @@ namespace merval
                     if (txt_tipo.Text == "Acciones")
                     {
                         Acciones a = Acciones.CrearAccion(titulo, valorCompra, valorVenta);
-                        DatabaseSQL.InsertarActivo("acciones", a);
+                        await a.InsertarActivo("acciones", a); 
                     }
 
                     if (txt_tipo.Text == "Monedas")
                     {
                         Monedas m = Monedas.CrearMoneda(titulo, valorCompra, valorVenta);
-                        DatabaseSQL.InsertarActivo("monedas", m);
+                        await m.InsertarActivo("monedas", m);
                     }
                                     
                     txt_Titulo.Clear(); // Limpiar los campos después de agregar

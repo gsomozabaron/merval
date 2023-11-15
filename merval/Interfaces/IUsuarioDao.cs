@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 namespace merval.DAO
 {
     public interface IUsuarioDao
-    {
-        
-        List<Usuario> MostrarUsuarios();
-        
+    { 
         void AgregarUsuario(Usuario usuario);
         
         void ModificarUsuarios(Usuario usuario);
 
         void BajaUsuario(Usuario usuario);
-
-
     }
 }

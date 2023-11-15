@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using merval.Interfaces;
 using merval.Serializadores;
+using MySql.Data.MySqlClient;
 
 namespace merval
 {
     [Serializable]
-    public class Acciones : Activos, IActivosDao
+
+    public class Acciones : Activos
     {
         #region constructores atributos y propiedades
         private int _id;
@@ -63,52 +65,120 @@ namespace merval
         }
 
 
-        #region metodos interfase
-        public void comprarActivo(Usuario usuario, Activos activos)
-        {
-            throw new NotImplementedException();
-        }
+        #region data de coneccion sql
 
-        public List<Acciones> CrearListaAcciones()
-        {
-            throw new NotImplementedException();
-        }
+        public static MySqlConnection Connection;
 
-        public List<Acciones> CrearListaActivo()
-        {
-            throw new NotImplementedException();
-        }
+        public static MySqlCommand commandSql;
 
-        public List<Activos> CrearListaDeActivos(string tipo)
+        /// <summary>
+        /// data de coneccion mysql
+        /// </summary>
+        static Acciones()
         {
-            throw new NotImplementedException();
-        }
+            var SqlStringConnection = @"Server=localhost;Database=merval;Uid=root;Pwd=;";
+            Connection = new MySqlConnection(SqlStringConnection);
 
-        public List<Monedas> CrearListaMonedas()
-        {
-            throw new NotImplementedException();
+            commandSql = new MySqlCommand();
+            commandSql.CommandType = System.Data.CommandType.Text;
+            commandSql.Connection = Connection;
         }
-
-        public void EliminarActivo(Activos activos, string tipo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertarActivo(string tipo, Activos activo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarActivo(string tipo, string nombre, decimal valorCompra, decimal valorVenta, string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataTable MostrarActivos(string tipo)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
+
+        /// <summary>
+        /// crea una lista con las acciones, retorna una lista de acciones
+        /// </summary>
+        /// <returns>lista de acciones</returns>
+        //public static List<Acciones> CrearListaAcciones()
+        //{
+        //    List<Acciones> lista = new List<Acciones>();
+        //    try
+        //    {
+        //        Connection.Open();
+        //        commandSql.CommandText = string.Empty;
+        //        var query = "SELECT * FROM Acciones";
+        //        commandSql.CommandText = query;
+
+        //        using var reader = commandSql.ExecuteReader();
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                var id = Convert.ToInt32(reader["id"].ToString());
+        //                var nombre = reader["nombre"].ToString();
+        //                var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
+        //                var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
+
+        //                Acciones a = new Acciones(id, nombre, valorCompra, valorVenta, 0);
+        //                lista.Add(a);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Vm.VentanaMensajeError("No se pudo conectar a la DB");
+        //    }
+        //    finally
+        //    {
+        //        Connection.Close();
+        //    }
+
+        //    return lista;
+        //}
+        public static List<Acciones> CrearListaAcciones()
+        {
+
+            List<Acciones> lista = new List<Acciones>();
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await Connection.OpenAsync();
+                    commandSql.CommandText = string.Empty;
+                    var query = "SELECT * FROM Acciones";
+                    commandSql.CommandText = query;
+
+                    using (var reader = await commandSql.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var id = Convert.ToInt32(reader["id"].ToString());
+                            var nombre = reader["nombre"].ToString();
+                            var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
+                            var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
+
+                            Acciones a = new Acciones(id, nombre, valorCompra, valorVenta, 0);
+                            lista.Add(a);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Vm.VentanaMensajeError("No se pudo conectar a la DB: " + ex.Message);
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+                
+            }).Wait(); // Esperar a que la tarea se complete
+
+            return lista;
+        }
+
+
+
+
+        // public static "async" void nombremetodo()
+        //{  
+            //Task.Run(async () =>
+            //{
+            // comunicar con la BD 
+            // await antes de cada metodo
+            //}).Wait(); // Esperar a que la tarea se complete " }).wait();" no olvidarme!!
+
+            //return si hace falta;
+        //}
+
+
     }
 }

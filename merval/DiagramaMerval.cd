@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="merval.Acciones">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAAACEAAABIAAAAAAAgAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>entidades\Acciones.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="merval.Activos">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAEACAAAAIGAQAABgAAAABAgAAIAAAAAYAAAAiA=</HashCode>
+      <FileName>entidades\Activos.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="merval.Hardcodeo">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>entidades\Hardcodeo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="merval.Monedas">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAgEAAgBAAAAAAEAgAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>entidades\Monedas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="merval.Persona">
+    <Position X="7" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAACAAAAAAIEAAAAAAAA=</HashCode>
+      <FileName>entidades\Persona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="merval.Usuario">
+    <Position X="8.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkKAAAAAAACgAUEIABQgQAAABAgCAAAAFIRAAoAAAA=</HashCode>
+      <FileName>entidades\Usuario.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="merval.entidades.LogError">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABCIAAAAAA=</HashCode>
+      <FileName>entidades\LogError.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="merval.Opercaciones.Operaciones">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAEAAAAAAAAAAgAgAAAAIAAAECAAAAA=</HashCode>
+      <FileName>Opercaciones\Operaciones.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Tipo">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAQgAAAAQAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>entidades\EnumTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -22,7 +22,6 @@ namespace merval.DB
 
         public static MySqlCommand commandSql;
 
-
         /// <summary>
         /// data de coneccion mysql
         /// </summary>
@@ -36,39 +35,35 @@ namespace merval.DB
             commandSql.Connection = Connection;
         }
 
-
         /// <summary>
         /// para cargar las listas desde XML por primera vez
         /// </summary>
-        //public static void CargaSQL()
-        //{
-        //    List<Usuario> listu = Serializadora.LeerListadoUsuarios();
-        //    foreach (Usuario usuario in listu)
-        //    {
-        //        InsertarUsuario(usuario);
+        public static void CargaSQL()
+        {
+            List<Usuario> listu = Serializadora.LeerListadoUsuarios();
+            foreach (Usuario usuario in listu)
+            {
+                InsertarUsuario(usuario);
 
-        //        foreach (Activos a in usuario.ListadoDeActivosPropios)
-        //        {
-        //            InsertarActivosPropios(usuario, a);
-        //        }
-        //    }
+                foreach (Activos a in usuario.ListadoDeActivosPropios)
+                {
+                    //InsertarActivosPropios(usuario, a);
+                }
+            }
 
-        //    List<Monedas> listm = Serializadora.LeerListaMonedas();
-        //    foreach (Monedas m in listm)
-        //    {
-        //        InsertarMonedas(m);
-        //    }
+            List<Monedas> listm = Serializadora.LeerListaMonedas();
+            foreach (Monedas m in listm)
+            {
+                InsertarMonedas(m);
+            }
 
-        //    List<Acciones> lista = Serializadora.LeerListaAcciones();
-        //    foreach (Acciones a in lista)
-        //    {
-        //        InsertarAcciones(a);
-        //    }
+            List<Acciones> lista = Serializadora.LeerListaAcciones();
+            foreach (Acciones a in lista)
+            {
+                InsertarAcciones(a);
+            }
 
-        //}
-
-
-
+        }
 
         #region usuarios todo pasado a interfase IusuarioDao
 
@@ -76,180 +71,173 @@ namespace merval.DB
         /// crea y devuelve la lista de usuarios
         /// </summary>
         /// <returns></returns>
-        //public static List<Usuario> MostrarUsuarios() ///pasado a DAO
-        //{
-        //    List<Usuario> lista = new List<Usuario>();
+        public static List<Usuario> MostrarUsuarios() ///pasado a DAO
+        {
+            List<Usuario> lista = new List<Usuario>();
 
-        //    try
-        //    {
-        //        Connection.Open();
-        //        commandSql.CommandText = string.Empty;
-        //        var query = "SELECT * FROM Usuario";
-        //        commandSql.CommandText = query;
+            try
+            {
+                Connection.Open();
+                commandSql.CommandText = string.Empty;
+                var query = "SELECT * FROM Usuario";
+                commandSql.CommandText = query;
 
-        //       using var reader = commandSql.ExecuteReader();
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var id = Convert.ToInt32(reader["id"].ToString());
-        //                var nombre = reader["nombre"].ToString();
-        //                var dni = reader["dni"].ToString();
-        //                var nombreUsuario = reader["nombreUsuario"].ToString();
-        //                var pass = reader["pass"].ToString();
-        //                var tipoDeUsuario = (Tipo)Enum.Parse(typeof(Tipo), reader["tipoDeUsuario"].ToString());
-        //                var saldo = reader.GetDecimal(reader.GetOrdinal("saldo"));
-        //                var apellido = reader["apellido"].ToString();
+                using var reader = commandSql.ExecuteReader();
+                {
+                    while (reader.Read())
+                    {
+                        var id = Convert.ToInt32(reader["id"].ToString());
+                        var nombre = reader["nombre"].ToString();
+                        var dni = reader["dni"].ToString();
+                        var nombreUsuario = reader["nombreUsuario"].ToString();
+                        var pass = reader["pass"].ToString();
+                        var tipoDeUsuario = (Tipo)Enum.Parse(typeof(Tipo), reader["tipoDeUsuario"].ToString());
+                        var saldo = reader.GetDecimal(reader.GetOrdinal("saldo"));
+                        var apellido = reader["apellido"].ToString();
 
-        //                Usuario usuario = new Usuario (id, nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido);
-        //                lista.Add(usuario);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Vm.VentanaMensajeError("No se pudo conectar a la DB");
-        //    }
-        //    finally
-        //    {
-        //        Connection.Close();
-        //    }
+                        Usuario usuario = new Usuario(id, nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido);
+                        lista.Add(usuario);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError("No se pudo conectar a la DB");
+            }
+            finally
+            {
+                Connection.Close();
+            }
 
-        //    return lista;
-        //} 
+            return lista;
+        } 
+
         /// <summary>
         /// crea la lista de usuarios ,invoca a MostrarUsuarios
         /// </summary>
         /// <returns></returns>
-        //public static List<Usuario> GetUsuarios()
-        //{
-        //    List<Usuario> lista = MostrarUsuarios();
-        //    return lista;
-        //}
+        public static List<Usuario> GetUsuarios()
+        {
+            List<Usuario> lista = MostrarUsuarios();
+            return lista;
+        }
 
         //<summary>
         //eliminar usuarios de la base de datos
         //</summary>
         //<param name = "usuario" ></ param >
-        //public static void EliminarUsuario(Usuario usuario)
-        //{
+        public static void EliminarUsuario(Usuario usuario)
+        {
 
-        //    try
-        //    {
-        //        using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
-        //        {
-        //            connection.Open();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
+                {
+                    connection.Open();
 
-        //            string deleteQuery = "DELETE FROM usuario WHERE id = @UserId";
+                    string deleteQuery = "DELETE FROM usuario WHERE id = @UserId";
 
-        //            using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
-        //            {
-        //                cmd.Parameters.AddWithValue("@UserId", usuario.Id);
+                    using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@UserId", usuario.Id);
 
-        //                if (cmd.ExecuteNonQuery() > 0)
-        //                {
-        //                    Vm.VentanaMensaje($"Usuario --{usuario.NombreUsuario}--\n--{usuario.Nombre}--", "dado de baja");
-        //                }
-        //                else
-        //                {
-        //                    Vm.VentanaMensajeError("Usuario no encontrado\nNo se realizó la baja");
-        //                }
+                        if (cmd.ExecuteNonQuery() > 0)
+                        {
+                            Vm.VentanaMensaje($"Usuario --{usuario.NombreUsuario}--\n--{usuario.Nombre}--", "dado de baja");
+                        }
+                        else
+                        {
+                            Vm.VentanaMensajeError("Usuario no encontrado\nNo se realizó la baja");
+                        }
 
-        //            }
-        //        }
+                    }
+                }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Vm.VentanaMensajeError("Error, no se realizó la baja: " + ex.Message);
-        //        throw;
-        //    }
+            }
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError("Error, no se realizó la baja: " + ex.Message);
+                throw;
+            }
 
-        //}
+        }
 
-        // <summary>
-        // agregar usuarios a la base de datos
-        // </summary>
-        // <param name = "nuevoUsuario" ></ param >
-        //public static void InsertarUsuario(Usuario nuevoUsuario)
-        //{
-        //    using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
-        //    {
-        //        connection.Open();
+         //<summary>
+         //agregar usuarios a la base de datos
+         //</summary>
+         //<param name = "nuevoUsuario" ></ param >
+        public static void InsertarUsuario(Usuario nuevoUsuario)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
+            {
+                connection.Open();
 
-        //        string insertQuery = "INSERT INTO usuario (nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido) " +
-        //                             "VALUES (@nombre, @dni, @nombreUsuario, @pass, @tipoDeUsuario, @saldo, @apellido)";
+                string insertQuery = "INSERT INTO usuario (nombre, dni, nombreUsuario, pass, tipoDeUsuario, saldo, apellido) " +
+                                     "VALUES (@nombre, @dni, @nombreUsuario, @pass, @tipoDeUsuario, @saldo, @apellido)";
 
-        //        using (MySqlCommand cmd = new MySqlCommand(insertQuery, connection))
-        //        {
-        //            cmd.Parameters.AddWithValue("@nombre", nuevoUsuario.Nombre);
-        //            cmd.Parameters.AddWithValue("@dni", nuevoUsuario.Dni);
-        //            cmd.Parameters.AddWithValue("@nombreUsuario", nuevoUsuario.NombreUsuario);
-        //            cmd.Parameters.AddWithValue("@pass", nuevoUsuario.Pass);
-        //            cmd.Parameters.AddWithValue("@tipoDeUsuario", nuevoUsuario.TipoDeUsuario);
-        //            cmd.Parameters.AddWithValue("@saldo", nuevoUsuario.Saldo);
-        //            cmd.Parameters.AddWithValue("@apellido", nuevoUsuario.Apellido);
-        //            int filasAfectadas = cmd.ExecuteNonQuery();
+                using (MySqlCommand cmd = new MySqlCommand(insertQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", nuevoUsuario.Nombre);
+                    cmd.Parameters.AddWithValue("@dni", nuevoUsuario.Dni);
+                    cmd.Parameters.AddWithValue("@nombreUsuario", nuevoUsuario.NombreUsuario);
+                    cmd.Parameters.AddWithValue("@pass", nuevoUsuario.Pass);
+                    cmd.Parameters.AddWithValue("@tipoDeUsuario", nuevoUsuario.TipoDeUsuario);
+                    cmd.Parameters.AddWithValue("@saldo", nuevoUsuario.Saldo);
+                    cmd.Parameters.AddWithValue("@apellido", nuevoUsuario.Apellido);
+                    int filasAfectadas = cmd.ExecuteNonQuery();
 
-        //            if (filasAfectadas == 1)
-        //            {
-        //                Vm.VentanaMensaje("Exito", "Usuario regisrado correctamente.");
-        //            }
-        //            else
-        //            {
-        //                Vm.VentanaMensajeError("no se pudo agregar.");
-        //            }
-        //        }
-        //    }
-        //}
+                    if (filasAfectadas == 1)
+                    {
+                        Vm.VentanaMensaje("Exito", "Usuario regisrado correctamente.");
+                    }
+                    else
+                    {
+                        Vm.VentanaMensajeError("no se pudo agregar.");
+                    }
+                }
+            }
+        }
 
+         //<summary>
+         //modificar los datos del usuario, Nombre, apellido, Dni y/o NombreUsuario
+         //</summary>
+         //<param name = "usuario" > recibe un usuario</param>
+        public static void ModificarUsuarios(Usuario usuario)
+        {
+            int id = usuario.Id;
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
+                {
+                    connection.Open();
 
+                    string updateQuery = "UPDATE `usuario` SET `Nombre` = @Nombre, `apellido` = @apellido, `Dni` = @dni, `NombreUsuario` = @NombreUsuario WHERE `id` = @id";
 
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                        cmd.Parameters.AddWithValue("@apellido", usuario.Apellido);
+                        cmd.Parameters.AddWithValue("@dni", usuario.Dni);
+                        cmd.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                        cmd.Parameters.AddWithValue("@id", id);
 
+                        int filasAfectadas = cmd.ExecuteNonQuery();
 
-        // <summary>
-        // modificar los datos del usuario, Nombre, apellido, Dni y/o NombreUsuario
-        // </summary>
-        // <param name = "usuario" > recibe un usuario</param>
-        //public static void ModificarUsuarios(Usuario usuario)
-        //{
-        //    int id = usuario.Id;
-        //    try
-        //    {
-        //        using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
-        //        {
-        //            connection.Open();
-
-        //            string updateQuery = "UPDATE `usuario` SET `Nombre` = @Nombre, `apellido` = @apellido, `Dni` = @dni, `NombreUsuario` = @NombreUsuario WHERE `id` = @id";
-
-        //            using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
-        //            {
-        //                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-        //                cmd.Parameters.AddWithValue("@apellido", usuario.Apellido);
-        //                cmd.Parameters.AddWithValue("@dni", usuario.Dni);
-        //                cmd.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-        //                cmd.Parameters.AddWithValue("@id", id);
-
-        //                int filasAfectadas = cmd.ExecuteNonQuery();
-
-        //                if (filasAfectadas == 1)
-        //                {
-        //                    Vm.VentanaMensaje("Exito", "Titulo ingresado correctamente.");
-        //                }
-        //            }
-        //        }
+                        if (filasAfectadas == 1)
+                        {
+                            Vm.VentanaMensaje("Exito", "Titulo ingresado correctamente.");
+                        }
+                    }
+                }
 
 
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Vm.VentanaMensajeError("no se pudo actualizar usuario");
-        //        throw;
-        //    }
-        //}
-
-
-
-
+            }
+            catch (Exception)
+            {
+                Vm.VentanaMensajeError("no se pudo actualizar usuario");
+                throw;
+            }
+        }
 
         /// <summary>
         /// crea las listas de activos adquiridos por el usuario
@@ -297,120 +285,105 @@ namespace merval.DB
             return lista;
         }
 
+        public static void modificarCartera(Usuario usuario, Activos activos)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
+            {
+                connection.Open();
+
+                string updateQuery = "UPDATE listadodeactivosusuario " +
+                     "SET cantidad = @cantidad " +
+                     "WHERE idUsuario = @idUsuario AND nombre = @Nombre";
+
+                using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", usuario.Id);
+                    cmd.Parameters.AddWithValue("@Nombre", activos.Nombre);
+                    cmd.Parameters.AddWithValue("@cantidad", activos.Cantidad);
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+
+                    if (filasAfectadas == 1)
+                    {
+                        Vm.VentanaMensaje("Exito", "Titulo adquirido.");
+                    }
+                }
+            }
+
+        }
+
+        public static void ModificarSaldo(Usuario usuario)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE `usuario` SET `saldo`= @saldo  WHERE id = @id";
+
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@id", usuario.Id);
+                        cmd.Parameters.AddWithValue("@saldo", usuario.Saldo);
+                        if (cmd.ExecuteNonQuery() == 0)
+                        {
+                            Vm.VentanaMensajeError("No se realizó la venta");
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError("Error, no se realizó la venta: " + ex.Message);
+                throw;
+            }
+
+        }
+
+        public static void BajasEnCartera(Usuario usuario, Activos activos)
+        {
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
+                {
+                    connection.Open();
+
+                    string deleteQuery = "DELETE FROM listadodeactivosusuario " +
+                    "WHERE idUsuario = @idUsuario AND Nombre = @nombre";
+
+                    using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@idUsuario", usuario.Id);
+                        cmd.Parameters.AddWithValue("@Nombre", activos.Nombre);
+                        if (cmd.ExecuteNonQuery() > 0)
+                        {
+                            Vm.VentanaMensaje($"{activos.Nombre}", "Vendido");
+                        }
+                        else
+                        {
+                            Vm.VentanaMensajeError("No se realizó la venta");
+                        }
+
+                    }
+                    ModificarSaldo(usuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError("Error, no se realizó la venta: " + ex.Message);
+                throw;
+            }
 
 
-
-
-
-
-        //public static void modificarCartera(Usuario usuario, Activos activos)
-        //{
-        //    using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
-        //    {
-        //        connection.Open();
-
-        //        string updateQuery = "UPDATE listadodeactivosusuario " +
-        //             "SET cantidad = @cantidad " +
-        //             "WHERE idUsuario = @idUsuario AND nombre = @Nombre";
-
-        //        using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
-        //        {
-        //            cmd.Parameters.AddWithValue("@idUsuario", usuario.Id);
-        //            cmd.Parameters.AddWithValue("@Nombre", activos.Nombre);
-        //            cmd.Parameters.AddWithValue("@cantidad", activos.Cantidad);
-        //            int filasAfectadas = cmd.ExecuteNonQuery();
-
-        //            if (filasAfectadas == 1)
-        //            {
-        //                Vm.VentanaMensaje("Exito", "Titulo adquirido.");
-        //            }
-        //        }
-        //    }
-
-        //}
-
-
-
-        //public static void ModificarSaldo(Usuario usuario)
-        //{
-        //    try
-        //    {
-        //        using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
-        //        {
-        //            connection.Open();
-
-        //            string updateQuery = "UPDATE `usuario` SET `saldo`= @saldo  WHERE id = @id";
-
-        //            using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
-        //            {
-        //                cmd.Parameters.AddWithValue("@id", usuario.Id);
-        //                cmd.Parameters.AddWithValue("@saldo", usuario.Saldo);
-        //                if (cmd.ExecuteNonQuery() == 0)
-        //                {
-        //                    Vm.VentanaMensajeError("No se realizó la venta");
-        //                }
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Vm.VentanaMensajeError("Error, no se realizó la venta: " + ex.Message);
-        //        throw;
-        //    }
-
-        //}
-
-
-
-        //public static void BajasEnCartera(Usuario usuario, Activos activos)
-        //{
-
-        //    try
-        //    {
-        //        using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
-        //        {
-        //            connection.Open();
-
-        //            string deleteQuery = "DELETE FROM listadodeactivosusuario " +
-        //            "WHERE idUsuario = @idUsuario AND Nombre = @nombre";
-
-        //            using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
-        //            {
-        //                cmd.Parameters.AddWithValue("@idUsuario", usuario.Id);
-        //                cmd.Parameters.AddWithValue("@Nombre", activos.Nombre);
-        //                if (cmd.ExecuteNonQuery() > 0)
-        //                {
-        //                    Vm.VentanaMensaje($"{activos.Nombre}", "Vendido");
-        //                }
-        //                else
-        //                {
-        //                    Vm.VentanaMensajeError("No se realizó la venta");
-        //                }
-
-        //            }
-        //            ModificarSaldo(usuario);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Vm.VentanaMensajeError("Error, no se realizó la venta: " + ex.Message);
-        //        throw;
-        //    }
-
-
-        //}
+        }
 
         #endregion
 
+        #region activos todo pasado a interfase IactivosDao
 
-
-
-
-
-
-        #region activos
         public static void comprarActivo(Usuario usuario, Activos activos)
         {
             using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
@@ -451,12 +424,12 @@ namespace merval.DB
                 Connection.Open();
                 commandSql.CommandText = string.Empty;
                 var query = "SELECT * FROM Monedas";
-                
+
                 if (tipo == "Acciones")
                 {
                     query = "SELECT * FROM Acciones";
                 }
-                
+
                 commandSql.CommandText = query;
 
                 using (MySqlDataReader reader = commandSql.ExecuteReader())
@@ -476,8 +449,6 @@ namespace merval.DB
             return table;
         }
 
-
-
         /// <summary>
         /// agregar acciones a la base de datos
         /// </summary>
@@ -496,7 +467,7 @@ namespace merval.DB
                     cmd.Parameters.AddWithValue("@nombre", accion.Nombre);
                     cmd.Parameters.AddWithValue("@valorCompra", accion.ValorCompra);
                     cmd.Parameters.AddWithValue("@valorVenta", accion.ValorVenta);
-                    
+
                     int filasAfectadas = cmd.ExecuteNonQuery();
 
                     if (filasAfectadas == 1)
@@ -510,8 +481,6 @@ namespace merval.DB
                 }
             }
         }
-        
-
 
         /// <summary>
         /// agregar monedas a la base de datos
@@ -545,8 +514,6 @@ namespace merval.DB
                 }
             }
         }
-
-
 
         /// <summary>
         /// Inserta un nuevo activo en la base de datos.
@@ -584,8 +551,6 @@ namespace merval.DB
                 }
             }
         }
-
-
 
         /// <summary>
         /// eliminar cualquier tipo de activo de la base de datos
@@ -627,8 +592,6 @@ namespace merval.DB
             }
 
         }
-
-
 
         /// <summary>
         /// modificar cualquier tipo de activo de la base de datos
@@ -674,8 +637,6 @@ namespace merval.DB
             }
         }
 
-
-
         /// <summary>
         /// crea una lista con los activos recibe string tipo para diferenciar los tipos de activos, retorna una lista de activos
         /// </summary>
@@ -715,8 +676,6 @@ namespace merval.DB
             }
             return lista;
         }
-
-        
 
         /// <summary>
         /// crea una lista con las acciones, retorna una lista de acciones
@@ -758,8 +717,6 @@ namespace merval.DB
             return lista;
         }
 
-
-
         /// <summary>
         /// /// crea una lista con las monedas, retorna una lista de monedas
         /// </summary>
@@ -800,14 +757,6 @@ namespace merval.DB
         }
 
         #endregion
-
-
-
-
-
-
-
-
 
     }
 }

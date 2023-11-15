@@ -16,8 +16,8 @@ namespace merval
     public partial class FormBajaDeAcciones : Form
     {
 
-        List<Acciones> listadeAccionesGral = DatabaseSQL.CrearListaAcciones();
-        List<Monedas> listadeMonedasGral = DatabaseSQL.CrearListaMonedas();
+        List<Acciones> listadeAccionesGral = Acciones.CrearListaAcciones();
+        List<Monedas> listadeMonedasGral = Monedas.CrearListaMonedas();
 
         public FormBajaDeAcciones(string tipo)
         {
@@ -34,12 +34,12 @@ namespace merval
         {
             if (txt_tipo.Text == "Acciones")
             {
-                listadeAccionesGral = DatabaseSQL.CrearListaAcciones();
+                listadeAccionesGral = Acciones.CrearListaAcciones();
                 DTG_BajaAcciones.DataSource = listadeAccionesGral;
             }
             if (txt_tipo.Text == "Monedas")
             {
-                listadeMonedasGral = DatabaseSQL.CrearListaMonedas();
+                listadeMonedasGral = Monedas.CrearListaMonedas();
                 DTG_BajaAcciones.DataSource = listadeMonedasGral;
             }
             DTG_BajaAcciones.Columns["cantidad"].Visible = false;
@@ -109,7 +109,8 @@ namespace merval
 
             if (Vm.VentanaMensaje("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL TITULO") == DialogResult.OK)
             {
-                DatabaseSQL.EliminarActivo(a, txt_tipo.Text);
+                //DatabaseSQL.EliminarActivo(a, txt_tipo.Text);
+                a.EliminarActivo(a, txt_tipo.Text);
             }
             else
             {
