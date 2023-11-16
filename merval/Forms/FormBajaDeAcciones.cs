@@ -15,9 +15,8 @@ namespace merval
 {
     public partial class FormBajaDeAcciones : Form
     {
-
-        List<Acciones> listadeAccionesGral = Acciones.CrearListaAcciones();
-        List<Monedas> listadeMonedasGral = Monedas.CrearListaMonedas();
+        List<Acciones> listadeAccionesGral = new List<Acciones>();
+        List<Monedas> listadeMonedasGral = new List<Monedas>();
 
         public FormBajaDeAcciones(string tipo)
         {
@@ -30,16 +29,16 @@ namespace merval
             CargarDatos();
         }
 
-        private void CargarDatos()
+        private async void CargarDatos()
         {
             if (txt_tipo.Text == "Acciones")
             {
-                listadeAccionesGral = Acciones.CrearListaAcciones();
+                listadeAccionesGral = await Acciones.CrearListaAcciones();
                 DTG_BajaAcciones.DataSource = listadeAccionesGral;
             }
             if (txt_tipo.Text == "Monedas")
             {
-                listadeMonedasGral = Monedas.CrearListaMonedas();
+                listadeMonedasGral = await Monedas.CrearListaMonedas();
                 DTG_BajaAcciones.DataSource = listadeMonedasGral;
             }
             DTG_BajaAcciones.Columns["cantidad"].Visible = false;

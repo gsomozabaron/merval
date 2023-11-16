@@ -11,7 +11,7 @@ namespace merval.Interfaces
     {
         public Task comprarActivo(Usuario usuario, Activos activos);
 
-        public DataTable MostrarActivos(string tipo);
+        public Task <DataTable> MostrarActivos(string tipo);
 
         public Task InsertarActivo(string tipo, Activos activo);
 
@@ -19,7 +19,7 @@ namespace merval.Interfaces
 
         public Task ModificarActivo(string tipo, string nombre, decimal valorCompra, decimal valorVenta, string id);
 
-        public List<Activos> CrearListaDeActivos(string tipo);
+        public Task<List<Activos>> CrearListaDeActivos(string tipo);
 
 
 

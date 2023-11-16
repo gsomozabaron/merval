@@ -29,9 +29,9 @@ namespace merval
             try
             {
                 string titulo = txt_Titulo.Text;
-        
-                List<Acciones> listaAccionesGral = Acciones.CrearListaAcciones();
-                List<Monedas> listaMonedasGral = Monedas.CrearListaMonedas();
+
+                List <Acciones> listaAccionesGral = await Acciones.CrearListaAcciones();
+                List<Monedas>listaMonedasGral = await Monedas.CrearListaMonedas();
 
                 
                 decimal valorCompra = decimal.Parse(Txt_ValorCompra.Text);

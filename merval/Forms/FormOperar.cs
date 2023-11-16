@@ -100,18 +100,16 @@ namespace merval
         }
        
         /// genera una lista de acciones propias del usuario con sus precios y lo carga al datagrid
-        private void CargarDatos()
+        private async void CargarDatos()
         {
             
             lbl_saldo.Text = usuarioActual.Saldo.ToString();
 
             string tipo = tipoDeActivo;
             Activos listaActivo = new Activos();
-            //List<Activos> todas = DatabaseSQL.CrearListaDeActivos(tipoDeActivo);
-            List<Activos> todas = listaActivo.CrearListaDeActivos(tipoDeActivo);
+            List<Activos> todas = await listaActivo.CrearListaDeActivos(tipoDeActivo);
 
-            //List<Activos> propias = Usuario.CarteraUsuario(usuarioActual, tipo);
-            List<Activos> propias = Operaciones.CarteraUsuario(usuarioActual, tipo);
+            List<Activos> propias =Operaciones.CarteraUsuario(usuarioActual, tipo);
             
             List<Activos> listaDTG = new List<Activos>();
 

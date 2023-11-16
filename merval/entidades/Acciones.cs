@@ -89,47 +89,9 @@ namespace merval
         /// crea una lista con las acciones, retorna una lista de acciones
         /// </summary>
         /// <returns>lista de acciones</returns>
-        //public static List<Acciones> CrearListaAcciones()
-        //{
-        //    List<Acciones> lista = new List<Acciones>();
-        //    try
-        //    {
-        //        Connection.Open();
-        //        commandSql.CommandText = string.Empty;
-        //        var query = "SELECT * FROM Acciones";
-        //        commandSql.CommandText = query;
-
-        //        using var reader = commandSql.ExecuteReader();
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var id = Convert.ToInt32(reader["id"].ToString());
-        //                var nombre = reader["nombre"].ToString();
-        //                var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
-        //                var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
-
-        //                Acciones a = new Acciones(id, nombre, valorCompra, valorVenta, 0);
-        //                lista.Add(a);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Vm.VentanaMensajeError("No se pudo conectar a la DB");
-        //    }
-        //    finally
-        //    {
-        //        Connection.Close();
-        //    }
-
-        //    return lista;
-        //}
-        public static List<Acciones> CrearListaAcciones()
+        public static async Task<List<Acciones>> CrearListaAcciones()
         {
-
             List<Acciones> lista = new List<Acciones>();
-            Task.Run(async () =>
-            {
                 try
                 {
                     await Connection.OpenAsync();
@@ -159,25 +121,13 @@ namespace merval
                 {
                     Connection.Close();
                 }
-                
-            }).Wait(); // Esperar a que la tarea se complete
+               
 
             return lista;
         }
 
 
 
-
-        // public static "async" void nombremetodo()
-        //{  
-            //Task.Run(async () =>
-            //{
-            // comunicar con la BD 
-            // await antes de cada metodo
-            //}).Wait(); // Esperar a que la tarea se complete " }).wait();" no olvidarme!!
-
-            //return si hace falta;
-        //}
 
 
     }

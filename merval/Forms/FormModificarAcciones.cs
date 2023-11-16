@@ -89,17 +89,18 @@ namespace merval
             }
         }
 
-        private void ResetearBotones()
+        private async void ResetearBotones()
         {
             
             if (txt_tipo.Text == "Monedas")
             {
-                listaMonedas = Monedas.CrearListaMonedas();
+                
+                listaMonedas = await Monedas.CrearListaMonedas();
                 this.dataGridView1.DataSource = listaMonedas;
             }
             else if (txt_tipo.Text == "Acciones")
             {
-                listaAcciones = Acciones.CrearListaAcciones();
+                listaAcciones = await Acciones.CrearListaAcciones();
                 this.dataGridView1.DataSource = listaAcciones;
             }
             this.dataGridView1.Columns["cantidad"].Visible = false;

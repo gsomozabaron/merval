@@ -77,10 +77,10 @@ namespace merval
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TSP_AccionesVerTitulos_Click(object sender, EventArgs e)
+        private async void TSP_AccionesVerTitulos_Click(object sender, EventArgs e)
         {
             Activos activos = new Activos();
-            this.dataGridView1.DataSource = activos.MostrarActivos("Acciones");
+            this.dataGridView1.DataSource = await activos.MostrarActivos("Acciones");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;
         }
@@ -131,11 +131,10 @@ namespace merval
             fm.ShowDialog();
 
         }
-        private void TSM_VerMonedas_Click(object sender, EventArgs e)
+        private async void TSM_VerMonedas_Click(object sender, EventArgs e)
         {
             Activos activos = new Activos();
-            //this.dataGridView1.DataSource = DatabaseSQL.MostrarActivos("Monedas");
-            this.dataGridView1.DataSource = activos.MostrarActivos("Monedas");
+            this.dataGridView1.DataSource = await activos.MostrarActivos("Monedas");
             this.dataGridView1.Visible = true;
             this.dataGridView1.Columns["cantidad"].Visible = false;
 

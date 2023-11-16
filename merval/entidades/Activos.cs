@@ -131,11 +131,9 @@ namespace merval
         /// </summary>
         /// <param name="tipo"></param>
         /// <returns></returns>
-        public DataTable MostrarActivos(string tipo)    //async
+        public async Task<DataTable> MostrarActivos(string tipo)    //async
         {
             DataTable table = new DataTable();
-            Task.Run(async () =>
-            {
                 try
                 {
                     await Connection.OpenAsync();
@@ -162,8 +160,6 @@ namespace merval
                 {
                     Connection.Close();
                 }
-            }).Wait ();
-
             return table;
         }
 
@@ -298,17 +294,17 @@ namespace merval
         /// </summary>
         /// <param name="tipo"></param>
         /// <returns>lista de activos</returns>
-        public List<Activos> CrearListaDeActivos(string tipo)
+        public async Task<List<Activos>> CrearListaDeActivos(string tipo)
         {
             List<Activos> lista = new List<Activos>();
             try
             {
-                Connection.Open();
+                await Connection.OpenAsync();
                 commandSql.CommandText = string.Empty;
                 var query = $"SELECT * FROM {tipo}";
                 commandSql.CommandText = query;
 
-                using var reader = commandSql.ExecuteReader();
+                using var reader = await commandSql.ExecuteReaderAsync();
                 {
                     while (reader.Read())
                     {

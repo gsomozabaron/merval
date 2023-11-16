@@ -118,12 +118,12 @@ namespace merval
 
 
 
-        private void VerMercadoMonedas_Click(object sender, EventArgs e)
+        private async void VerMercadoMonedas_Click(object sender, EventArgs e)
         {
             Activos activos = new Activos();
             string tipo = "monedas";
             //List<Activos> lista = DatabaseSQL.CrearListaDeActivos(tipo);
-            List<Activos> lista = activos.CrearListaDeActivos(tipo);
+            List<Activos> lista = await activos.CrearListaDeActivos(tipo);
 
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
@@ -133,13 +133,12 @@ namespace merval
 
         }
 
-        private void VerMercadoAcciones_Click(object sender, EventArgs e)
+        private async void VerMercadoAcciones_Click(object sender, EventArgs e)
         {
             Activos activos = new Activos();   
             string tipo = "Acciones";
-            List<Activos> lista = activos.CrearListaDeActivos(tipo);
-            //List<Activos> lista = DatabaseSQL.CrearListaDeActivos(tipo);
-            //List<Acciones> listaAccionesGral = DatabaseSQL.CrearListaAcciones();
+            List<Activos> lista = await activos.CrearListaDeActivos(tipo);
+            
 
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;
