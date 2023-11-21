@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text;
-
-namespace merval
+﻿namespace merval
 {
     [Serializable]
     public abstract class Persona

@@ -1,14 +1,9 @@
 ﻿using merval.DB;
+using merval.Excepciones;
 using merval.Interfaces;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace merval
 {
@@ -21,12 +16,12 @@ namespace merval
         private decimal valorVenta;
         private int cantidad;
         private int id;
-        
+
 
         public Activos()
         {
         }
-        
+
         public Activos(string nombre, decimal valorCompra, decimal valorVenta, int cantidad)
         {
             this.nombre = nombre;
@@ -35,7 +30,7 @@ namespace merval
             this.cantidad = cantidad;
         }
 
-        public Activos(int id, string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : this (nombre, valorCompra, valorVenta, cantidad)
+        public Activos(int id, string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : this(nombre, valorCompra, valorVenta, cantidad)
         {
             Id = id;
         }
@@ -43,13 +38,13 @@ namespace merval
 
 
         public string Nombre { get => nombre; set => nombre = value; }
-        
+
         public decimal ValorCompra { get => valorCompra; set => valorCompra = value; }
-        
+
         public decimal ValorVenta { get => valorVenta; set => valorVenta = value; }
-        
+
         public int Cantidad { get => cantidad; set => cantidad = value; }
-        
+
         public int Id { get => id; set => id = value; }
 
         public static bool operator ==(Activos activo1, Activos activo2)
@@ -122,13 +117,22 @@ namespace merval
                     }
                 }
             }
-            catch (Exception)
+            catch (MySqlException ex)
             {
-
-                throw;
+                string mensaje = "No se pudo conectar a la DB: ";
+                Vm.VentanaMensajeError($"{ mensaje}\n {ex.Message}");
+                ReporteExcepciones.CrearErrorLog("Acciones", ex, mensaje);
             }
-            
+            catch (Exception ex)
+            {
+                string mensaje = "No se pudo conectar a la DB: ";
+                Vm.VentanaMensajeError($"{mensaje}\n {ex.Message}");
+                ReporteExcepciones.CrearErrorLog("Acciones", ex, mensaje);
+
+            }
+
         }
+     
 
         /// <summary>
         /// crea la tabla de activos, Monedas o Acciones paramostrar en los datagrids
@@ -138,29 +142,29 @@ namespace merval
         public async Task<DataTable> MostrarActivos(string tipo)    //async
         {
             DataTable table = new DataTable();
-                try
-                {
-                    await Connection.OpenAsync();
-                    commandSql.CommandText = string.Empty;
-                    var query = $"SELECT * FROM {tipo}";
+            try
+            {
+                await Connection.OpenAsync();
+                commandSql.CommandText = string.Empty;
+                var query = $"SELECT * FROM {tipo}";
 
-                   commandSql.CommandText = query;
+                commandSql.CommandText = query;
 
-                    using (MySqlDataReader reader = commandSql.ExecuteReader())
-                    {
-                        table.Load(reader); // Cargar los datos del lector en la tabla
-                    }
-                }
-                catch (Exception ex)
+                using (MySqlDataReader reader = commandSql.ExecuteReader())
                 {
-                    Vm.VentanaMensajeError("No se pudo conectar a la DB");
+                    table.Load(reader); // Cargar los datos del lector en la tabla
                 }
-                finally
-                {
-                    Connection.Close();
-                }
-            return table;
         }
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError("No se pudo conectar a la DB");
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return table;
+            }
 
         /// <summary>
         /// Inserta un nuevo activo en la base de datos.
@@ -173,7 +177,7 @@ namespace merval
 
         public async Task InsertarActivo(string tipo, Activos activo)   //async
         {
-            
+
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
@@ -206,7 +210,7 @@ namespace merval
             {
                 Vm.VentanaMensajeError($"Error al insertar activo: {ex.Message}");
             }
-        }   
+        }
 
         /// <summary>
         /// eliminar cualquier tipo de activo de la base de datos

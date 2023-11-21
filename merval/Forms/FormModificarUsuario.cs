@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using merval.DB;
+using merval.Excepciones;
 using System.Windows.Forms;
-using System.Globalization;
-using merval.Serializadores;
-using merval.DB;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using merval.entidades;
-using merval.DAO;
 
 namespace merval
 {
     public partial class FormModificarUsuario : Form
     {
+        private string mensaje;
+        private string formName = "FormModificarUsuario";
         private List<UsuarioSQL> listaUsuarios; // Cambiado para ser un campo de la clase
         //private Usuario usuario; // Agregado para ser un campo de la clase
 
@@ -37,7 +26,7 @@ namespace merval
 
         private async void FormModificarUsuario_Load(object sender, EventArgs e)
         {
-            
+
             listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
             CargarDatos();
         }
@@ -82,7 +71,8 @@ namespace merval
                 }
                 catch (Exception ex)
                 {
-                    Vm.VentanaMensajeError($"Error: {ex.Message}");
+                    Vm.VentanaMensajeError($"inesperado {ex.Message}");
+                    ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
                     LimpiarCampos();
                 }
             }
@@ -130,7 +120,7 @@ namespace merval
             {
                 await usuarioSeleccionado.ModificarUsuarios();
 
-                List<UsuarioSQL> listaUsuarios =await UsuarioSQL.CrearListaDeUsuarios();
+                List<UsuarioSQL> listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = listaUsuarios;
                 LimpiarCampos();
@@ -150,11 +140,11 @@ namespace merval
             if (Vm.VentanaMensajeConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO") == DialogResult.OK)
             {
                 await usuarioSeleccionado.BajaUsuario();
-                
+
                 Vm.VentanaMensaje("USUARIO", "ELIMINADO");
                 listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
                 dataGridView1.DataSource = listaUsuarios;
-              
+
                 LimpiarCampos();
             }
             else

@@ -1,11 +1,4 @@
-﻿using merval.DAO;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace merval.DB
 {
@@ -34,7 +27,7 @@ namespace merval.DB
         public Usuario() : base(string.Empty, string.Empty)
         {
         }
-        public Usuario(int id):this()
+        public Usuario(int id) : this()
         {
             _id = id;
             ListadoDeActivosPropios = new List<Activos>();

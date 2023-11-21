@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using merval.Interfaces;
-using merval.Serializadores;
+﻿using merval.Excepciones;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace merval
 {
@@ -19,11 +11,11 @@ namespace merval
         #region constructores atributos y propiedades
         private int _id;
 
-        public Acciones(): base()
+        public Acciones() : base()
         {
         }
-     
-        public Acciones(string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : base(nombre, valorCompra, valorVenta, cantidad) 
+
+        public Acciones(string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : base(nombre, valorCompra, valorVenta, cantidad)
         {
         }
 
@@ -40,7 +32,7 @@ namespace merval
         {
             int cantidad = 0;
             Acciones nuevaAccion = new Acciones(titulo, valorCompra, valorVenta, cantidad);
-         
+
             return nuevaAccion;
         }
 
@@ -51,7 +43,7 @@ namespace merval
         /// <param name="valorCompra"></param>
         /// <param name="valorVenta"></param>
         /// <param name="lista"></param>
-        
+
 
 
         #region data de coneccion sql
@@ -81,43 +73,38 @@ namespace merval
         public static async Task<List<Acciones>> CrearListaAcciones()
         {
             List<Acciones> lista = new List<Acciones>();
-                try
+            try
+            {
+                await Connection.OpenAsync();
+                commandSql.CommandText = string.Empty;
+                var query = "SELECT * FROM Acciones";
+                commandSql.CommandText = query;
+
+                using (var reader = await commandSql.ExecuteReaderAsync())
                 {
-                    await Connection.OpenAsync();
-                    commandSql.CommandText = string.Empty;
-                    var query = "SELECT * FROM Acciones";
-                    commandSql.CommandText = query;
-
-                    using (var reader = await commandSql.ExecuteReaderAsync())
+                    while (await reader.ReadAsync())
                     {
-                        while (await reader.ReadAsync())
-                        {
-                            var id = Convert.ToInt32(reader["id"].ToString());
-                            var nombre = reader["nombre"].ToString();
-                            var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
-                            var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
+                        var id = Convert.ToInt32(reader["id"].ToString());
+                        var nombre = reader["nombre"].ToString();
+                        var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
+                        var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
 
-                            Acciones a = new Acciones(id, nombre, valorCompra, valorVenta, 0);
-                            lista.Add(a);
-                        }
+                        Acciones a = new Acciones(id, nombre, valorCompra, valorVenta, 0);
+                        lista.Add(a);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Vm.VentanaMensajeError("No se pudo conectar a la DB: " + ex.Message);
-                }
-                finally
-                {
-                    Connection.Close();
-                }
-               
-
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "No se pudo conectar a la DB: ";
+                Vm.VentanaMensajeError("No se pudo conectar a la DB: " + ex.Message);
+                ReporteExcepciones.CrearErrorLog("Acciones", ex, mensaje);
+            }
+            finally
+            {
+                Connection.Close();
+            }
             return lista;
         }
-
-
-       
-
-
     }
 }

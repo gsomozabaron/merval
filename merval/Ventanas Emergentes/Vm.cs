@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-
-namespace merval
+﻿namespace merval
 {
     /// <summary>
     /// manejador de ventanas emergentes
     /// </summary>
     public class Vm
     {
-        public static DialogResult VentanaMensaje(string titulo,string mensaje)
+        public static DialogResult VentanaMensaje(string titulo, string mensaje)
         {
-            VentanaEmergente ve = new VentanaEmergente(titulo,mensaje);
-            
+            VentanaEmergente ve = new VentanaEmergente(titulo, mensaje);
+
             return ve.ShowDialog();
         }
 

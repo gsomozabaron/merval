@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using merval.DB;
+﻿using merval.DB;
 
 
 namespace merval
 {
     public class Hardcodeo
     {
-        
 
-        public static void cargarListayDicc(Dictionary<string, string> dictUsuarioPassword, List<UsuarioSQL> listadoDeUsuarios, List<Acciones> listaDeAccionesGral)      
+
+        public static void cargarListayDicc(Dictionary<string, string> dictUsuarioPassword, List<UsuarioSQL> listadoDeUsuarios, List<Acciones> listaDeAccionesGral)
         {
             List<Acciones> listaDeAcciones = new List<Acciones>();
-            
+
 
             Acciones YPF = new Acciones("YPF", 150, 140, 0);
-            Acciones Acindar = new Acciones("Acindar", 250,240, 0);
+            Acciones Acindar = new Acciones("Acindar", 250, 240, 0);
             Acciones tesla = new Acciones("Tesla Motors", 350, 340, 0);
 
             listaDeAccionesGral.Add(YPF);
@@ -49,6 +44,6 @@ namespace merval
             //    dictUsuarioPassword.Add("gsomoza", "gpass");
             //}
         }
-        
+
     }
 }

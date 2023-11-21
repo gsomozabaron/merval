@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using merval.DB;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using merval.DB;
 
 namespace merval.Interfaces
 {
@@ -12,7 +7,7 @@ namespace merval.Interfaces
     {
         public Task comprarActivo(UsuarioSQL usuario, Activos activos);
 
-        public Task <DataTable> MostrarActivos(string tipo);
+        public Task<DataTable> MostrarActivos(string tipo);
 
         public Task InsertarActivo(string tipo, Activos activo);
 

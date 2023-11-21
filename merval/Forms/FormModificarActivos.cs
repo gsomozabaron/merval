@@ -1,30 +1,18 @@
-﻿using merval.DB;
-using merval.entidades;
-using merval.Excepciones;
-using merval.Serializadores;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using merval.Excepciones;
 
 namespace merval
 {
     public partial class FormModificarActivos : Form
     {
         string formName = "Admin Modificar activos";
-        string mensaje = string.Empty;  
+        string mensaje = string.Empty;
 
 
         public FormModificarActivos(string tipo)
         {
             InitializeComponent();
             txt_tipo.Text = tipo;
-            txt_id.Visible = true;
+            txt_id.Visible = false;
         }
         private void FormModificarAcciones_Load(object sender, EventArgs e)
         {
@@ -53,14 +41,14 @@ namespace merval
 
         private async Task<List<Activos>> ObtenerListaDeActivos()
         {
-            
+
             txt_Titulo.Text = "nombre";
             txt_Vcompra.Text = "Valor compra";
             txt_Vventa.Text = "Valor venta";
             string tipo = txt_tipo.Text;
             Activos a = new Activos();
             List<Activos> lista = await a.CrearListaDeActivos(tipo);
-            
+
             return lista;
         }
         private async void button1_Click(object sender, EventArgs e)
@@ -95,7 +83,9 @@ namespace merval
             }
             catch (Exception ex)
             {
-                Vm.VentanaMensajeError($"Error: {ex.Message}");
+                mensaje = "error desconocido";
+                Vm.VentanaMensajeError($"Error: {ex.Message}");    //si rompe.. mensaje
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
             }
         }
 
@@ -113,13 +103,20 @@ namespace merval
             catch (NullReferenceException ex)
             {
                 mensaje = "No se encontro la lista";
-                Vm.VentanaMensajeError (mensaje);
-                ManejadorDeExcepciones.CrearErrorLog(formName, ex, mensaje);
+                Vm.VentanaMensajeError(mensaje);
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
                 mensaje = "Al conectar a la base de datos ";
-                ManejadorDeExcepciones.CrearErrorLog(formName, ex, mensaje);
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
+                Vm.VentanaMensajeError(mensaje);    //si rompe.. mensaje
+            }
+            catch (Exception ex)
+            {
+                mensaje = "desconocido";
+                Vm.VentanaMensajeError($"Error: {ex.Message}");    
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
             }
 
         }
@@ -142,7 +139,7 @@ namespace merval
 
                 if (Vm.VentanaMensajeConfirmar("confirmar", "cambios") == DialogResult.OK)
                 {
-                    Activos a = new Activos();   
+                    Activos a = new Activos();
                     await a.ModificarActivo(tipo, nombre, valorCompra, valorVenta, id);
 
                     LimpiarLabels();
@@ -152,14 +149,20 @@ namespace merval
                     Vm.VentanaMensaje("Operacion", "cancelada");
                 }
             }
-            catch (Exception)
+            catch (FormatException ex)
             {
                 Vm.VentanaMensajeError("ingrese solo\nvalores numericos");
+                //ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
             }
-            finally 
+            catch (Exception ex)
+            {
+                Vm.VentanaMensajeError($"inesperado {ex.Message}");
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
+            }
+            finally
             {
                 dataGridView1.DataSource = null;
-                
+
                 ActualizarGrid();
             }
 

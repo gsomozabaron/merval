@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using merval.DB;
+﻿using merval.DB;
+using merval.Excepciones;
 using merval.Opercaciones;
-using merval.Serializadores;
 using merval.Ventanas_Emergentes;
+using System.Windows.Forms;
 
 namespace merval
 {
     public partial class FormVender : Form
     {
-
+        private string mensaje;
+        private string formName = "FormVender";
         private UsuarioSQL usuarioActual;
         private string tipoDeActivo;
 
@@ -108,8 +101,8 @@ namespace merval
             string Ventastr = lbl_totalVenta.Text;
             string titulo = txt_titulo.Text;
             string cantidadStr = txt_Cantidad.Text;
-            
-            bool vendido = Operaciones.VentaDeActivos(usuarioActual,tipoDeActivo,Ventastr,titulo,cantidadStr);
+
+            bool vendido = Operaciones.VentaDeActivos(usuarioActual, tipoDeActivo, Ventastr, titulo, cantidadStr);
             if (vendido)
             {
                 this.btn_Vender.Click -= btn_Vender_Click;
@@ -120,22 +113,37 @@ namespace merval
 
         private void BotonRecibo(object sender, EventArgs e)
         {
-            string compraOventa = "Venta";
-            decimal cotizacion = decimal.Parse(txt_cotizacion.Text);
-            int cantidad = int.Parse(txt_Cantidad.Text);
-            decimal totalCompra = cotizacion * cantidad;
-            lbl_totalVenta.Text = totalCompra.ToString();
-            string titulo = txt_titulo.Text;
+            try
+            {
+                string compraOventa = "Venta";
+                decimal cotizacion = decimal.Parse(txt_cotizacion.Text);
+                int cantidad = int.Parse(txt_Cantidad.Text);
+                decimal totalCompra = cotizacion * cantidad;
+                lbl_totalVenta.Text = totalCompra.ToString();
+                string titulo = txt_titulo.Text;
 
-            string recibo = FormOperar.CrearRecibo(compraOventa, usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
+                string recibo = FormOperar.CrearRecibo(compraOventa, usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
 
-            VentanaRecibo vr = new VentanaRecibo(recibo);
-            btn_Vender.ForeColor = System.Drawing.Color.Aquamarine;
-            btn_Vender.Text = "VENDER";
-            this.btn_Vender.Click -= BotonRecibo;
-            this.btn_Vender.Click += btn_Vender_Click;
-            btn_Vender.Enabled = false;
-            vr.ShowDialog();
+                VentanaRecibo vr = new VentanaRecibo(recibo);
+                btn_Vender.ForeColor = System.Drawing.Color.Aquamarine;
+                btn_Vender.Text = "VENDER";
+                this.btn_Vender.Click -= BotonRecibo;
+                this.btn_Vender.Click += btn_Vender_Click;
+                btn_Vender.Enabled = false;
+                vr.ShowDialog();
+            }
+            catch (FormatException ex)
+            {
+                mensaje = "el valor agregado\nno es un numero";
+                Vm.VentanaMensajeError(mensaje);
+                //ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
+            }
+            catch (Exception ex)
+            {
+                mensaje = "inesperado";
+                Vm.VentanaMensajeError(mensaje);
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
+            }
 
         }
 

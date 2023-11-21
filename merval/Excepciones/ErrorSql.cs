@@ -1,16 +1,8 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MySql.Data.MySqlClient;
 
 namespace merval.Excepciones
 {
-    public class ErrorSql 
+    public class ErrorSql
     {
         #region data de coneccion sql
 
@@ -37,7 +29,7 @@ namespace merval.Excepciones
         /// </summary>
         /// <param name="error"></param>
         /// <returns></returns>
-        
+
 
         public static async Task InsertarErrorEnDb(LogError error)
         {
@@ -62,7 +54,7 @@ namespace merval.Excepciones
                         if (filasAfectadas == 1)
                         {
                             // Modificar el mensaje de éxito según tu lógica
-                            Vm.VentanaMensaje("Error registrado","en breve sera solucionado");
+                            Vm.VentanaMensaje("Error registrado", "en breve sera solucionado");
                         }
                         else
                         {

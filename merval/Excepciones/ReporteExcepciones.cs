@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace merval.Excepciones
+﻿namespace merval.Excepciones
 {
 
-    public class ManejadorDeExcepciones
+    public class ReporteExcepciones
     {
-        private static void Errores()
+        private static void Errores() //modelo excepciones
         {
-            
-
-
             string mensaje = "";
             string formName = "";
             try
@@ -26,7 +16,6 @@ namespace merval.Excepciones
             {
                 mensaje = "Al conectar a la base de datos ";
                 CrearErrorLog(formName, ex, mensaje);
-
             }
 
 
@@ -64,7 +53,7 @@ namespace merval.Excepciones
             }
             finally
             {
-                
+
             }
         }
 
@@ -72,9 +61,9 @@ namespace merval.Excepciones
         {
             var errorLog = new LogError(ex, mensaje, formName);
 
-            await ErrorSql.InsertarErrorEnDb(errorLog);           
+            await ErrorSql.InsertarErrorEnDb(errorLog);
         }
-       
-      
+
+
     }
 }

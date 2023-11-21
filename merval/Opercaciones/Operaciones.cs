@@ -1,10 +1,5 @@
 ﻿using merval.DB;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace merval.Opercaciones
 {
@@ -119,7 +114,7 @@ namespace merval.Opercaciones
                     ActualizarActivos(usuarioActual, titulo, cantidad);
                     resultado = true;
                 }
-            return resultado;
+                return resultado;
             }
             catch (Exception)
             {

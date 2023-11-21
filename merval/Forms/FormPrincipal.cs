@@ -1,16 +1,4 @@
-﻿using merval.DAO;
-using merval.DB;
-using merval.entidades;
-using merval.Serializadores;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using merval.DB;
 
 
 namespace merval
@@ -99,20 +87,20 @@ namespace merval
         private async void TSM_carteraAcciones_Click(object sender, EventArgs e)
         {
             string tipo = "Acciones";
-            
+
             List<Activos> listDTG = UsuarioSQL.CarteraUsuario(usuario, tipo);
-            DatagridCarteraUsuario(listDTG);           
+            DatagridCarteraUsuario(listDTG);
         }
 
         private void TSM_CarteraMonedas_Click(object sender, EventArgs e)
         {
             string tipo = "Monedas";
-            
+
             List<Activos> listDTG = UsuarioSQL.CarteraUsuario(usuario, tipo);
             DatagridCarteraUsuario(listDTG);
         }
 
-        private void DatagridCarteraUsuario(List<Activos> listDTG) 
+        private void DatagridCarteraUsuario(List<Activos> listDTG)
         {
             this.dataGridView1.DataSource = null;///para hacer un refresh
             this.dataGridView1.Visible = true;
@@ -144,10 +132,10 @@ namespace merval
 
         private async void VerMercadoAcciones_Click(object sender, EventArgs e)
         {
-            Activos activos = new Activos();   
+            Activos activos = new Activos();
             string tipo = "Acciones";
             List<Activos> lista = await activos.CrearListaDeActivos(tipo);
-            
+
 
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Visible = true;

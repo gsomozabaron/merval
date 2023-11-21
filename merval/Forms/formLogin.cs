@@ -1,22 +1,13 @@
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.IO;
-using System.Xml.Serialization;
-using FastReport.DataVisualization.Charting;
-using System.Windows.Forms;
-using merval.Serializadores;
 using merval.DB;
-using merval.entidades;
-using merval.DAO;
 
 namespace merval
 {
-    
+
     public partial class formLogin : Form
     {
         int Contador = 0;   /// inicio un contador para el auto login
         private static UsuarioSQL usuarioActual = new UsuarioSQL();
-        
+
         Func<string, string, bool> delegado = new Func<string, string, bool>(Coinciden);
 
         public formLogin()
@@ -31,7 +22,7 @@ namespace merval
         /// <param name="e"></param>
         private void formLogin_Load(object sender, EventArgs e)
         {
-            
+
         }
 
 
@@ -67,7 +58,7 @@ namespace merval
                 foreach (UsuarioSQL u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
                 {
                     ///si encontramos el nombre...
-                    if  (delegado(u.NombreUsuario,nombreUsuario))//(u.NombreUsuario == usuario)
+                    if (delegado(u.NombreUsuario, nombreUsuario))//(u.NombreUsuario == usuario)
                     {
                         ///buscamos el pass, si coincide..
                         if (delegado(u.Pass, password)) //uso del delegado func asociado a coinciden
@@ -100,7 +91,7 @@ namespace merval
             }
 
             ///coinciden usuario y pass..
-            
+
             else
             {
                 IrAlFormulario();
@@ -126,9 +117,8 @@ namespace merval
                 fa.Show();
                 this.Hide();
             }
-
         }
-       
+
 
         /// <summary>
         /// lanza el formulario de registro

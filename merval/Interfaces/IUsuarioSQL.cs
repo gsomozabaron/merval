@@ -1,15 +1,7 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace merval.DAO
+﻿namespace merval.DAO
 {
     public interface IUsuarioSQL
-    { 
+    {
         Task AgregarUsuario();
 
         Task ModificarUsuarios();

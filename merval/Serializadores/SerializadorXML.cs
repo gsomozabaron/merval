@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace merval.Serializadores
 {
@@ -16,9 +9,9 @@ namespace merval.Serializadores
         }
         public bool Serializar(List<T> datos)
         {
-            using (var stream = new StreamWriter(Path)) 
+            using (var stream = new StreamWriter(Path))
             {
-                if (stream != null) 
+                if (stream != null)
                 {
                     var xml = new XmlSerializer(typeof(T));
 
@@ -27,7 +20,7 @@ namespace merval.Serializadores
             }
             return true;
         }
-    
+
 
         public List<T> Deserializar()
         {
@@ -46,7 +39,7 @@ namespace merval.Serializadores
                     }
                 }
             }
-            return lista;   
+            return lista;
         }
 
     }

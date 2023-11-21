@@ -1,23 +1,10 @@
-﻿using merval.DAO;
-using merval.entidades;
-using merval.Serializadores;
-using Microsoft.VisualBasic;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Relational;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
+﻿using MySql.Data.MySqlClient;
 
 namespace merval.DB
 {
     public class DatabaseSQL
     {
-        
+
         public static MySqlConnection Connection;
 
         public static MySqlCommand commandSql;
@@ -63,7 +50,7 @@ namespace merval.DB
         //        //InsertarAcciones(a);
         //    }
 
-        
+
 
     }
 }

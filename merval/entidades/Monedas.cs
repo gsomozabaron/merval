@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using merval.Interfaces;
-using merval.Serializadores;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 
 namespace merval
 {
@@ -48,7 +40,7 @@ namespace merval
         /// <param name="valorVenta"></param>
         /// <param name="lista"></param>
         /// 
-        
+
 
         #region data de coneccion sql
         public static MySqlConnection Connection;
@@ -74,13 +66,13 @@ namespace merval
         /// /// crea una lista con las monedas, retorna una lista de monedas
         /// </summary>
         /// <returns>lista de monedas</returns>
-        public static async Task <List<Monedas>> CrearListaMonedas()
+        public static async Task<List<Monedas>> CrearListaMonedas()
         {
             List<Monedas> lista = new List<Monedas>();
             try
             {
                 await Connection.OpenAsync();
-                
+
                 commandSql.CommandText = string.Empty;
                 var query = "SELECT * FROM Monedas";
                 commandSql.CommandText = query;
@@ -109,7 +101,7 @@ namespace merval
 
             return lista;
         }
-    
+
 
     }
 }

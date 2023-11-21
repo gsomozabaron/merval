@@ -1,23 +1,10 @@
-﻿using merval.DAO;
-using merval.DB;
-using merval.entidades;
-using merval.Serializadores;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using merval.DB;
 
 namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
-        
+
         private List<UsuarioSQL> listaUsuarios = new List<UsuarioSQL>(); // Cambiado para ser un campo de la clase
         //private Usuario usuario = new Usuario(); // Agregado para ser un campo de la clase
 
@@ -38,10 +25,10 @@ namespace merval
         /// <param name="e"></param>
         private async void FormRegistroUsuarios_Load(object sender, EventArgs e)
         {
-            listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios(); 
+            listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
 
-            if (alta == "admin")    
-            {                       
+            if (alta == "admin")
+            {
                 chk_esAdmin.Visible = true;
                 chk_comisionista.Visible = true;
             }
@@ -51,7 +38,7 @@ namespace merval
                 chk_comisionista.Visible = false;
             }
         }
-       
+
         private async void btnAceptar_Click(object sender, EventArgs e)
         {
             string nombre = this.txt_Nombre.Text;
@@ -66,13 +53,13 @@ namespace merval
 
             /// chequeo si se completaron todos los datos
             if (string.IsNullOrEmpty(nombre) ||
-                string.IsNullOrEmpty(Dni) || 
-                string.IsNullOrEmpty(nombreUsuario) || 
+                string.IsNullOrEmpty(Dni) ||
+                string.IsNullOrEmpty(nombreUsuario) ||
                 string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(apellido))
             {
                 Vm.VentanaMensajeError("Campos incompletos");
-                return; 
+                return;
             }
 
             ///****************************************************************************///
@@ -83,7 +70,7 @@ namespace merval
             {
                 return;
             }
-           
+
             if (esAdmin == false)
             {
                 tipoDeUsuario = Tipo.normal;
@@ -96,7 +83,7 @@ namespace merval
             UsuarioSQL nuevoUsuario = UsuarioSQL.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, saldo, apellido);
 
             await nuevoUsuario.AgregarUsuario();
-                        
+
             this.Close();
         }
 

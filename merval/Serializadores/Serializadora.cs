@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using merval.DB;
 using System.Xml.Serialization;
-using merval.DB;
-using merval.entidades;
-using Newtonsoft.Json;
 
 
 namespace merval.Serializadores
 {
     public class Serializadora
     {
-       
+
         /*********************leer xml *********************************/
 
         /// <summary>
@@ -73,7 +66,7 @@ namespace merval.Serializadores
 
 
 
-        /********************* grabar ***************************/    
+        /********************* grabar ***************************/
 
         /// <summary>
         /// grabar XML lista de usuarios en listaUsuarios.xml
@@ -171,11 +164,11 @@ namespace merval.Serializadores
                 await usuario.AgregarUsuario();
 
             }
-            
-            
+
+
             List<Monedas> listaMonedas = LeerListaMonedas();
 
-            List<Acciones> listaAcciones = LeerListaAcciones(); 
+            List<Acciones> listaAcciones = LeerListaAcciones();
         }
 
 

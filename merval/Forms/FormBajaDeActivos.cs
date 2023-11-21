@@ -1,16 +1,4 @@
-﻿using merval.DB;
-using merval.entidades;
-using merval.Interfaces;
-using merval.Serializadores;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using merval.Excepciones;
 
 namespace merval
 {
@@ -72,7 +60,7 @@ namespace merval
                         }
                     }
                 }
-                
+
                 if (!encontro)
                 {   //si no encontro coincidencia tira mensaje
                     Vm.VentanaMensajeError("Titulo no encontrado");
@@ -80,7 +68,9 @@ namespace merval
             }
             catch (Exception ex)
             {
+                mensaje = "error desconocido";
                 Vm.VentanaMensajeError($"Error: {ex.Message}");    //si rompe.. mensaje
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
             }
         }
 

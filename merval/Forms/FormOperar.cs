@@ -1,30 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using merval.entidades;
-using merval.Serializadores;
-using merval.DB;
-using merval.DAO;
+﻿using merval.DB;
+using merval.Excepciones;
 using merval.Opercaciones;
-using MySql.Data.MySqlClient;
 using merval.Ventanas_Emergentes;
-using merval.Properties;
-using iText.Kernel.Colors;
-using System.Transactions;
+using System.Text;
+using System.Windows.Forms;
 
 namespace merval
 {
     public partial class FormOperar : Form
     {
-   
+        private string mensaje;
+        private string formName = "Form operar";
         private UsuarioSQL usuarioActual;
         private string tipoDeActivo;
 
@@ -57,7 +43,7 @@ namespace merval
             }
         }
 
-        
+
         /// añade titulos a la lista de acciones del usuario
         private void btn_Comprar_Click(object sender, EventArgs e)
         {
@@ -67,7 +53,7 @@ namespace merval
                 btn_Comprar.Enabled = true;
                 string titulo = txt_titulo.Text;
 
-                (decimal cotizacion,int cantidad, decimal totalCompra) = calcularCompra();
+                (decimal cotizacion, int cantidad, decimal totalCompra) = calcularCompra();
 
                 if (Operaciones.CompraDeActivos(usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo))
                 {
@@ -86,7 +72,7 @@ namespace merval
             }
         }
 
-        private void BotonRecibo(object sender , EventArgs e) 
+        private void BotonRecibo(object sender, EventArgs e)
         {
             string compraOventa = "compra";
             decimal cotizacion = decimal.Parse(txt_cotizacion.Text);
@@ -156,32 +142,51 @@ namespace merval
                 int cantidad = int.Parse(txt_Cantidad.Text);
                 decimal totalCompra = cotizacion * cantidad;
                 lbl_totalventa.Text = totalCompra.ToString();
+                
                 return (cotizacion, cantidad, totalCompra);
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                Vm.VentanaMensajeError("Ingresa una cantidad valida.");
+                mensaje = "Ingresa una cantidad valida.";
+                Vm.VentanaMensajeError(mensaje);
+                //ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
                 return (0, 0, 0);
             }
+            catch (OverflowException ex)
+            {
+                mensaje = "dato fuera de rango: ";
+                Vm.VentanaMensajeError(mensaje);
+                ///ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
+                return (0, 0, 0);
+            }
+            catch (Exception ex)
+            {
+                mensaje = "inesperado";
+                Vm.VentanaMensajeError(mensaje);
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
+                return (0, 0, 0);
+            }
+
         }
-       
+
         /// <summary>
         /// genera una lista de acciones propias del usuario con sus precios y lo carga al datagrid
         /// </summary>
         private async void CargarDatos()
         {
-            
+
+
             lbl_saldo.Text = usuarioActual.Saldo.ToString();
 
             string tipo = tipoDeActivo;
             Activos listaActivo = new Activos();
             List<Activos> todas = await listaActivo.CrearListaDeActivos(tipoDeActivo);
 
-            List<Activos> propias =Operaciones.CarteraUsuario(usuarioActual, tipo);
-            
+            List<Activos> propias = Operaciones.CarteraUsuario(usuarioActual, tipo);
+
             List<Activos> listaDTG = new List<Activos>();
 
-            
+
             foreach (var a in todas)
             {
                 Activos existente = listaDTG.Find(x => x.Nombre == a.Nombre);
@@ -200,7 +205,7 @@ namespace merval
                 }
             }
 
-            
+
             this.Dtg1.DataSource = null;
             this.Dtg1.DataSource = listaDTG;
             // Cambiar el orden de las columnas
@@ -211,7 +216,7 @@ namespace merval
             this.Dtg1.Columns["Cantidad"].HeaderText = "Propias";
             this.Dtg1.Columns["ValorCompra"].HeaderText = "Valor\nCompra";
             this.Dtg1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
-                        
+
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)

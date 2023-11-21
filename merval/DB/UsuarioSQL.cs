@@ -1,14 +1,5 @@
 ﻿using merval.DAO;
-using merval.entidades;
-using merval.Serializadores;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.DirectoryServices;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 
