@@ -17,12 +17,12 @@ namespace merval
 {
     public partial class FormRegistroUsuarios : Form
     {
-        //List<Usuario> listaDeUsuarios = DatabaseSQL.GetUsuarios();  //codigo viejo
-        private List<Usuario> listaUsuarios = new List<Usuario>(); // Cambiado para ser un campo de la clase
-        private Usuario usuario = new Usuario(); // Agregado para ser un campo de la clase
+        
+        private List<UsuarioSQL> listaUsuarios = new List<UsuarioSQL>(); // Cambiado para ser un campo de la clase
+        //private Usuario usuario = new Usuario(); // Agregado para ser un campo de la clase
 
 
-        private string alta;
+        private string alta;    //este alta es para dejar ver los botones de usuarios especiales en caso que el usuario sea administrador
 
         public FormRegistroUsuarios(string alta)
         {
@@ -30,13 +30,18 @@ namespace merval
             this.alta = alta;
         }
 
-        private void FormRegistroUsuarios_Load(object sender, EventArgs e)
+        /// <summary>
+        /// aca de usa el "alta" para poder reutilizar el menu de "registarse" o modificacion de datos
+        /// solo un admin puede registrar otro admin, en caso de ser usuario normal los cheq de "es admin" estan invisibles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void FormRegistroUsuarios_Load(object sender, EventArgs e)
         {
-            //Usuario usuario = new Usuario();
-            listaUsuarios = Usuario.MostrarUsuarios(); 
+            listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios(); 
 
-            if (alta == "admin")
-            {
+            if (alta == "admin")    
+            {                       
                 chk_esAdmin.Visible = true;
                 chk_comisionista.Visible = true;
             }
@@ -47,7 +52,7 @@ namespace merval
             }
         }
        
-        private void btnAceptar_Click(object sender, EventArgs e)
+        private async void btnAceptar_Click(object sender, EventArgs e)
         {
             string nombre = this.txt_Nombre.Text;
             string Dni = this.txt_Dni.Text;
@@ -88,13 +93,13 @@ namespace merval
                 tipoDeUsuario = Tipo.Admin;
             }
 
-            Usuario nuevoUsuario = Usuario.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, saldo, apellido);
+            UsuarioSQL nuevoUsuario = UsuarioSQL.CrearUsuario(nombre, Dni, nombreUsuario, password, tipoDeUsuario, saldo, apellido);
 
-            //DatabaseSQL.InsertarUsuario(nuevoUsuario);    codigo viejo
-            usuario.AgregarUsuario(nuevoUsuario);
+            await nuevoUsuario.AgregarUsuario();
                         
             this.Close();
         }
+
         private bool EsDniValido(string dni)
         {
             bool dniValido = System.Text.RegularExpressions.Regex.IsMatch(dni, @"^\d{7,8}$");
@@ -122,7 +127,7 @@ namespace merval
         private bool ValidarNombreEnUso(string nombreUsuario)
         {
             bool estaDuplicado = false;
-            foreach (Usuario u in listaUsuarios)
+            foreach (UsuarioSQL u in listaUsuarios)
             {
                 if (u.NombreUsuario == nombreUsuario)
                 {

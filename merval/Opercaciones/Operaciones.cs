@@ -34,14 +34,13 @@ namespace merval.Opercaciones
         /// <param name="titulo">nombre del activo</param>
         /// <param name="cantidadStr">cantidad a vender</param>
         /// <returns>retorna true si se pudo hacer la transaccion, false si hubo algun error</returns>
-        public static bool VentaDeActivos(Usuario usuarioActual, string tipoDeActivo, string Ventastr, string titulo, string cantidadStr)
+        public static bool VentaDeActivos(UsuarioSQL usuarioActual, string tipoDeActivo, string Ventastr, string titulo, string cantidadStr)
         {
             bool resultado = true;
 
             try
             {
-                //Usuario.CarteraUsuario(usuarioActual, tipoDeActivo);
-                Operaciones.CarteraUsuario(usuarioActual, tipoDeActivo);
+                CarteraUsuario(usuarioActual, tipoDeActivo);
                 decimal totalVenta = decimal.Parse(Ventastr);
 
                 usuarioActual.Saldo = usuarioActual.Saldo + totalVenta;
@@ -63,6 +62,7 @@ namespace merval.Opercaciones
                             }
 
                             usuarioActual.ModificarSaldo(usuarioActual);
+                            resultado = true;
                             break;
                         }
                         else
@@ -76,8 +76,8 @@ namespace merval.Opercaciones
                         if (a.Nombre == titulo && int.Parse(cantidadStr) > a.Cantidad)
                         {
                             Vm.VentanaMensajeError($"maximo {a.Cantidad}\nde {a.Nombre}");
-                            break;
                             resultado = false;
+                            break;
                         }
                     }
                 }
@@ -92,6 +92,7 @@ namespace merval.Opercaciones
             return resultado;
         }
 
+
         /// <summary>
         /// logica de compra de activos añade acciones a la lista de acciones de un usuario
         /// </summary>
@@ -101,9 +102,9 @@ namespace merval.Opercaciones
         /// <param name="totalCompra">total de la compra</param>
         /// <param name="tipo">tipo de activo</param>
         /// <returns></returns>
-        public static bool CompraDeActivos(Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra, string tipo)
+        public static bool CompraDeActivos(UsuarioSQL usuarioActual, string titulo, int cantidad, decimal totalCompra, string tipo)
         {
-            bool resultado = true;
+            bool resultado = false;
             try
             {
                 if (HacerValidaciones(usuarioActual, titulo, cantidad, totalCompra))
@@ -116,19 +117,23 @@ namespace merval.Opercaciones
                     }
                     usuarioActual.ModificarSaldo(usuarioActual);
                     ActualizarActivos(usuarioActual, titulo, cantidad);
+                    resultado = true;
                 }
+            return resultado;
             }
             catch (Exception)
             {
-
                 throw;
             }
 
 
-            return resultado;
         }
-  
-        private static void ActualizarActivos(Usuario usuarioActual, string titulo, int cantidad)
+
+
+        /// <summary>
+        /// actualiza la base de datos con los valores nuevos
+        /// </summary>
+        private static void ActualizarActivos(UsuarioSQL usuarioActual, string titulo, int cantidad)
         {
             Activos nuevoActivo = new Activos();
             nuevoActivo.Nombre = titulo;
@@ -152,48 +157,79 @@ namespace merval.Opercaciones
             Vm.VentanaMensaje("Transaccion exitosa", $"Adquirido {cantidad}\nde\n{nuevoActivo.Nombre}");
         }
 
-        private static bool HacerValidaciones(Usuario usuarioActual, string titulo, int cantidad, decimal totalCompra)
+        /// <summary>
+        /// chequea que haya algun titulo seleccionado
+        /// </summary>
+        /// <param name="usuarioActual"></param>
+        /// <param name="titulo"></param>
+        /// <param name="cantidad"></param>
+        /// <param name="totalCompra"></param>
+        /// <returns></returns>
+        private static bool TituloSeleccionado(string titulo)
         {
-            bool todook = true;
-
+            bool Valida = true;
             if (titulo == "")   //validar que haya algun titulo seleccionado
             {
                 Vm.VentanaMensajeError("Selecciona un accion");
-                todook = false;
+                Valida = false;
             }
+            return Valida;
+        }
 
+        /// <summary>
+        /// valida que la cantidad sea mayor a cero
+        /// </summary>
+        /// <param name="cantidad"></param>
+        /// <returns></returns>
+        private static bool CantidadMayorCero(int cantidad)
+        {
+            bool Valida = true;
             if (cantidad <= 0)  //validar cantidad mayor a cero
             {
                 Vm.VentanaMensajeError("La cantidad debe ser mayor que 0.");
-                todook = false;
+                Valida = false;
             }
+            return Valida;
+        }
 
+        /// <summary>
+        /// valida que el usuario tenga fondos suficientes 
+        /// </summary>
+        /// <param name="usuarioActual"></param>
+        /// <param name="totalCompra"></param>
+        /// <returns></returns>
+        private static bool SaldoSufucuente(UsuarioSQL usuarioActual, decimal totalCompra)
+        {
+            bool Valida = true;
             if (usuarioActual.Saldo < totalCompra)  //validar que saldo sea mayor a compra
             {
                 Vm.VentanaMensajeError("Saldo insuficiente.");
-                todook = false;
+                Valida = false;
             }
-            //cancelar compra
-            if (todook)
+            return Valida;
+        }
+
+        /// <summary>
+        /// hace las validaciones y da la opcion de cancelar la operacion
+        /// </summary>
+        /// <param name="usuarioActual"></param>
+        /// <param name="titulo"></param>
+        /// <param name="cantidad"></param>
+        /// <param name="totalCompra"></param>
+        /// <returns></returns>
+        private static bool HacerValidaciones(UsuarioSQL usuarioActual, string titulo, int cantidad, decimal totalCompra)
+        {
+            bool Valida = true;
+            if (TituloSeleccionado(titulo) & CantidadMayorCero(cantidad) & SaldoSufucuente(usuarioActual, totalCompra))
             {
                 if (Vm.VentanaMensajeConfirmar("Confirmar compra?", "") != DialogResult.OK)
                 {
                     Vm.VentanaMensaje("Compra", "Cancelada");
-                    todook = false;
+                    Valida = false;
                 }
             }
-            return todook;
-
+            return Valida;
         }
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// crea las listas de activos adquiridos por el usuario
@@ -201,7 +237,7 @@ namespace merval.Opercaciones
         /// <param name="usuario"></param>
         /// <param name="tipo"></param>
         /// <returns></returns>
-        public static List<Activos> CarteraUsuario(Usuario usuario, string tipo)
+        public static List<Activos> CarteraUsuario(UsuarioSQL usuario, string tipo)
         {
             List<Activos> lista = new List<Activos>();
 
@@ -245,18 +281,6 @@ namespace merval.Opercaciones
             }
             return lista;
         }
-
-
-        // public static "async" void nombremetodo()
-        //{  
-        //Task.Run(async () =>
-        //{
-        // comunicar con la BD 
-        // await antes de cada metodo
-        //}).Wait(); // Esperar a que la tarea se complete " }).wait();" no olvidarme!!
-
-        //return si hace falta;
-        //}
 
 
 

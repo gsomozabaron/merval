@@ -31,6 +31,7 @@ namespace merval
         {
             Id = id;
         }
+
         public int Id { get => _id; set => _id = value; }
         #endregion
 
@@ -50,19 +51,7 @@ namespace merval
         /// <param name="valorCompra"></param>
         /// <param name="valorVenta"></param>
         /// <param name="lista"></param>
-        public static void ModificarDatos(string nombre, decimal valorCompra, decimal valorVenta, List<Acciones> lista)
-        {
-            foreach (Acciones a in lista)
-            {
-                if (a.Nombre == nombre)
-                {
-                    a.ValorCompra = valorCompra;
-                    a.ValorVenta = valorVenta;
-                    Serializadora.GuardarGralAcciones(lista);
-                    break;
-                }
-            }
-        }
+        
 
 
         #region data de coneccion sql
@@ -127,7 +116,7 @@ namespace merval
         }
 
 
-
+       
 
 
     }

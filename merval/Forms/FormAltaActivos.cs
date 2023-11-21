@@ -15,27 +15,36 @@ using System.Windows.Forms;
 
 namespace merval
 {
-    public partial class FormAltaAcciones : Form
+    public partial class FormAltaActivos : Form
     {
-        public FormAltaAcciones(string tipoActivo)
+        string formName = "Admin, alta acciones";
+        string mensaje = string.Empty;
+
+        public FormAltaActivos(string tipoActivo)
         {
             InitializeComponent();
             txt_tipo.Text = tipoActivo;
         }
 
+        private static decimal ParsearValores(string valor)
+        {
+            return decimal.Parse(valor);
+        }
+      
+        
         //aceptar da de alta nuevos activos
         private async void btn_aceptar_Click(object sender, EventArgs e)
         {      
             try
             {
                 string titulo = txt_Titulo.Text;
-
                 List <Acciones> listaAccionesGral = await Acciones.CrearListaAcciones();
                 List<Monedas>listaMonedasGral = await Monedas.CrearListaMonedas();
 
                 
-                decimal valorCompra = decimal.Parse(Txt_ValorCompra.Text);
-                decimal valorVenta = decimal.Parse(txt_ValorVenta.Text);
+                decimal valorCompra = ParsearValores(Txt_ValorCompra.Text);
+                decimal valorVenta = ParsearValores(txt_ValorVenta.Text);
+
 
                 if (string.IsNullOrEmpty(titulo) || string.IsNullOrEmpty(valorCompra.ToString()) || string.IsNullOrEmpty(valorVenta.ToString()))
                     
@@ -53,17 +62,7 @@ namespace merval
 
                 else    //crear activos!
                 {
-                    if (txt_tipo.Text == "Acciones")
-                    {
-                        Acciones a = Acciones.CrearAccion(titulo, valorCompra, valorVenta);
-                        await a.InsertarActivo("acciones", a); 
-                    }
-
-                    if (txt_tipo.Text == "Monedas")
-                    {
-                        Monedas m = Monedas.CrearMoneda(titulo, valorCompra, valorVenta);
-                        await m.InsertarActivo("monedas", m);
-                    }
+                    await CrearActivo(txt_tipo.Text, titulo, valorCompra, valorVenta);
                                     
                     txt_Titulo.Clear(); // Limpiar los campos después de agregar
                     Txt_ValorCompra.Clear();
@@ -73,11 +72,20 @@ namespace merval
             }
             catch (Exception ex)
             {
+                string mensaje ="";
                 string form = "Admin, Alta de acciones";
-
+                ManejadorDeExcepciones.CrearErrorLog(form, ex, mensaje);
             }
         }
 
+
+        //crear el nuevo activo
+        private async Task CrearActivo(string tipo, string titulo, decimal valorCompra, decimal valorVenta)
+        {
+            Activos activos = new Activos(titulo, valorCompra, valorVenta,0);
+            await activos.InsertarActivo(tipo,activos);
+        }
+        
         private void btn_cancel_Click(object sender, EventArgs e)
         {
             this.Close();

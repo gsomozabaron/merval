@@ -8,9 +8,11 @@ namespace merval.Excepciones
 {
     public class ExcepcionPersonalizada : Exception
     {
-        public ExcepcionPersonalizada(string message) : base(message)
-        {
+        public ExcepcionPersonalizada() { }
 
-        }
+        public ExcepcionPersonalizada(string mensaje) : base(mensaje) { }
+
+        public ExcepcionPersonalizada(string mensaje, Exception innerException)
+            : base(mensaje, innerException) { }
     }
 }

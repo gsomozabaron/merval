@@ -4,12 +4,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using merval.DB;
 
 namespace merval.Interfaces
 {
-    internal interface IActivosDao
+    internal interface IActivosSQL
     {
-        public Task comprarActivo(Usuario usuario, Activos activos);
+        public Task comprarActivo(UsuarioSQL usuario, Activos activos);
 
         public Task <DataTable> MostrarActivos(string tipo);
 

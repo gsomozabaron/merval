@@ -11,20 +11,13 @@ using merval.DAO;
 
 namespace merval
 {
+    
     public partial class formLogin : Form
     {
-        #region creacion de las listas 
-        /// inicio un contador para el auto login
-        int Contador = 0;
-
-        // listado de usuarios
+        int Contador = 0;   /// inicio un contador para el auto login
+        private static UsuarioSQL usuarioActual = new UsuarioSQL();
         
-        private static Usuario usuarioActual = new Usuario();
-        //private static List<Usuario> listadoDeUsuarios = new List<Usuario>();
-
-
-        #endregion
-
+        Func<string, string, bool> delegado = new Func<string, string, bool>(Coinciden);
 
         public formLogin()
         {
@@ -42,18 +35,27 @@ namespace merval
         }
 
 
-        #region login
+        /// <summary>
+        /// chequea si dos valores son iguales
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="passConfirm"></param>
+        /// <returns></returns>
+        private static bool Coinciden(string password, string passConfirm)
+        {
+            return (password == passConfirm);
+        }
+
 
         /// <summary>
         /// loguea al usuario y lanza la pantalla de usuario normal o la de administrador
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAceptar_Click(object sender, EventArgs e)
+        private async void btnAceptar_Click(object sender, EventArgs e)
         {
-            List<Usuario> listadoDeUsuarios = new List<Usuario>();  
-            listadoDeUsuarios = Usuario.MostrarUsuarios();
-            string usuario = this.txtUsuario.Text;
+            List<UsuarioSQL> listadoDeUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
+            string nombreUsuario = this.txtUsuario.Text;
             string password = this.txtPassword.Text;
             string mensaje;
             string titulo;
@@ -62,13 +64,13 @@ namespace merval
 
             if (listadoDeUsuarios != null)// no rompe si no carga la lista
             {
-                foreach (Usuario u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
+                foreach (UsuarioSQL u in listadoDeUsuarios)///buscamos por nombre de usuario en listado de usuarios
                 {
                     ///si encontramos el nombre...
-                    if (u.NombreUsuario == usuario)
+                    if  (delegado(u.NombreUsuario,nombreUsuario))//(u.NombreUsuario == usuario)
                     {
                         ///buscamos el pass, si coincide..
-                        if (u.Pass == password)
+                        if (delegado(u.Pass, password)) //uso del delegado func asociado a coinciden
                         {
                             usuarioActual = u;
                             titulo = "Bienvenido";  ///titulo para la ventana emergente 
@@ -98,24 +100,35 @@ namespace merval
             }
 
             ///coinciden usuario y pass..
+            
             else
             {
-                if (usuarioActual.TipoDeUsuario == Tipo.normal) //usuario normal
-                {
-                    FormPrincipal fp = new FormPrincipal(usuarioActual);//ir al formulario principal
-                    fp.Show();
-                    this.Hide();
-                }
-
-                if (usuarioActual.TipoDeUsuario == Tipo.Admin)
-                {
-                    FormAdmin fa = new FormAdmin();// ir al formulario de administradores
-                    fa.Show();
-                    this.Hide();
-                }
+                IrAlFormulario();
             }
         }
-        #endregion
+
+
+        /// <summary>
+        /// lanza el formulario de usuario o el de admin segun el tipo de usuario
+        /// </summary>
+        private void IrAlFormulario()
+        {
+            if (usuarioActual.TipoDeUsuario == Tipo.normal) //usuario normal
+            {
+                FormPrincipal fp = new FormPrincipal(usuarioActual);//ir al formulario principal
+                fp.Show();
+                this.Hide();
+            }
+
+            if (usuarioActual.TipoDeUsuario == Tipo.Admin)
+            {
+                FormAdmin fa = new FormAdmin();// ir al formulario de administradores
+                fa.Show();
+                this.Hide();
+            }
+
+        }
+       
 
         /// <summary>
         /// lanza el formulario de registro
@@ -128,6 +141,7 @@ namespace merval
             FormRegistroUsuarios altaUsuarios = new FormRegistroUsuarios(alta);
             altaUsuarios.ShowDialog();
         }
+
 
         #region autocompletar menu login Hardcode
         private void btn_autocompletar_Click(object sender, EventArgs e)
@@ -167,6 +181,7 @@ namespace merval
             txtUsuario.Text = string.Empty;
             txtPassword.Text = string.Empty;
         }
+
 
         /// <summary>
         /// abandona el programa

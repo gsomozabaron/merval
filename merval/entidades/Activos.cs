@@ -1,4 +1,5 @@
-﻿using merval.Interfaces;
+﻿using merval.DB;
+using merval.Interfaces;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -12,18 +13,20 @@ using System.Threading.Tasks;
 namespace merval
 {
     [Serializable]
-    public class Activos : IActivosDao
+    public class Activos : IActivosSQL
     {
         #region constructores atributos y propiedades
         private string nombre;
         private decimal valorCompra;
         private decimal valorVenta;
         private int cantidad;
+        private int id;
+        
 
         public Activos()
         {
         }
-
+        
         public Activos(string nombre, decimal valorCompra, decimal valorVenta, int cantidad)
         {
             this.nombre = nombre;
@@ -32,12 +35,12 @@ namespace merval
             this.cantidad = cantidad;
         }
 
-
-        public Activos(string nombre, int cantidad)
+        public Activos(int id, string nombre, decimal valorCompra, decimal valorVenta, int cantidad) : this (nombre, valorCompra, valorVenta, cantidad)
         {
-            this.nombre = nombre;
-            this.cantidad = cantidad;
+            Id = id;
         }
+
+
 
         public string Nombre { get => nombre; set => nombre = value; }
         
@@ -46,7 +49,8 @@ namespace merval
         public decimal ValorVenta { get => valorVenta; set => valorVenta = value; }
         
         public int Cantidad { get => cantidad; set => cantidad = value; }
-
+        
+        public int Id { get => id; set => id = value; }
 
         public static bool operator ==(Activos activo1, Activos activo2)
         {
@@ -93,7 +97,7 @@ namespace merval
 
         #region metodos interfase
         /// agrega a la base de datos el activo comprado por el cliente 
-        public async Task comprarActivo(Usuario usuario, Activos activos) //async
+        public async Task comprarActivo(UsuarioSQL usuario, Activos activos) //async
         {
             try
             {
@@ -138,14 +142,9 @@ namespace merval
                 {
                     await Connection.OpenAsync();
                     commandSql.CommandText = string.Empty;
-                    var query = "SELECT * FROM Monedas";
+                    var query = $"SELECT * FROM {tipo}";
 
-                    if (tipo == "Acciones")
-                    {
-                        query = "SELECT * FROM Acciones";
-                    }
-
-                    commandSql.CommandText = query;
+                   commandSql.CommandText = query;
 
                     using (MySqlDataReader reader = commandSql.ExecuteReader())
                     {
@@ -171,8 +170,10 @@ namespace merval
         /// <param name="tipo">El tipo de activo, que puede ser "monedas" o "acciones".</param>
         /// <param name="activo">El objeto de tipo activos que se va a insertar en la base de datos.</param>
         /// <returns>True si la inserción fue exitosa, False en caso contrario.</returns>
+
         public async Task InsertarActivo(string tipo, Activos activo)   //async
         {
+            
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString))
@@ -313,7 +314,7 @@ namespace merval
                         var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
                         var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
 
-                        Activos a = new Activos(nombre, valorCompra, valorVenta, 0);
+                        Activos a = new Activos(id, nombre, valorCompra, valorVenta, 0);
                         lista.Add(a);
                     }
                 }
@@ -329,6 +330,60 @@ namespace merval
             return lista;
         }
 
+
+
+
+
+        /*
+        lista generica
+        public async Task<List<T>> CrearListaGenerica(string tipo, string query)
+        {
+            List<T> lista = new List<T>();
+            try
+            {
+                await Connection.OpenAsync();
+                commandSql.CommandText = string.Empty;
+
+                ///var query = $"SELECT * FROM {tipo}";
+                commandSql.CommandText = query;
+
+                using var reader = await commandSql.ExecuteReaderAsync();
+                {
+                    while (reader.Read())
+                    {
+                        //var id = Convert.ToInt32(reader["id"].ToString());
+                        //var nombre = reader["nombre"].ToString();
+                        //var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
+                        //var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
+                        T objeto = (T)reader;
+
+                        //Activos a = new Activos(nombre, valorCompra, valorVenta, 0);
+                        lista.Add(objeto);
+                    }
+                }
+
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        ************ en activos sql **************************
+
+        public static explicit operator ActivosAdo (MySqlDataReader reader)
+        {
+            var id = Convert.ToInt32(reader["id"].ToString());
+            var nombre = reader["nombre"].ToString();
+            var valorCompra = reader.GetDecimal(reader.GetOrdinal("valorCompra"));
+            var valorVenta = reader.GetDecimal(reader.GetOrdinal("valorVenta"));
+
+            return new Activos(nombre, valorCompra, valorVenta, 0);
+
+        }
+*/
 
         #endregion
 

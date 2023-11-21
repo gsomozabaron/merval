@@ -50,6 +50,7 @@
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
             btn_ocultarDataGrid = new Button();
+            backupAXMLToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -57,7 +58,7 @@
             // menuStrip1
             // 
             menuStrip1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { VerUsuarios, ModificarUsuarios, VerTitulos, ModificarTitulosToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { VerUsuarios, ModificarUsuarios, VerTitulos, ModificarTitulosToolStripMenuItem, backupAXMLToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(722, 27);
@@ -124,7 +125,7 @@
             // 
             TSP_acciones.DropDownItems.AddRange(new ToolStripItem[] { TSP_AccionesAltas, TSP_AccionesBajas, TSP_AccionesModificar });
             TSP_acciones.Name = "TSP_acciones";
-            TSP_acciones.Size = new Size(135, 24);
+            TSP_acciones.Size = new Size(180, 24);
             TSP_acciones.Text = "Acciones";
             // 
             // TSP_AccionesAltas
@@ -152,7 +153,7 @@
             // 
             monedasToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { TSM_altasMoneda, TSM_bajasMoneda, TSM_modificarMoneda });
             monedasToolStripMenuItem1.Name = "monedasToolStripMenuItem1";
-            monedasToolStripMenuItem1.Size = new Size(135, 24);
+            monedasToolStripMenuItem1.Size = new Size(180, 24);
             monedasToolStripMenuItem1.Text = "Monedas";
             // 
             // TSM_altasMoneda
@@ -238,6 +239,13 @@
             btn_ocultarDataGrid.UseVisualStyleBackColor = true;
             btn_ocultarDataGrid.Click += btn_ocultarDataGrid_Click;
             // 
+            // backupAXMLToolStripMenuItem
+            // 
+            backupAXMLToolStripMenuItem.Name = "backupAXMLToolStripMenuItem";
+            backupAXMLToolStripMenuItem.Size = new Size(117, 23);
+            backupAXMLToolStripMenuItem.Text = "Backup a XML";
+            backupAXMLToolStripMenuItem.Click += backupAXMLToolStripMenuItem_Click;
+            // 
             // FormAdmin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -283,5 +291,6 @@
         private ToolStripMenuItem TSM_altasMoneda;
         private ToolStripMenuItem TSM_bajasMoneda;
         private ToolStripMenuItem TSM_modificarMoneda;
+        private ToolStripMenuItem backupAXMLToolStripMenuItem;
     }
 }

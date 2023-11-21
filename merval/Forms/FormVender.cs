@@ -10,16 +10,17 @@ using System.Windows.Forms;
 using merval.DB;
 using merval.Opercaciones;
 using merval.Serializadores;
+using merval.Ventanas_Emergentes;
 
 namespace merval
 {
     public partial class FormVender : Form
     {
 
-        private Usuario usuarioActual;
+        private UsuarioSQL usuarioActual;
         private string tipoDeActivo;
 
-        public FormVender(Usuario usuario, string tipo)
+        public FormVender(UsuarioSQL usuario, string tipo)
         {
             InitializeComponent();
             usuarioActual = usuario;
@@ -43,15 +44,13 @@ namespace merval
 
         private void VerAccionesDatagrid()
         {
-            //List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
-            List<Activos> listDTG = Usuario.CarteraUsuario(usuarioActual, tipoDeActivo);
+            List<Activos> listDTG = UsuarioSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
             LlenarDatagrid(listDTG);
         }
 
         private void VerMonedasDatagrid()
         {
-            //List<Activos> listDTG = DatabaseSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
-            List<Activos> listDTG = Usuario.CarteraUsuario(usuarioActual, tipoDeActivo);
+            List<Activos> listDTG = UsuarioSQL.CarteraUsuario(usuarioActual, tipoDeActivo);
             LlenarDatagrid(listDTG);
         }
 
@@ -110,11 +109,36 @@ namespace merval
             string titulo = txt_titulo.Text;
             string cantidadStr = txt_Cantidad.Text;
             
-            Operaciones.VentaDeActivos(usuarioActual,tipoDeActivo,Ventastr,titulo,cantidadStr);
-
-            btn_Vender.Enabled = false;
-            this.Close();
+            bool vendido = Operaciones.VentaDeActivos(usuarioActual,tipoDeActivo,Ventastr,titulo,cantidadStr);
+            if (vendido)
+            {
+                this.btn_Vender.Click -= btn_Vender_Click;
+                this.btn_Vender.Click += BotonRecibo;
+                btn_Vender.Text = "Obtener Recibo";
+            }
         }
+
+        private void BotonRecibo(object sender, EventArgs e)
+        {
+            string compraOventa = "Venta";
+            decimal cotizacion = decimal.Parse(txt_cotizacion.Text);
+            int cantidad = int.Parse(txt_Cantidad.Text);
+            decimal totalCompra = cotizacion * cantidad;
+            lbl_totalVenta.Text = totalCompra.ToString();
+            string titulo = txt_titulo.Text;
+
+            string recibo = FormOperar.CrearRecibo(compraOventa, usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
+
+            VentanaRecibo vr = new VentanaRecibo(recibo);
+            btn_Vender.ForeColor = System.Drawing.Color.Aquamarine;
+            btn_Vender.Text = "VENDER";
+            this.btn_Vender.Click -= BotonRecibo;
+            this.btn_Vender.Click += btn_Vender_Click;
+            btn_Vender.Enabled = false;
+            vr.ShowDialog();
+
+        }
+
 
         private void btn_Salir_Click(object sender, EventArgs e)
         {

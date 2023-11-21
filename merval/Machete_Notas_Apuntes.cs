@@ -1,4 +1,5 @@
-﻿using merval.Excepciones;
+﻿using merval.DB;
+using merval.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,11 +31,11 @@ namespace merval
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            List<Usuario> list = new List<Usuario>();
+            List<UsuarioSQL> list = new List<UsuarioSQL>();
             List<Monedas> listM = new List<Monedas>();
             List<Acciones> listAcc = new List<Acciones>();
 
-            foreach (Usuario usuario in list)
+            foreach (UsuarioSQL usuario in list)
             {
                 DataGridViewRow row = new DataGridViewRow();    //crea la fila
                 DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell(); //crea la celda

@@ -1,5 +1,6 @@
 ﻿using merval.DB;
 using merval.entidades;
+using merval.Excepciones;
 using merval.Serializadores;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,21 @@ using System.Windows.Forms;
 
 namespace merval
 {
-    public partial class FormModificarAcciones : Form
+    public partial class FormModificarActivos : Form
     {
-        private List<Acciones> listaAcciones;
-        private List<Monedas> listaMonedas;
+        string formName = "Admin Modificar activos";
+        string mensaje = string.Empty;  
 
 
-
-        public FormModificarAcciones(string tipo)
+        public FormModificarActivos(string tipo)
         {
             InitializeComponent();
             txt_tipo.Text = tipo;
+            txt_id.Visible = true;
         }
         private void FormModificarAcciones_Load(object sender, EventArgs e)
         {
-            ResetearBotones();
+            ActualizarGrid();
         }
 
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -40,7 +41,7 @@ namespace merval
                 txt_Titulo.Text = seleccion.Nombre;
                 txt_Vcompra.Text = seleccion.ValorCompra.ToString();
                 txt_Vventa.Text = seleccion.ValorVenta.ToString();
-                txt_id.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+                txt_id.Text = seleccion.Id.ToString();
                 txt_Vcompra.Enabled = true;
                 txt_Vventa.Enabled = true;
                 Btn_modificar.Enabled = true;
@@ -49,20 +50,28 @@ namespace merval
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private async Task<List<Activos>> ObtenerListaDeActivos()
         {
-            bool encontro = false;
+            
             txt_Titulo.Text = "nombre";
             txt_Vcompra.Text = "Valor compra";
             txt_Vventa.Text = "Valor venta";
-            string buscar = txt_BuscarTitulo.Text.ToLower();
-
-            List<Activos> lista = (txt_tipo.Text == "Monedas") ? 
-                listaMonedas.Cast<Activos>().ToList() : listaAcciones.Cast<Activos>().ToList();
-
-            foreach (Activos a in lista)
+            string tipo = txt_tipo.Text;
+            Activos a = new Activos();
+            List<Activos> lista = await a.CrearListaDeActivos(tipo);
+            
+            return lista;
+        }
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
             {
-                try
+                List<Activos> lista = await ObtenerListaDeActivos();
+                bool encontro = false;
+                string buscar = txt_BuscarTitulo.Text.ToLower();
+
+                foreach (Activos a in lista)
                 {
                     if (a.Nombre.ToLower().Contains(buscar))
                     {
@@ -78,37 +87,49 @@ namespace merval
                         }
                     }
                 }
-                catch (Exception ex)
+                if (!encontro)
                 {
-                    Vm.VentanaMensajeError($"Error: {ex.Message}");
+                    Vm.VentanaMensajeError("titulo no encontrado");
+                    txt_BuscarTitulo.Clear();
                 }
             }
-            if (!encontro)
+            catch (Exception ex)
             {
-                Vm.VentanaMensajeError("titulo no encontrado");
+                Vm.VentanaMensajeError($"Error: {ex.Message}");
             }
         }
 
-        private async void ResetearBotones()
+        private async void ActualizarGrid()
         {
-            
-            if (txt_tipo.Text == "Monedas")
+            try
             {
-                
-                listaMonedas = await Monedas.CrearListaMonedas();
-                this.dataGridView1.DataSource = listaMonedas;
-            }
-            else if (txt_tipo.Text == "Acciones")
-            {
-                listaAcciones = await Acciones.CrearListaAcciones();
-                this.dataGridView1.DataSource = listaAcciones;
-            }
-            this.dataGridView1.Columns["cantidad"].Visible = false;
-            this.Btn_modificar.Enabled = false;
-            this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
-             
-        }
+                List<Activos> lista = await ObtenerListaDeActivos();
+                this.dataGridView1.DataSource = lista;
+                this.dataGridView1.Columns["cantidad"].Visible = false;
+                this.Btn_modificar.Enabled = false;
+                this.Btn_modificar.BackColor = System.Drawing.Color.Yellow;
 
+            }
+            catch (NullReferenceException ex)
+            {
+                mensaje = "No se encontro la lista";
+                Vm.VentanaMensajeError (mensaje);
+                ManejadorDeExcepciones.CrearErrorLog(formName, ex, mensaje);
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                mensaje = "Al conectar a la base de datos ";
+                ManejadorDeExcepciones.CrearErrorLog(formName, ex, mensaje);
+            }
+
+        }
+        private void LimpiarLabels()
+        {
+            txt_Vcompra.Clear();
+            txt_Vventa.Clear();
+            txt_Titulo.Clear();
+            txt_id.Clear();
+        }
         private async void Btn_modificar_Click(object sender, EventArgs e)
         {
             try
@@ -123,6 +144,8 @@ namespace merval
                 {
                     Activos a = new Activos();   
                     await a.ModificarActivo(tipo, nombre, valorCompra, valorVenta, id);
+
+                    LimpiarLabels();
                 }
                 else
                 {
@@ -136,7 +159,8 @@ namespace merval
             finally 
             {
                 dataGridView1.DataSource = null;
-                ResetearBotones();
+                
+                ActualizarGrid();
             }
 
         }

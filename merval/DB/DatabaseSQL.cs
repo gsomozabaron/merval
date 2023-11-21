@@ -38,32 +38,32 @@ namespace merval.DB
         /// <summary>
         /// para cargar las listas desde XML por primera vez
         /// </summary>
-        public static void CargaSQL()
-        {
-            List<Usuario> listu = Serializadora.LeerListadoUsuarios();
-            foreach (Usuario usuario in listu)
-            {
-                InsertarUsuario(usuario);
+        //public static void CargaSQL()
+        //{
+        //    List<Usuario> listu = Serializadora.LeerListadoUsuarios();
+        //    foreach (Usuario usuario in listu)
+        //    {
+        //        //InsertarUsuario(usuario);
 
-                foreach (Activos a in usuario.ListadoDeActivosPropios)
-                {
-                    //InsertarActivosPropios(usuario, a);
-                }
-            }
+        //        foreach (Activos a in usuario.ListadoDeActivosPropios)
+        //        {
+        //            //InsertarActivosPropios(usuario, a);
+        //        }
+        //    }
 
-            List<Monedas> listm = Serializadora.LeerListaMonedas();
-            foreach (Monedas m in listm)
-            {
-                InsertarMonedas(m);
-            }
+        //    List<Monedas> listm = Serializadora.LeerListaMonedas();
+        //    foreach (Monedas m in listm)
+        //    {
+        //        //InsertarMonedas(m);
+        //    }
 
-            List<Acciones> lista = Serializadora.LeerListaAcciones();
-            foreach (Acciones a in lista)
-            {
-                InsertarAcciones(a);
-            }
+        //    List<Acciones> lista = Serializadora.LeerListaAcciones();
+        //    foreach (Acciones a in lista)
+        //    {
+        //        //InsertarAcciones(a);
+        //    }
 
-        }
+        
 
     }
 }

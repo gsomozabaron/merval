@@ -1,6 +1,6 @@
 ﻿namespace merval
 {
-    partial class FormAltaAcciones
+    partial class FormAltaActivos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAltaAcciones));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAltaActivos));
             btn_cancel = new Button();
             btn_aceptar = new Button();
             txt_Titulo = new TextBox();

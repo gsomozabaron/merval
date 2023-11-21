@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using merval.DB;
 
 
 namespace merval
@@ -11,7 +12,7 @@ namespace merval
     {
         
 
-        public static void cargarListayDicc(Dictionary<string, string> dictUsuarioPassword, List<Usuario> listadoDeUsuarios, List<Acciones> listaDeAccionesGral)      
+        public static void cargarListayDicc(Dictionary<string, string> dictUsuarioPassword, List<UsuarioSQL> listadoDeUsuarios, List<Acciones> listaDeAccionesGral)      
         {
             List<Acciones> listaDeAcciones = new List<Acciones>();
             

@@ -56,7 +56,7 @@
             // btn_Salir
             // 
             btn_Salir.BackColor = Color.Red;
-            btn_Salir.Font = new Font("Times New Roman", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_Salir.Font = new Font("Times New Roman", 11.25F, FontStyle.Bold);
             btn_Salir.ForeColor = Color.White;
             btn_Salir.Location = new Point(732, 397);
             btn_Salir.Name = "btn_Salir";
@@ -68,11 +68,15 @@
             // 
             // Dtg1
             // 
+            Dtg1.AllowUserToAddRows = false;
+            Dtg1.AllowUserToDeleteRows = false;
+            Dtg1.AllowUserToResizeColumns = false;
+            Dtg1.AllowUserToResizeRows = false;
             Dtg1.BackgroundColor = Color.Tomato;
             Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.Tomato;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle1.ForeColor = SystemColors.ControlLightLight;
             dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -83,7 +87,6 @@
             Dtg1.Name = "Dtg1";
             Dtg1.ReadOnly = true;
             Dtg1.RowHeadersVisible = false;
-            Dtg1.RowTemplate.Height = 25;
             Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             Dtg1.Size = new Size(381, 359);
             Dtg1.TabIndex = 2;
@@ -92,7 +95,7 @@
             // txt_titulo
             // 
             txt_titulo.Enabled = false;
-            txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             txt_titulo.Location = new Point(399, 80);
             txt_titulo.Name = "txt_titulo";
             txt_titulo.PlaceholderText = "Titulo";
@@ -105,8 +108,8 @@
             // 
             btn_Comprar.BackgroundImage = (Image)resources.GetObject("btn_Comprar.BackgroundImage");
             btn_Comprar.BackgroundImageLayout = ImageLayout.Zoom;
-            btn_Comprar.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_Comprar.ForeColor = SystemColors.ControlLightLight;
+            btn_Comprar.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Comprar.ForeColor = Color.White;
             btn_Comprar.Location = new Point(399, 243);
             btn_Comprar.Name = "btn_Comprar";
             btn_Comprar.Size = new Size(134, 117);
@@ -119,7 +122,7 @@
             // txt_cotizacion
             // 
             txt_cotizacion.Enabled = false;
-            txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             txt_cotizacion.Location = new Point(399, 109);
             txt_cotizacion.Name = "txt_cotizacion";
             txt_cotizacion.PlaceholderText = "Precio";
@@ -130,7 +133,7 @@
             // 
             // txt_Cantidad
             // 
-            txt_Cantidad.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_Cantidad.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             txt_Cantidad.Location = new Point(399, 138);
             txt_Cantidad.Name = "txt_Cantidad";
             txt_Cantidad.PlaceholderText = "Ingrese cantidad?";
@@ -142,7 +145,7 @@
             // 
             lbl_saldo.AutoSize = true;
             lbl_saldo.BackColor = Color.White;
-            lbl_saldo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl_saldo.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             lbl_saldo.Location = new Point(559, 243);
             lbl_saldo.Name = "lbl_saldo";
             lbl_saldo.Size = new Size(46, 19);
@@ -151,7 +154,7 @@
             // 
             // btn_calcularCompra
             // 
-            btn_calcularCompra.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_calcularCompra.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             btn_calcularCompra.Location = new Point(399, 167);
             btn_calcularCompra.Name = "btn_calcularCompra";
             btn_calcularCompra.Size = new Size(134, 31);
@@ -163,7 +166,7 @@
             // lbl_saldoTag
             // 
             lbl_saldoTag.AutoSize = true;
-            lbl_saldoTag.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl_saldoTag.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             lbl_saldoTag.Location = new Point(559, 272);
             lbl_saldoTag.Name = "lbl_saldoTag";
             lbl_saldoTag.Size = new Size(50, 19);
@@ -173,7 +176,7 @@
             // lbl_totalventa
             // 
             lbl_totalventa.AutoSize = true;
-            lbl_totalventa.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl_totalventa.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             lbl_totalventa.Location = new Point(421, 211);
             lbl_totalventa.Name = "lbl_totalventa";
             lbl_totalventa.Size = new Size(49, 19);
@@ -186,7 +189,7 @@
             textBox1.BackColor = Color.Tomato;
             textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Enabled = false;
-            textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             textBox1.ForeColor = SystemColors.MenuText;
             textBox1.Location = new Point(539, 35);
             textBox1.Multiline = true;

@@ -18,13 +18,17 @@ namespace merval
 {
     public partial class FormAdmin : Form
     {
-        private List<Usuario> lista; /// para usar la interface
+        string formName = "principal Admin";
+        string mensaje = string.Empty;
+
+        private List<UsuarioSQL> lista; /// para usar la interface
 
         public FormAdmin()
         {
             InitializeComponent();
             this.dataGridView1.Visible = false;
         }
+
         private void btn_ocultarDataGrid_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -38,9 +42,9 @@ namespace merval
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void VerUsuarios_Click(object sender, EventArgs e)
+        private async void VerUsuarios_Click(object sender, EventArgs e)
         {
-            lista = Usuario.MostrarUsuarios();
+            lista = await UsuarioSQL.CrearListaDeUsuarios();
             dataGridView1.DataSource = lista;
             //this.dataGridView1.Columns["Pass"].Visible = false;     //[5]
             //this.dataGridView1.Columns["Saldo"].Visible = false;    //[7]
@@ -50,8 +54,11 @@ namespace merval
 
         }
 
-
+        /// <summary>
         /// altas de usuarios
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void altasUsuarios_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -60,7 +67,11 @@ namespace merval
             fr.ShowDialog();
         }
 
+        /// <summary>
         /// bajar o modificar datos de usuarios                 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Mts_ModificarDatos_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
@@ -69,14 +80,8 @@ namespace merval
         }
 
 
-        ///////////// alta,baja,modificacion y vista de titulos////////////////
+        ///////////// Menus alta,baja,modificacion y vista de titulos////////////////
         /////////////////////    acciones    //////////////////////
-
-        /// <summary>
-        /// muestra el listado de acciones
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private async void TSP_AccionesVerTitulos_Click(object sender, EventArgs e)
         {
             Activos activos = new Activos();
@@ -88,14 +93,14 @@ namespace merval
         {
             this.dataGridView1.Visible = false;
             string tipo = "Acciones";
-            FormAltaAcciones faa = new FormAltaAcciones(tipo);
+            FormAltaActivos faa = new FormAltaActivos(tipo);
             faa.Show();
         }
         private void TSP_AccionesBajas_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
             string tipo = "Acciones";
-            FormBajaDeAcciones fb = new FormBajaDeAcciones(tipo);
+            FormBajaDeActivos fb = new FormBajaDeActivos(tipo);
             fb.ShowDialog();
 
         }
@@ -103,7 +108,7 @@ namespace merval
         {
             this.dataGridView1.Visible = false;
             string tipo = "Acciones";
-            FormModificarAcciones fm = new FormModificarAcciones(tipo);
+            FormModificarActivos fm = new FormModificarActivos(tipo);
             fm.ShowDialog();
         }
 
@@ -112,14 +117,14 @@ namespace merval
         private void TSM_altasMoneda_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
-            FormAltaAcciones fa = new FormAltaAcciones("Monedas");
+            FormAltaActivos fa = new FormAltaActivos("Monedas");
             fa.ShowDialog();
         }
         private void TSM_bajasMoneda_Click(object sender, EventArgs e)
         {
             this.dataGridView1.Visible = false;
             string tipo = "Monedas";
-            FormBajaDeAcciones fb = new FormBajaDeAcciones(tipo);
+            FormBajaDeActivos fb = new FormBajaDeActivos(tipo);
             fb.ShowDialog();
 
         }
@@ -127,7 +132,7 @@ namespace merval
         {
             this.dataGridView1.Visible = false;
             string tipo = "Monedas";
-            FormModificarAcciones fm = new FormModificarAcciones(tipo);
+            FormModificarActivos fm = new FormModificarActivos(tipo);
             fm.ShowDialog();
 
         }
@@ -145,6 +150,16 @@ namespace merval
         private void btn_salir_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        /// <summary>
+        /// hace un backup de los activos y los usuarios
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void backupAXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Serializadora.GenerarBackupXML();
         }
     }
 }

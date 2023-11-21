@@ -31,6 +31,5 @@ namespace merval
             VentanaConfirmar ve = new VentanaConfirmar(titulo, mensaje);
             return ve.ShowDialog();
         }
-
     }
 }

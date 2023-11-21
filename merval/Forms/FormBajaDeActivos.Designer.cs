@@ -1,6 +1,6 @@
 ﻿namespace merval
 {
-    partial class FormBajaDeAcciones
+    partial class FormBajaDeActivos
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBajaDeAcciones));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBajaDeActivos));
             DTG_BajaAcciones = new DataGridView();
             btn_salir = new Button();
             btn_EliminarAccion = new Button();

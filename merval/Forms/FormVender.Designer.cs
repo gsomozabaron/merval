@@ -31,7 +31,7 @@ namespace merval
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVender));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             lbl_totalVenta = new Label();
             btn_calcularVenta = new Button();
             txt_Cantidad = new TextBox();
@@ -47,7 +47,7 @@ namespace merval
             // lbl_totalVenta
             // 
             lbl_totalVenta.AutoSize = true;
-            lbl_totalVenta.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl_totalVenta.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             lbl_totalVenta.Location = new Point(602, 166);
             lbl_totalVenta.Name = "lbl_totalVenta";
             lbl_totalVenta.Size = new Size(118, 19);
@@ -57,7 +57,7 @@ namespace merval
             // 
             // btn_calcularVenta
             // 
-            btn_calcularVenta.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_calcularVenta.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             btn_calcularVenta.Location = new Point(580, 122);
             btn_calcularVenta.Name = "btn_calcularVenta";
             btn_calcularVenta.Size = new Size(134, 31);
@@ -68,7 +68,7 @@ namespace merval
             // 
             // txt_Cantidad
             // 
-            txt_Cantidad.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_Cantidad.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             txt_Cantidad.Location = new Point(580, 93);
             txt_Cantidad.Name = "txt_Cantidad";
             txt_Cantidad.PlaceholderText = "Cantidad?";
@@ -79,7 +79,7 @@ namespace merval
             // txt_cotizacion
             // 
             txt_cotizacion.Enabled = false;
-            txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_cotizacion.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             txt_cotizacion.Location = new Point(580, 64);
             txt_cotizacion.Name = "txt_cotizacion";
             txt_cotizacion.PlaceholderText = "Cotizacion";
@@ -91,8 +91,8 @@ namespace merval
             // 
             btn_Vender.BackgroundImage = (Image)resources.GetObject("btn_Vender.BackgroundImage");
             btn_Vender.BackgroundImageLayout = ImageLayout.Zoom;
-            btn_Vender.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_Vender.ForeColor = SystemColors.ControlLightLight;
+            btn_Vender.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Vender.ForeColor = Color.Cyan;
             btn_Vender.Location = new Point(580, 198);
             btn_Vender.Name = "btn_Vender";
             btn_Vender.Size = new Size(134, 117);
@@ -105,7 +105,7 @@ namespace merval
             // txt_titulo
             // 
             txt_titulo.Enabled = false;
-            txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txt_titulo.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
             txt_titulo.Location = new Point(580, 35);
             txt_titulo.Name = "txt_titulo";
             txt_titulo.PlaceholderText = "Titulo";
@@ -116,7 +116,7 @@ namespace merval
             // btn_Salir
             // 
             btn_Salir.BackColor = Color.Red;
-            btn_Salir.Font = new Font("Times New Roman", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_Salir.Font = new Font("Times New Roman", 11.25F, FontStyle.Bold);
             btn_Salir.ForeColor = Color.White;
             btn_Salir.Location = new Point(697, 401);
             btn_Salir.Name = "btn_Salir";
@@ -129,7 +129,7 @@ namespace merval
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Times New Roman", 9.75F);
             label1.Location = new Point(23, 9);
             label1.Name = "label1";
             label1.Size = new Size(501, 15);
@@ -143,19 +143,18 @@ namespace merval
             Dtg1.AllowUserToOrderColumns = true;
             Dtg1.BackgroundColor = Color.Tomato;
             Dtg1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.Tomato;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlLightLight;
-            dataGridViewCellStyle2.SelectionBackColor = Color.DarkOrange;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            Dtg1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.Tomato;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlLightLight;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkOrange;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            Dtg1.DefaultCellStyle = dataGridViewCellStyle1;
             Dtg1.Location = new Point(12, 55);
             Dtg1.Name = "Dtg1";
             Dtg1.ReadOnly = true;
             Dtg1.RowHeadersVisible = false;
-            Dtg1.RowTemplate.Height = 25;
             Dtg1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             Dtg1.Size = new Size(543, 367);
             Dtg1.TabIndex = 16;

@@ -48,19 +48,7 @@ namespace merval
         /// <param name="valorVenta"></param>
         /// <param name="lista"></param>
         /// 
-        public static void ModificarDatos(string nombre, decimal valorCompra, decimal valorVenta, List<Monedas> lista)
-        {
-            foreach (Monedas a in lista)
-            {
-                if (a.Nombre == nombre)
-                {
-                    a.ValorCompra = valorCompra;
-                    a.ValorVenta = valorVenta;
-                    Serializadora.GuardarGralMonedas(lista);
-                    break;
-                }
-            }
-        }
+        
 
         #region data de coneccion sql
         public static MySqlConnection Connection;
@@ -121,10 +109,7 @@ namespace merval
 
             return lista;
         }
-
-
-        
-
+    
 
     }
 }

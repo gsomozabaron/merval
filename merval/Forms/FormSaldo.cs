@@ -16,11 +16,11 @@ namespace merval
 {
     public partial class FormSaldo : Form
     {
-        private Usuario usuarioActual;
-        private List<Usuario> listaUsuarios;
+        private UsuarioSQL usuarioActual;
+        private List<UsuarioSQL> listaUsuarios;
        
 
-        public FormSaldo(Usuario usuario)
+        public FormSaldo(UsuarioSQL usuario)
         {
             InitializeComponent();
             usuarioActual = usuario;
@@ -41,8 +41,7 @@ namespace merval
                     lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo}";
                     lbl_NuevoSaldoTag.Text = "Nuevo saldo";
 
-                    ///actualizar usuario recorre la lista de usuarios general para guardar los cambios
-                    //DatabaseSQL.ModificarSaldo(usuarioActual);
+                    
                     usuarioActual.ModificarSaldo(usuarioActual);
                     txt_MontoAumentar.Clear();///limpia la casilla 
                 }
@@ -87,9 +86,7 @@ namespace merval
                         lbl_NuevoSaldo.Text = $"${usuarioActual.Saldo}";
                         lbl_NuevoSaldoTag.Text = "Nuevo saldo";
                         txt_montoExtraer.Clear();
-                        ///actualizar usuario recorre la lista de usuarios general, 
-                        ///actualiza los valores del usuario en uso y graba el archivo
-                        //DatabaseSQL.ModificarSaldo(usuarioActual);    codigo viejo
+                        
                         usuarioActual.ModificarSaldo(usuarioActual);
                     }
                     else

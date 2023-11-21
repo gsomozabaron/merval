@@ -1,6 +1,6 @@
 ﻿namespace merval
 {
-    partial class FormModificarAcciones
+    partial class FormModificarActivos
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormModificarAcciones));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormModificarActivos));
             txt_Titulo = new TextBox();
             txt_Vcompra = new TextBox();
             txt_Vventa = new TextBox();

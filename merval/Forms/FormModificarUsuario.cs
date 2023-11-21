@@ -19,9 +19,8 @@ namespace merval
 {
     public partial class FormModificarUsuario : Form
     {
-        //private List<Usuario> listaUsuarios = DatabaseSQL.GetUsuarios();    //leer desde DB metodo anterior a la interface
-        private List<Usuario> listaUsuarios; // Cambiado para ser un campo de la clase
-        private Usuario usuario; // Agregado para ser un campo de la clase
+        private List<UsuarioSQL> listaUsuarios; // Cambiado para ser un campo de la clase
+        //private Usuario usuario; // Agregado para ser un campo de la clase
 
 
         public FormModificarUsuario()
@@ -36,10 +35,10 @@ namespace merval
         }
 
 
-        private void FormModificarUsuario_Load(object sender, EventArgs e)
+        private async void FormModificarUsuario_Load(object sender, EventArgs e)
         {
             
-            listaUsuarios = Usuario.MostrarUsuarios();
+            listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
             CargarDatos();
         }
 
@@ -60,7 +59,7 @@ namespace merval
             txt_NombreUsuario.Text = "nombre usuario";
             string buscar = txt_clave.Text.ToLower();
 
-            foreach (Usuario u in listaUsuarios)
+            foreach (UsuarioSQL u in listaUsuarios)
             {
                 try
                 {
@@ -100,7 +99,7 @@ namespace merval
 
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
+                UsuarioSQL usuarioSeleccionado = (UsuarioSQL)dataGridView1.SelectedRows[0].DataBoundItem;
                 ///llena las celdas con los datos del usuario seleccionado con doble click
                 txt_Apellido.Text = usuarioSeleccionado.Apellido;
                 txt_DNI.Text = usuarioSeleccionado.Dni;
@@ -112,7 +111,7 @@ namespace merval
         }
 
 
-        private void btn_actualizar_Click(object sender, EventArgs e)
+        private async void btn_actualizar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txt_Nombre.Text) || string.IsNullOrEmpty(txt_Apellido.Text) || string.IsNullOrEmpty(txt_DNI.Text))
             {
@@ -120,7 +119,7 @@ namespace merval
                 return;
             }
 
-            Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
+            UsuarioSQL usuarioSeleccionado = (UsuarioSQL)dataGridView1.SelectedRows[0].DataBoundItem;
             int id = usuarioSeleccionado.Id;
             usuarioSeleccionado.Apellido = txt_Apellido.Text;
             usuarioSeleccionado.Dni = txt_DNI.Text;
@@ -129,11 +128,9 @@ namespace merval
 
             if (Vm.VentanaMensajeConfirmar("ATENCION", "¿Está seguro?\nSe sobrescribirá el archivo.") == DialogResult.OK)
             {
-                ////DatabaseSQL.ModificarUsuarios(usuarioSeleccionado);
-                //Usuario usuario = new Usuario();
-                usuario.ModificarUsuarios(usuarioSeleccionado);
+                await usuarioSeleccionado.ModificarUsuarios();
 
-                List<Usuario> listaUsuarios = Usuario.MostrarUsuarios();
+                List<UsuarioSQL> listaUsuarios =await UsuarioSQL.CrearListaDeUsuarios();
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = listaUsuarios;
                 LimpiarCampos();
@@ -146,19 +143,18 @@ namespace merval
         }
 
 
-        private void btn_EliminarUsuario_Click(object sender, EventArgs e)
+        private async void btn_EliminarUsuario_Click(object sender, EventArgs e)
         {
-            Usuario usuarioSeleccionado = (Usuario)dataGridView1.SelectedRows[0].DataBoundItem;
+            UsuarioSQL usuarioSeleccionado = (UsuarioSQL)dataGridView1.SelectedRows[0].DataBoundItem;
 
             if (Vm.VentanaMensajeConfirmar("ATENCION", "SE ELIMINARA\n PERMANENTEMENTE EL USUARIO") == DialogResult.OK)
             {
-                //DatabaseSQL.EliminarUsuario(usuarioSeleccionado); //codigo viejo
-                usuario.BajaUsuario(usuarioSeleccionado);
+                await usuarioSeleccionado.BajaUsuario();
                 
                 Vm.VentanaMensaje("USUARIO", "ELIMINADO");
-                listaUsuarios = Usuario.MostrarUsuarios();
+                listaUsuarios = await UsuarioSQL.CrearListaDeUsuarios();
                 dataGridView1.DataSource = listaUsuarios;
-                //dataGridView1.DataSource = DatabaseSQL.GetUsuarios(); //codigo viejo
+              
                 LimpiarCampos();
             }
             else

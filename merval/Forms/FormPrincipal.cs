@@ -17,15 +17,13 @@ namespace merval
 {
     public partial class FormPrincipal : Form
     {
-        private Usuario usuario;
+        private UsuarioSQL usuario;
 
-        public FormPrincipal(Usuario usuarioActual)
+        public FormPrincipal(UsuarioSQL usuarioActual)
         {
             InitializeComponent();
             this.IsMdiContainer = true;
             this.usuario = usuarioActual;
-            //Usuario.ActivosUsuario(usuarioActual, "acciones");    //feo codigo viejo
-            //Usuario.ActivosUsuario(usuarioActual, "Monedas");     //feo codigo viejo
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -33,13 +31,25 @@ namespace merval
             this.dataGridView1.Visible = false;
         }
 
+
+        /// <summary>
         /// dispara el form de compra de acciones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComprarAcciones_Click(object sender, EventArgs e)
         {
             FormOperar Fo = new FormOperar(usuario, "Acciones");
             this.dataGridView1.Visible = false;
             Fo.ShowDialog();
         }
+
+
+        /// <summary>
+        /// dispara el form de compra de Monedas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComprarMonedas_Click(object sender, EventArgs e)
         {
             FormOperar Fo = new FormOperar(usuario, "Monedas");
@@ -86,18 +96,19 @@ namespace merval
         }
 
 
-        private void TSM_carteraAcciones_Click(object sender, EventArgs e)
+        private async void TSM_carteraAcciones_Click(object sender, EventArgs e)
         {
             string tipo = "Acciones";
             
-            List<Activos> listDTG = Usuario.CarteraUsuario(usuario, tipo);
+            List<Activos> listDTG = UsuarioSQL.CarteraUsuario(usuario, tipo);
             DatagridCarteraUsuario(listDTG);           
         }
+
         private void TSM_CarteraMonedas_Click(object sender, EventArgs e)
         {
             string tipo = "Monedas";
             
-            List<Activos> listDTG = Usuario.CarteraUsuario(usuario, tipo);
+            List<Activos> listDTG = UsuarioSQL.CarteraUsuario(usuario, tipo);
             DatagridCarteraUsuario(listDTG);
         }
 
@@ -115,8 +126,6 @@ namespace merval
             this.dataGridView1.Columns["ValorVenta"].HeaderText = "Valor\nVenta";
 
         }
-
-
 
         private async void VerMercadoMonedas_Click(object sender, EventArgs e)
         {
