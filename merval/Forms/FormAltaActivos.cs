@@ -80,9 +80,8 @@ namespace merval
             }
             catch (Exception ex)
             {
-                string mensaje = "inesperado";
-                string form = "Admin, Alta de acciones";
-                ReporteExcepciones.CrearErrorLog(form, ex, mensaje);
+                mensaje = "inesperado";
+                ReporteExcepciones.CrearErrorLog(formName, ex, mensaje);
             }
         }
 

@@ -3,7 +3,10 @@
 
     public class ReporteExcepciones
     {
-        private static void Errores() //modelo excepciones
+        /// <summary>
+        /// modelo de manejo de excepciones
+        /// </summary>
+        private static void Errores() //modelo excepciones 
         {
             string mensaje = "";
             string formName = "";
