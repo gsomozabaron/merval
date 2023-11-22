@@ -9,7 +9,7 @@ namespace merval
         private string mensaje;
         private string formName = "FormSaldo";
         private UsuarioSQL usuarioActual;
-        private List<UsuarioSQL> listaUsuarios;
+        //private List<UsuarioSQL> listaUsuarios;
 
 
         public FormSaldo(UsuarioSQL usuario)

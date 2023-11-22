@@ -47,17 +47,17 @@
             TSM_altasMoneda = new ToolStripMenuItem();
             TSM_bajasMoneda = new ToolStripMenuItem();
             TSM_modificarMoneda = new ToolStripMenuItem();
+            backupAXMLToolStripMenuItem = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             btn_salir = new Button();
             btn_ocultarDataGrid = new Button();
-            backupAXMLToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            menuStrip1.Font = new Font("Times New Roman", 12F);
             menuStrip1.Items.AddRange(new ToolStripItem[] { VerUsuarios, ModificarUsuarios, VerTitulos, ModificarTitulosToolStripMenuItem, backupAXMLToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -125,7 +125,7 @@
             // 
             TSP_acciones.DropDownItems.AddRange(new ToolStripItem[] { TSP_AccionesAltas, TSP_AccionesBajas, TSP_AccionesModificar });
             TSP_acciones.Name = "TSP_acciones";
-            TSP_acciones.Size = new Size(180, 24);
+            TSP_acciones.Size = new Size(135, 24);
             TSP_acciones.Text = "Acciones";
             // 
             // TSP_AccionesAltas
@@ -153,7 +153,7 @@
             // 
             monedasToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { TSM_altasMoneda, TSM_bajasMoneda, TSM_modificarMoneda });
             monedasToolStripMenuItem1.Name = "monedasToolStripMenuItem1";
-            monedasToolStripMenuItem1.Size = new Size(180, 24);
+            monedasToolStripMenuItem1.Size = new Size(135, 24);
             monedasToolStripMenuItem1.Text = "Monedas";
             // 
             // TSM_altasMoneda
@@ -177,6 +177,13 @@
             TSM_modificarMoneda.Text = "Modificacion";
             TSM_modificarMoneda.Click += TSM_modificarMoneda_Click;
             // 
+            // backupAXMLToolStripMenuItem
+            // 
+            backupAXMLToolStripMenuItem.Name = "backupAXMLToolStripMenuItem";
+            backupAXMLToolStripMenuItem.Size = new Size(117, 23);
+            backupAXMLToolStripMenuItem.Text = "Backup a XML";
+            backupAXMLToolStripMenuItem.Click += backupAXMLToolStripMenuItem_Click;
+            // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
@@ -186,11 +193,11 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridView1.BackgroundColor = SystemColors.ActiveCaption;
+            dataGridView1.BackgroundColor = Color.Coral;
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -198,10 +205,10 @@
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.SkyBlue;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.BackColor = Color.LightPink;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionBackColor = Color.IndianRed;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
@@ -209,7 +216,6 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowTemplate.Height = 25;
             dataGridView1.ScrollBars = ScrollBars.Vertical;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(698, 341);
@@ -218,7 +224,7 @@
             // btn_salir
             // 
             btn_salir.BackColor = Color.Red;
-            btn_salir.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_salir.Font = new Font("Times New Roman", 12F);
             btn_salir.ForeColor = SystemColors.ControlLightLight;
             btn_salir.Location = new Point(609, 403);
             btn_salir.Name = "btn_salir";
@@ -230,7 +236,7 @@
             // 
             // btn_ocultarDataGrid
             // 
-            btn_ocultarDataGrid.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_ocultarDataGrid.Font = new Font("Times New Roman", 12F);
             btn_ocultarDataGrid.Location = new Point(593, 27);
             btn_ocultarDataGrid.Name = "btn_ocultarDataGrid";
             btn_ocultarDataGrid.Size = new Size(91, 23);
@@ -239,18 +245,11 @@
             btn_ocultarDataGrid.UseVisualStyleBackColor = true;
             btn_ocultarDataGrid.Click += btn_ocultarDataGrid_Click;
             // 
-            // backupAXMLToolStripMenuItem
-            // 
-            backupAXMLToolStripMenuItem.Name = "backupAXMLToolStripMenuItem";
-            backupAXMLToolStripMenuItem.Size = new Size(117, 23);
-            backupAXMLToolStripMenuItem.Text = "Backup a XML";
-            backupAXMLToolStripMenuItem.Click += backupAXMLToolStripMenuItem_Click;
-            // 
             // FormAdmin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.Coral;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(722, 450);
             ControlBox = false;

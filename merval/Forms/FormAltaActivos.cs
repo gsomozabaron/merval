@@ -29,30 +29,31 @@ namespace merval
                 List<Acciones> listaAccionesGral = await Acciones.CrearListaAcciones();
                 List<Monedas> listaMonedasGral = await Monedas.CrearListaMonedas();
 
-
-                decimal valorCompra = ParsearValores(Txt_ValorCompra.Text);
-                decimal valorVenta = ParsearValores(txt_ValorVenta.Text);
+                decimal valorCompra = ParsearValores(Txt_ValorCompra.Text); //.Replace('.', ','));
+                decimal valorVenta = ParsearValores(txt_ValorVenta.Text);   //.Replace('.', ','));
 
                 if (valorCompra < 1 || valorVenta < 1)
                 {
                     throw new ExcepcionPersonalizada("no admite valores negativos");
                 }
 
-                if (string.IsNullOrEmpty(titulo) || string.IsNullOrEmpty(valorCompra.ToString()) || string.IsNullOrEmpty(valorVenta.ToString()))
-
+                if (string.IsNullOrEmpty(titulo))
                 {
                     mensaje = "Tanto el titulo como los precios \nson obligatorios.";
                     throw new ExcepcionPersonalizada(mensaje);
-
-                    //Vm.VentanaMensajeError("Tanto el titulo como los precios \nson obligatorios.");
-                    return;
                 }
 
+                if (valorCompra < valorVenta)
+                {
+                    mensaje = "Te van a rajar a la mierda no puede ser mayor el valor de compra al de venta";
+                    throw new ExcepcionPersonalizada(mensaje);
+                }
 
-                else if ((listaAccionesGral.Any(a => a.Nombre == titulo) && txt_tipo.Text == "Acciones") ||
+                if ((listaAccionesGral.Any(a => a.Nombre == titulo) && txt_tipo.Text == "Acciones") ||
                         (listaMonedasGral.Any(a => a.Nombre == titulo) && txt_tipo.Text == "Monedas"))
                 {
-                    Vm.VentanaMensajeError("El titulo ya se encuentra dado de alta");
+                    mensaje = ("El titulo ya se encuentra dado de alta");
+                    throw new ExcepcionPersonalizada(mensaje);
                 }
 
                 else    //crear activos!
@@ -75,7 +76,7 @@ namespace merval
             }
             catch (FormatException)
             {
-                Vm.VentanaMensajeError("Tanto el titulo como los precios \nson obligatorios.");
+                Vm.VentanaMensajeError("Los precios \nson obligatorios.");
             }
             catch (Exception ex)
             {
@@ -84,6 +85,7 @@ namespace merval
                 ReporteExcepciones.CrearErrorLog(form, ex, mensaje);
             }
         }
+
 
 
         //crear el nuevo activo

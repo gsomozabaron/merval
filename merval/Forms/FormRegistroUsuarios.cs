@@ -5,10 +5,8 @@ namespace merval
     public partial class FormRegistroUsuarios : Form
     {
 
-        private List<UsuarioSQL> listaUsuarios = new List<UsuarioSQL>(); // Cambiado para ser un campo de la clase
-        //private Usuario usuario = new Usuario(); // Agregado para ser un campo de la clase
-
-
+        private List<UsuarioSQL> listaUsuarios = new List<UsuarioSQL>();
+        
         private string alta;    //este alta es para dejar ver los botones de usuarios especiales en caso que el usuario sea administrador
 
         public FormRegistroUsuarios(string alta)
