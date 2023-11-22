@@ -5,9 +5,6 @@ namespace merval
 {
     public partial class FormAdmin : Form
     {
-        string formName = "principal Admin";
-        string mensaje = string.Empty;
-
         private List<UsuarioSQL> lista; /// para usar la interface
 
         public FormAdmin()

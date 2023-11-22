@@ -59,11 +59,10 @@ namespace merval
                 {
                     this.btn_Comprar.Click -= btn_Comprar_Click;
                     this.btn_Comprar.Click += BotonRecibo;
+
                     btn_Comprar.ForeColor = System.Drawing.Color.Aquamarine;
                     btn_Comprar.Text = "Obtener Recibo";
-
                     btn_Comprar.Enabled = true;
-
                     lbl_saldo.Text = null;  //borra saldo viejo para cargar el nuevo saldo
                     lbl_saldo.Text = usuarioActual.Saldo.ToString();    //refresh saldo
 
@@ -84,9 +83,11 @@ namespace merval
             string recibo = CrearRecibo(compraOventa, usuarioActual, titulo, cantidad, totalCompra, tipoDeActivo);
 
             VentanaRecibo vr = new VentanaRecibo(recibo);
+
             btn_Comprar.ForeColor = System.Drawing.Color.Aquamarine;
             btn_Comprar.Text = "Comprar";
             btn_Comprar.Enabled = false;
+            
             this.btn_Comprar.Click -= BotonRecibo;
             this.btn_Comprar.Click += btn_Comprar_Click;
             vr.ShowDialog();
